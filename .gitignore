@@ -1,0 +1,5 @@
+# create standard .env file
+.env
+.next
+node_modules
+.vscode
