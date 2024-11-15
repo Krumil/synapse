@@ -5,8 +5,8 @@ import { Response } from 'express';
 import { brianTools } from "./tools/brianTools";
 import { memoryTool } from "./tools/memoryTool";
 import { blockchainTools } from "./tools/blockchainTools";
-import { defiTools } from "./tools/defiTools";
-import { defiTransactionTools } from "./tools/createDefiTransactionTools";
+import { defiLlamaTools } from "./tools/defiLlamaTools";
+import { defiTransactionsTools } from "./tools/defiTransactionsTools";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import dotenv from "dotenv";
 import fs from "fs/promises";
@@ -17,8 +17,8 @@ dotenv.config();
 const tools = [
 	...brianTools,
 	...blockchainTools,
-	...defiTools,
-	...defiTransactionTools,
+	...defiLlamaTools,
+	...defiTransactionsTools,
 	memoryTool,
 ];
 

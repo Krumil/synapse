@@ -264,6 +264,6 @@ const createTransactionTool = tool(
 );
 
 // Export the tool
-export const defiTransactionTools = [
+export const defiTransactionsTools = [
 	createTransactionTool,
 ];

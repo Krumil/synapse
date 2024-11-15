@@ -172,7 +172,7 @@ const getTopDefiProtocolsTool = tool(
 	}
 );
 
-export const defiTools = [
+export const defiLlamaTools = [
 	getDefiDataTool,
 	getTopDefiProtocolsTool
 ];
