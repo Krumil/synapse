@@ -19,12 +19,12 @@ function convertAmountToSmallestUnit(amount: string, decimals: number): string {
 }
 
 // Split amount into low and high for u256
-function splitUint256(amount: string): { amount_low: string; amount_high: string } {
+function splitUint256(amount: string): { low: string; high: string } {
 	const amountBigInt = BigInt(amount);
 	const maxUint128 = BigInt("0x100000000000000000000000000000000");
-	const amount_low = (amountBigInt % maxUint128).toString();
-	const amount_high = (amountBigInt / maxUint128).toString();
-	return { amount_low, amount_high };
+	const low = (amountBigInt % maxUint128).toString();
+	const high = (amountBigInt / maxUint128).toString();
+	return { low, high };
 }
 
 // Convert hex addresses to decimal strings
@@ -52,10 +52,19 @@ function getDeadline(bufferMinutes: number = 15): string {
 	return (currentTime + bufferMinutes * 60).toString();
 }
 
-
-// The tool
+// Main tool function
 const createTransactionTool = tool(
-	async ({ action, amount, amountInSmallestUnit, asset, protocol, userAddress }: { action: string; amount?: string; amountInSmallestUnit?: string; asset: string; protocol: string; userAddress: string }) => {
+	async (input: {
+		action: string;
+		amount?: string;
+		amountInSmallestUnit?: string;
+		asset?: string;
+		assetPair?: string;
+		protocol: string;
+		userAddress: string;
+	}) => {
+		const { action, amount, amountInSmallestUnit, asset, assetPair, protocol, userAddress } = input;
+
 		try {
 			// Validate protocol
 			const protocolConfig = configData.protocols[protocol];
@@ -69,38 +78,129 @@ const createTransactionTool = tool(
 				throw new Error(`Action "${action}" is not supported for protocol "${protocol}".`);
 			}
 
-
-
-			// Validate asset
-			const assetDetails = protocolConfig.contracts.assets[asset];
-			if (!assetDetails) {
-				throw new Error(`Asset "${asset}" is not supported on protocol "${protocol}".`);
-			}
-			const decimals = assetDetails.decimals;
-
-			// Convert amount to smallest unit
-			let amountInSmallestUnitStr: string;
-			if (amountInSmallestUnit) {
-				// Use provided amountInSmallestUnit
-				amountInSmallestUnitStr = amountInSmallestUnit;
-			} else if (amount) {
-				amountInSmallestUnitStr = convertAmountToSmallestUnit(amount, decimals);
-			} else {
-				throw new Error("Either 'amount' or 'amountInSmallestUnit' must be provided.");
-			}
-
-			// Split amount into low and high for u256
-			const { amount_low, amount_high } = splitUint256(amountInSmallestUnitStr);
-
 			// Prepare dynamic parameters
-			const dynamicParams = {
-				assetContractAddress: hexToDecimalString(assetDetails.assetContractAddress),
-				operationContractAddress: hexToDecimalString(assetDetails.operationContractAddress),
-				amountInSmallestUnit: amountInSmallestUnitStr,
-				amount_low: amount_low,
-				amount_high: amount_high,
+			const dynamicParams: Record<string, string> = {
 				userAddress: hexToDecimalString(userAddress),
+				deadline: getDeadline(),
 			};
+
+			if (action === "stake" || action === "unstake") {
+				// Validate asset
+				if (!asset) {
+					throw new Error("Asset must be provided for staking actions.");
+				}
+				const assetDetails = protocolConfig.contracts.assets[asset];
+				if (!assetDetails) {
+					throw new Error(`Asset "${asset}" is not supported on protocol "${protocol}".`);
+				}
+
+				const decimals = assetDetails.decimals;
+				const stakingContractAddress = hexToDecimalString(assetDetails.stakingContractAddress);
+				dynamicParams.assetContractAddress = hexToDecimalString(assetDetails.assetContractAddress);
+				dynamicParams.stakingContractAddress = stakingContractAddress;
+
+				let amountInSmallestUnitStr: string;
+
+				if (action === "stake") {
+					// Handle stake action
+					if (amountInSmallestUnit) {
+						amountInSmallestUnitStr = amountInSmallestUnit;
+					} else if (amount) {
+						amountInSmallestUnitStr = convertAmountToSmallestUnit(amount, decimals);
+					} else {
+						throw new Error("Either 'amount' or 'amountInSmallestUnit' must be provided for staking.");
+					}
+
+					const { low: amount_low, high: amount_high } = splitUint256(amountInSmallestUnitStr);
+					dynamicParams.amountInSmallestUnit = amountInSmallestUnitStr;
+					dynamicParams.amount_low = amount_low;
+					dynamicParams.amount_high = amount_high;
+				} else if (action === "unstake") {
+					// Handle unstake action (burn all tokens)
+					const maxUint128 = "340282366920938463463374607431768211455";
+					dynamicParams.amount_low = maxUint128;
+					dynamicParams.amount_high = maxUint128;
+				}
+			} else if (action === "add_liquidity") {
+				// Handle add_liquidity action
+				if (!assetPair || !amount) {
+					throw new Error("Both 'assetPair' and 'amount' must be provided for add_liquidity action.");
+				}
+
+				// Split asset pair
+				const [token0Symbol, token1Symbol] = assetPair.split("/");
+				if (!token0Symbol || !token1Symbol) {
+					throw new Error("Invalid asset pair format. Expected format: 'TOKEN0/TOKEN1'.");
+				}
+
+				// Get asset details
+				const token0Details = protocolConfig.contracts.assets[token0Symbol];
+				const token1Details = protocolConfig.contracts.assets[token1Symbol];
+				if (!token0Details || !token1Details) {
+					throw new Error(`Assets "${token0Symbol}" or "${token1Symbol}" are not supported.`);
+				}
+
+				// Get pair address
+				const pairDetails = protocolConfig.contracts.pairs[assetPair];
+				if (!pairDetails) {
+					throw new Error(`Pair "${assetPair}" is not supported.`);
+				}
+
+				// For simplicity, assume equal split of total amount between tokens
+				const totalAmountUSD = parseFloat(amount);
+				if (isNaN(totalAmountUSD) || totalAmountUSD <= 0) {
+					throw new Error("Invalid amount provided for add_liquidity.");
+				}
+
+				const amount0USD = totalAmountUSD / 2;
+				const amount1USD = totalAmountUSD / 2;
+
+				// Placeholder: Fetch token prices to convert USD amounts to token amounts
+				// For this example, let's assume 1 ETH = $2000, 1 USDC = $1
+				const tokenPricesUSD = {
+					"ETH": 3100,
+					"USDC": 1
+				};
+
+				const amount0Tokens = amount0USD / tokenPricesUSD[token0Symbol as keyof typeof tokenPricesUSD];
+				const amount1Tokens = amount1USD / tokenPricesUSD[token1Symbol as keyof typeof tokenPricesUSD];
+
+				// Convert token amounts to smallest units
+				const amount0InSmallestUnit = convertAmountToSmallestUnit(amount0Tokens.toString(), token0Details.decimals);
+				const amount1InSmallestUnit = convertAmountToSmallestUnit(amount1Tokens.toString(), token1Details.decimals);
+
+				// Split amounts into low and high for u256
+				const { low: amount0_low, high: amount0_high } = splitUint256(amount0InSmallestUnit);
+				const { low: amount1_low, high: amount1_high } = splitUint256(amount1InSmallestUnit);
+
+				// Set minimum amounts (e.g., 95% of desired amounts)
+				const slippageTolerance = 0.95;
+				const amount0MinTokens = amount0Tokens * slippageTolerance;
+				const amount1MinTokens = amount1Tokens * slippageTolerance;
+
+				const amount0MinInSmallestUnit = convertAmountToSmallestUnit(amount0MinTokens.toString(), token0Details.decimals);
+				const amount1MinInSmallestUnit = convertAmountToSmallestUnit(amount1MinTokens.toString(), token1Details.decimals);
+
+				const { low: amount0_min_low, high: amount0_min_high } = splitUint256(amount0MinInSmallestUnit);
+				const { low: amount1_min_low, high: amount1_min_high } = splitUint256(amount1MinInSmallestUnit);
+
+				dynamicParams.token0ContractAddress = token0Details.assetContractAddress;
+				dynamicParams.token1ContractAddress = token1Details.assetContractAddress;
+				dynamicParams.pairAddress = pairDetails.pairAddress;
+				dynamicParams.addLiquidityContractAddress = pairDetails.addLiquidityContractAddress;
+
+				dynamicParams.amount0_low = amount0_low;
+				dynamicParams.amount0_high = amount0_high;
+				dynamicParams.amount1_low = amount1_low;
+				dynamicParams.amount1_high = amount1_high;
+
+				dynamicParams.amount0_min_low = amount0_min_low;
+				dynamicParams.amount0_min_high = amount0_min_high;
+				dynamicParams.amount1_min_low = amount1_min_low;
+				dynamicParams.amount1_min_high = amount1_min_high;
+			} else {
+				throw new Error(`Unsupported action: "${action}"`);
+			}
 
 			// Generate transactions
 			const transactions = operationConfig.transactions.map((txConfig: any) => {
@@ -121,7 +221,7 @@ const createTransactionTool = tool(
 				}
 
 				// Wrap in an object with the transaction name if provided
-				if (txConfig.name === "approve") {
+				if (txConfig.name.startsWith("approve")) {
 					return { approve: transaction };
 				} else {
 					return { transactionData: transaction };
@@ -135,9 +235,10 @@ const createTransactionTool = tool(
 				details: {
 					protocol: protocol,
 					action: action,
-					asset: asset,
+					asset: asset || null,
+					assetPair: assetPair || null,
 					amount: amount || null,
-					amountInSmallestUnit: amountInSmallestUnitStr,
+					amountInSmallestUnit: amountInSmallestUnit || null,
 					userAddress: userAddress,
 				}
 			};
@@ -149,12 +250,13 @@ const createTransactionTool = tool(
 	},
 	{
 		name: "create_transaction",
-		description: "Generates transaction data based on dynamic parameters and a configuration file. Use this for defi actions like staking and unstaking. Supported protocols: Nostra",
+		description: "Generates transaction data based on dynamic parameters and a configuration file. Use this for DeFi actions like staking, unstaking, and adding liquidity. Supported protocols: Nostra",
 		schema: z.object({
-			action: z.string().describe("The action to perform, e.g., 'stake'"),
-			amount: z.string().optional().describe("The amount to transact, as a string"),
+			action: z.string().describe("The action to perform, e.g., 'stake', 'unstake', or 'add_liquidity'"),
+			amount: z.string().optional().describe("The amount to transact, as a string (for 'stake' and 'add_liquidity')"),
 			amountInSmallestUnit: z.string().optional().describe("The amount in smallest unit (e.g., wei for ETH)"),
-			asset: z.string().describe("The asset symbol, e.g., 'ETH'"),
+			asset: z.string().optional().describe("The asset symbol, e.g., 'ETH' (required for 'stake' and 'unstake')"),
+			assetPair: z.string().optional().describe("The asset pair for liquidity provision, e.g., 'ETH/USDC' (required for 'add_liquidity')"),
 			protocol: z.string().describe("The protocol name, e.g., 'Nostra'"),
 			userAddress: z.string().describe("The user's wallet address"),
 		}),

@@ -109,7 +109,7 @@ export const brianAgentTool = tool(
 	},
 	{
 		name: "BrianAgent",
-		description: "Interact with Brian AI to get information or generate swap transactions",
+		description: "Interact with Brian AI to get generic information about crypto or generate swap transactions. Don't use this for defi actions like staking and unstaking.",
 		schema: brianAgentSchema,
 	}
 );

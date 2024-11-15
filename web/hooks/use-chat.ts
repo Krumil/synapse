@@ -5,7 +5,7 @@ import { useTransaction } from '@/hooks/use-transaction';
 
 export function useChat() {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
-	const [input, setInput] = useState('stake 0.001 eth on nostra');
+	const [input, setInput] = useState('add 10 USDC to the ETH/USDC pool on nostra');
 	const [isLoading, setIsLoading] = useState(false);
 	const { address } = useAccount();
 	const { handleTransaction } = useTransaction();

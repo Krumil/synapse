@@ -10,14 +10,14 @@
 							"entrypoint": "approve",
 							"entrypointSelector": "0x0219209e083275171774dab1df80982e9df2096516f06319c5c6d71ae0a8480c",
 							"calldata": [
-								"{operationContractAddress}",
+								"{stakingContractAddress}",
 								"{amount_low}",
 								"{amount_high}"
 							]
 						},
 						{
 							"name": "mint",
-							"contractAddress": "{operationContractAddress}",
+							"contractAddress": "{stakingContractAddress}",
 							"entrypoint": "mint",
 							"entrypointSelector": "0x02f0b3c5710379609eb5495f1ecd348cb28167711b73609fe565a72734550354",
 							"calldata": [
@@ -32,7 +32,7 @@
 					"transactions": [
 						{
 							"name": "burn",
-							"contractAddress": "{operationContractAddress}",
+							"contractAddress": "{stakingContractAddress}",
 							"entrypoint": "burn",
 							"entrypointSelector": "0x04b7315adcf62c1b8e8a998110a1006f37d3dca0e1ab12ffda9030e4531f8799",
 							"calldata": [
@@ -52,7 +52,7 @@
 							"entrypoint": "approve",
 							"entrypointSelector": "0x0219209e083275171774dab1df80982e9df2096516f06319c5c6d71ae0a8480c",
 							"calldata": [
-								"{operationContractAddress}",
+								"{addLiquidityContractAddress}",
 								"{amount0_low}",
 								"{amount0_high}"
 							]
@@ -61,16 +61,16 @@
 							"name": "approve_token1",
 							"contractAddress": "{token1ContractAddress}",
 							"entrypoint": "approve",
-							"entrypointSelector": "0x0219209e083275171774dab1df80982e9df80982e9df2096516f06319c5c6d71ae0a8480c",
+							"entrypointSelector": "0x0219209e083275171774dab1df80982e9df2096516f06319c5c6d71ae0a8480c",
 							"calldata": [
-								"{operationContractAddress}",
+								"{addLiquidityContractAddress}",
 								"{amount1_low}",
 								"{amount1_high}"
 							]
 						},
 						{
 							"name": "add_liquidity",
-							"contractAddress": "{operationContractAddress}",
+							"contractAddress": "{addLiquidityContractAddress}",
 							"entrypoint": "add_liquidity",
 							"entrypointSelector": "0x02cfb12ff9e08412ec5009c65ea06e727119ad948d25c8a8cc2c86fec4adee70",
 							"calldata": [
@@ -94,8 +94,19 @@
 				"assets": {
 					"ETH": {
 						"assetContractAddress": "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
-						"operationContractAddress": "0x057146f6409deb4c9fa12866915dd952aa07c1eb2752e451d7f3b042086bdeb8",
+						"stakingContractAddress": "0x057146f6409deb4c9fa12866915dd952aa07c1eb2752e451d7f3b042086bdeb8",
 						"decimals": 18
+					},
+					"USDC": {
+						"assetContractAddress": "0x053c91253bc9682c04929ca02ed00b3e423f6710d2ee7e0d5ebb06f3ecf368a8",
+						"stakingContractAddress": "0x040784ffdde08057a5957e64ed360c0ae4e04117b6d8e351c6bb912c09c5cbf5",
+						"decimals": 6
+					}
+				},
+				"pairs": {
+					"ETH/USDC": {
+						"pairAddress": "0x05e03162008d76cf645fe53c6c13a7a5fce745e8991c6ffe94400d60e44c210a",
+						"addLiquidityContractAddress": "0x040784ffdde08057a5957e64ed360c0ae4e04117b6d8e351c6bb912c09c5cbf5"
 					}
 				}
 			}
