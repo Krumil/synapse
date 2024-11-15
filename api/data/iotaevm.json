@@ -1,0 +1,159 @@
+{
+	"timestamp": "2024-11-15T14:14:18.471Z",
+	"chain": "iotaevm",
+	"protocols": [
+		{
+			"chain": "Iotaevm",
+			"project": "iolend",
+			"symbol": "WIOTA",
+			"tvlUsd": 1993246,
+			"apyBase": 0.03393,
+			"apyReward": 2.85752,
+			"apy": 2.89144,
+			"rewardTokens": [
+				"0xF5755e48B6F2F06F8ea904bdA26177CB3ca06Ff0"
+			],
+			"pool": "eec098a8-6516-448c-ac70-77615c0bd02b",
+			"apyPct1D": -0.0102,
+			"apyPct7D": -1.47375,
+			"apyPct30D": -4.24293,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 92,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 11.00164,
+			"sigma": 0.39201,
+			"count": 77,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x6e47f8d48a01b44DF3fFF35d258A10A3AEdC114c"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 4.76003,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Iotaevm",
+			"project": "iolend",
+			"symbol": "WETH",
+			"tvlUsd": 574193,
+			"apyBase": 1.23765,
+			"apyReward": 37.14501,
+			"apy": 38.38266,
+			"rewardTokens": [
+				"0xF5755e48B6F2F06F8ea904bdA26177CB3ca06Ff0"
+			],
+			"pool": "fcfbdf16-a121-4909-a0a3-665f0a4ca57c",
+			"apyPct1D": 1.04679,
+			"apyPct7D": -1.91649,
+			"apyPct30D": 0.01888,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 62,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 45.00441,
+			"sigma": 0.43521,
+			"count": 77,
+			"outlier": true,
+			"underlyingTokens": [
+				"0x160345fC359604fC6e70E3c5fAcbdE5F7A9342d8"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 38.05683,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Iotaevm",
+			"project": "iolend",
+			"symbol": "USDT",
+			"tvlUsd": 520512,
+			"apyBase": 3.52088,
+			"apyReward": 59.96,
+			"apy": 63.48087,
+			"rewardTokens": [
+				"0xF5755e48B6F2F06F8ea904bdA26177CB3ca06Ff0"
+			],
+			"pool": "341a959d-8ed9-4a18-955c-e54dfb4361b7",
+			"apyPct1D": 0.81883,
+			"apyPct7D": -0.62975,
+			"apyPct30D": 7.01716,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 92,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 58.77678,
+			"sigma": 0.40129,
+			"count": 77,
+			"outlier": true,
+			"underlyingTokens": [
+				"0xC1B8045A6ef2934Cf0f78B0dbD489969Fa9Be7E4"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 61.16379,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Iotaevm",
+			"project": "iolend",
+			"symbol": "USDC.E",
+			"tvlUsd": 353127,
+			"apyBase": 2.33241,
+			"apyReward": 55.42815,
+			"apy": 57.76057,
+			"rewardTokens": [
+				"0xF5755e48B6F2F06F8ea904bdA26177CB3ca06Ff0"
+			],
+			"pool": "e8d6f558-e0a1-453a-bd8b-f7e7129cc6dd",
+			"apyPct1D": 1.22932,
+			"apyPct7D": -122.5824,
+			"apyPct30D": null,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 90,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 63.74907,
+			"sigma": 0.2726,
+			"count": 8,
+			"outlier": true,
+			"underlyingTokens": [
+				"0xFbDa5F676cB37624f28265A144A48B0d6e87d3b6"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 66.21769,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 4
+}

@@ -1,0 +1,115 @@
+{
+	"timestamp": "2024-11-15T14:14:18.502Z",
+	"chain": "obyte",
+	"protocols": [
+		{
+			"chain": "Obyte",
+			"project": "line-token-rewards",
+			"symbol": "LINE",
+			"tvlUsd": 151620,
+			"apyBase": 197.73303,
+			"apyReward": null,
+			"apy": 197.73303,
+			"rewardTokens": [
+				"GBYTE"
+			],
+			"pool": "203d32f2-bba2-4450-9be2-e8651b4b97dd",
+			"apyPct1D": -7.79663,
+			"apyPct7D": 20.76395,
+			"apyPct30D": 66.79501,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 96,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 76.8307,
+			"sigma": 1.56737,
+			"count": 96,
+			"outlier": true,
+			"underlyingTokens": null,
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 153.74596,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Obyte",
+			"project": "oswap-amm",
+			"symbol": "GBYTE-ETH",
+			"tvlUsd": 13719,
+			"apyBase": 20.87,
+			"apyReward": 139.47,
+			"apy": 160.34,
+			"rewardTokens": [
+				"GBYTE"
+			],
+			"pool": "f5bb9538-c45d-4a4b-873e-913503a847d8",
+			"apyPct1D": 14.19,
+			"apyPct7D": 18.23,
+			"apyPct30D": 3.9,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 84,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 283.09024,
+			"sigma": 5.99175,
+			"count": 595,
+			"outlier": true,
+			"underlyingTokens": null,
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 189.34164,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Obyte",
+			"project": "oswap-amm",
+			"symbol": "GBYTE-USDC",
+			"tvlUsd": 10183,
+			"apyBase": 2.44,
+			"apyReward": 142.75,
+			"apy": 145.19,
+			"rewardTokens": [
+				"GBYTE"
+			],
+			"pool": "aadeb21e-c762-4965-82fe-1d2e3455a478",
+			"apyPct1D": null,
+			"apyPct7D": null,
+			"apyPct30D": null,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 71,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 254.03831,
+			"sigma": 5.51152,
+			"count": 516,
+			"outlier": true,
+			"underlyingTokens": null,
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 3196.09064,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 3
+}

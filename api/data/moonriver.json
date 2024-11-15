@@ -1,0 +1,271 @@
+{
+	"timestamp": "2024-11-15T14:14:18.477Z",
+	"chain": "moonriver",
+	"protocols": [
+		{
+			"chain": "Moonriver",
+			"project": "moonwell-apollo",
+			"symbol": "MOVR",
+			"tvlUsd": 1238319,
+			"apyBase": 0.05465,
+			"apyReward": 9.26554,
+			"apy": 9.32018,
+			"rewardTokens": [
+				"0xbb8d88bcd9749636bc4d2be22aac4bb3b01a58f1",
+				"0x98878b06940ae243284ca214f92bb71a2b032b8a"
+			],
+			"pool": "5cac5e7e-5c96-4c42-a379-b12512f60db0",
+			"apyPct1D": 0.005,
+			"apyPct7D": 0.01178,
+			"apyPct30D": 0.88345,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 56.00000000000001,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 10.87034,
+			"sigma": 0.29485,
+			"count": 825,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x98878b06940ae243284ca214f92bb71a2b032b8a"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 8.61833,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Moonriver",
+			"project": "moonwell-apollo",
+			"symbol": "XCKSM",
+			"tvlUsd": 423655,
+			"apyBase": 0.40834,
+			"apyReward": 9.69052,
+			"apy": 10.09885,
+			"rewardTokens": [
+				"0xbb8d88bcd9749636bc4d2be22aac4bb3b01a58f1",
+				"0x98878b06940ae243284ca214f92bb71a2b032b8a"
+			],
+			"pool": "e3aa1e36-4022-463a-bdeb-2763252334fa",
+			"apyPct1D": -0.01911,
+			"apyPct7D": 0.17947,
+			"apyPct30D": 1.99688,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 54,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 11.43951,
+			"sigma": 0.26243,
+			"count": 708,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xFfFFfFff1FcaCBd218EDc0EbA20Fc2308C778080"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 9.22835,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Moonriver",
+			"project": "bifrost-liquid-staking",
+			"symbol": "VMOVR",
+			"tvlUsd": 172650,
+			"apyBase": 15.36,
+			"apyReward": 0,
+			"apy": 15.36,
+			"rewardTokens": [
+				"MOVR"
+			],
+			"pool": "21a60c55-f54d-4140-a6dd-5356665e3cd8",
+			"apyPct1D": -0.15,
+			"apyPct7D": 0.03,
+			"apyPct30D": -0.05,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 87,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 16.83464,
+			"sigma": 0.23491,
+			"count": 628,
+			"outlier": false,
+			"underlyingTokens": null,
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 19.51479,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Moonriver",
+			"project": "moonwell-apollo",
+			"symbol": "ETH",
+			"tvlUsd": 47418,
+			"apyBase": 0.00004,
+			"apyReward": 0,
+			"apy": 0.00004,
+			"rewardTokens": [],
+			"pool": "52a04995-6793-47c3-87a4-9c80bb8fd4f1",
+			"apyPct1D": 0,
+			"apyPct7D": 0,
+			"apyPct30D": 0,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 65,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 2.8219,
+			"sigma": 0.22542,
+			"count": 768,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x639A647fbe20b6c8ac19E48E2de44ea792c62c5C"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.00004,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Moonriver",
+			"project": "moonwell-apollo",
+			"symbol": "FRAX",
+			"tvlUsd": 23103,
+			"apyBase": 5.36006,
+			"apyReward": 8.59131,
+			"apy": 13.95137,
+			"rewardTokens": [
+				"0xbb8d88bcd9749636bc4d2be22aac4bb3b01a58f1",
+				"0x98878b06940ae243284ca214f92bb71a2b032b8a"
+			],
+			"pool": "56f73b37-a568-4058-a975-e2d1b8844870",
+			"apyPct1D": 0.34636,
+			"apyPct7D": -0.17664,
+			"apyPct30D": -28.71491,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 88,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 12.46915,
+			"sigma": 0.60301,
+			"count": 825,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x1A93B23281CC1CDE4C4741353F3064709A16197d"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 19.1166,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Moonriver",
+			"project": "moonwell-apollo",
+			"symbol": "USDT",
+			"tvlUsd": 19703,
+			"apyBase": 0.00093,
+			"apyReward": 0,
+			"apy": 0.00093,
+			"rewardTokens": [],
+			"pool": "fb9d232e-2fe6-401a-8b9d-afb9e7e8771a",
+			"apyPct1D": 0,
+			"apyPct7D": 0,
+			"apyPct30D": 0,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 54,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 4.22471,
+			"sigma": 0.43609,
+			"count": 809,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xB44a9B6905aF7c801311e8F4E76932ee959c663C"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.00093,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Moonriver",
+			"project": "moonwell-apollo",
+			"symbol": "WBTC",
+			"tvlUsd": 10615,
+			"apyBase": 0.00093,
+			"apyReward": 0,
+			"apy": 0.00093,
+			"rewardTokens": [
+				"0xbb8d88bcd9749636bc4d2be22aac4bb3b01a58f1",
+				"0x98878b06940ae243284ca214f92bb71a2b032b8a"
+			],
+			"pool": "f4c81e2d-360a-4d42-a898-ed707a77318a",
+			"apyPct1D": null,
+			"apyPct7D": null,
+			"apyPct30D": null,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 60,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 2.44454,
+			"sigma": 0.18767,
+			"count": 767,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x6aB6d61428fde76768D7b45D8BFeec19c6eF91A8"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.00093,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 7
+}

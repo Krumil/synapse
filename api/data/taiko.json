@@ -1,0 +1,196 @@
+{
+	"timestamp": "2024-11-15T14:14:18.415Z",
+	"chain": "taiko",
+	"protocols": [
+		{
+			"chain": "Taiko",
+			"project": "metrom",
+			"symbol": "SOLVBTC-SOLVBTC.BBN",
+			"tvlUsd": 25567388,
+			"apyBase": null,
+			"apyReward": 1.63643,
+			"apy": 1.63643,
+			"rewardTokens": [
+				"0xa9d23408b9ba935c230493c40c73824df71a0975"
+			],
+			"pool": "0467b2d9-4350-47ca-a8cc-720f733b7aa8",
+			"apyPct1D": null,
+			"apyPct7D": 0.33356,
+			"apyPct30D": null,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 72,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 1.86844,
+			"sigma": 0.11213,
+			"count": 15,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x541fd749419ca806a8bc7da8ac23d346f2df8b77",
+				"0xcc0966d8418d412c599a6421b760a847eb169a8c"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 1.92329,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Taiko",
+			"project": "kiloex",
+			"symbol": "USDC",
+			"tvlUsd": 186957,
+			"apyBase": 7.11,
+			"apyReward": null,
+			"apy": 7.11,
+			"rewardTokens": null,
+			"pool": "e520a0a5-4bdd-4be1-a804-cdfd25a71711",
+			"apyPct1D": -0.01,
+			"apyPct7D": -0.26,
+			"apyPct30D": 2.65,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 57.99999999999999,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 10.49767,
+			"sigma": 0.38492,
+			"count": 87,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x07d83526730c7438048d55a4fc0b850e2aab6f0b"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 6.76196,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Taiko",
+			"project": "metrom",
+			"symbol": "USDC-WETH",
+			"tvlUsd": 110986,
+			"apyBase": null,
+			"apyReward": 19.70727,
+			"apy": 19.70727,
+			"rewardTokens": [
+				"0xa9d23408b9ba935c230493c40c73824df71a0975"
+			],
+			"pool": "17fdbd76-4ea9-4495-9d5a-8cf3b7f1e35f",
+			"apyPct1D": -0.57795,
+			"apyPct7D": null,
+			"apyPct30D": null,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 52,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 21.85396,
+			"sigma": 0.04889,
+			"count": 12,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x07d83526730c7438048d55a4fc0b850e2aab6f0b",
+				"0xa51894664a773981c6c112c43ce576f315d5b1b6"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 21.80636,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Taiko",
+			"project": "metrom",
+			"symbol": "WETH-TAIKO",
+			"tvlUsd": 109700,
+			"apyBase": null,
+			"apyReward": 21.56392,
+			"apy": 21.56392,
+			"rewardTokens": [
+				"0xa9d23408b9ba935c230493c40c73824df71a0975"
+			],
+			"pool": "670eef42-5daf-4e67-9b3a-2494f7e683fd",
+			"apyPct1D": 0.00079,
+			"apyPct7D": null,
+			"apyPct30D": null,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 82,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 15.84873,
+			"sigma": 0.53389,
+			"count": 13,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xa51894664a773981c6c112c43ce576f315d5b1b6",
+				"0xa9d23408b9ba935c230493c40c73824df71a0975"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 15.23142,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Taiko",
+			"project": "kiloex",
+			"symbol": "USDC.E",
+			"tvlUsd": 50521,
+			"apyBase": 5.33,
+			"apyReward": null,
+			"apy": 5.33,
+			"rewardTokens": null,
+			"pool": "3953f70f-fdb4-4b8d-a3cb-b72d369a691b",
+			"apyPct1D": -0.01,
+			"apyPct7D": -0.2,
+			"apyPct30D": 1.98,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 79,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 5.61516,
+			"sigma": 0.16794,
+			"count": 72,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x19e26b0638bf63aa9fa4d14c6baf8d52ebe86c5c"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 5.07332,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 5
+}

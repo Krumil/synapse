@@ -1,0 +1,79 @@
+{
+	"timestamp": "2024-11-15T14:14:18.503Z",
+	"chain": "xdc",
+	"protocols": [
+		{
+			"chain": "Xdc",
+			"project": "wefi",
+			"symbol": "FXD",
+			"tvlUsd": 109396,
+			"apyBase": 0.62717,
+			"apyReward": 0,
+			"apy": 0.62717,
+			"rewardTokens": [],
+			"pool": "361df3ed-fba0-4171-8f53-eed6f3ef901f",
+			"apyPct1D": 0,
+			"apyPct7D": 0,
+			"apyPct30D": -0.0035,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 64,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 0.8212,
+			"sigma": 0.03517,
+			"count": 302,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x49d3f7543335cf38Fa10889CCFF10207e22110B5"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.62885,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Xdc",
+			"project": "wefi",
+			"symbol": "EURS",
+			"tvlUsd": 62269,
+			"apyBase": 0.01263,
+			"apyReward": 0,
+			"apy": 0.01263,
+			"rewardTokens": [],
+			"pool": "3c5a46f4-4586-4c06-b2e5-6676733de7b2",
+			"apyPct1D": 0,
+			"apyPct7D": 0,
+			"apyPct30D": 0,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 61,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 0.00551,
+			"sigma": 0.00027,
+			"count": 234,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x1eBb2C8a71A9ec59bF558886a8Adf8F4a565814F"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.01263,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 2
+}

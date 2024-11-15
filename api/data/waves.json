@@ -1,0 +1,236 @@
+{
+	"timestamp": "2024-11-15T14:14:18.468Z",
+	"chain": "waves",
+	"protocols": [
+		{
+			"chain": "Waves",
+			"project": "pepeteam-swaves",
+			"symbol": "SWAVES",
+			"tvlUsd": 2088722,
+			"apyBase": 5.33688,
+			"apyReward": null,
+			"apy": 5.33688,
+			"rewardTokens": null,
+			"pool": "7701206b-170e-4439-8943-5c0f6cb3b8ca",
+			"apyPct1D": -1.93367,
+			"apyPct7D": -1.73504,
+			"apyPct30D": -1.58856,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 77,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 7.83748,
+			"sigma": 0.2046,
+			"count": 685,
+			"outlier": false,
+			"underlyingTokens": null,
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 6.59845,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Waves",
+			"project": "swop",
+			"symbol": "WAVES-XTN",
+			"tvlUsd": 160503,
+			"apyBase": 7.23,
+			"apyReward": 4.85,
+			"apy": 12.08,
+			"rewardTokens": [
+				"Ehie5xYpeN8op1Cctc6aGUrqx8jq3jtf1DSjXDbfm7aT"
+			],
+			"pool": "90c5fa01-37b2-45bf-9c35-5bae52ed3e18",
+			"apyPct1D": 2.38,
+			"apyPct7D": -5.93,
+			"apyPct30D": 0.98,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 75,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 14.33779,
+			"sigma": 0.21713,
+			"count": 233,
+			"outlier": false,
+			"underlyingTokens": [
+				"WAVES",
+				"DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"
+			],
+			"il7d": -0.16704,
+			"apyBase7d": null,
+			"apyMean30d": 14.25494,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Waves",
+			"project": "swop",
+			"symbol": "EGG-WAVES",
+			"tvlUsd": 23454,
+			"apyBase": 4.67,
+			"apyReward": 5.17,
+			"apy": 9.84,
+			"rewardTokens": [
+				"Ehie5xYpeN8op1Cctc6aGUrqx8jq3jtf1DSjXDbfm7aT"
+			],
+			"pool": "128d0ce3-629c-4623-97e8-ff7c6557d65d",
+			"apyPct1D": 0.09,
+			"apyPct7D": 2.25,
+			"apyPct30D": -2.49,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 69,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 9.66164,
+			"sigma": 0.51063,
+			"count": 233,
+			"outlier": false,
+			"underlyingTokens": [
+				"C1iWsKGqLwjHUndiQ7iXpdmPum9PeCDFfyXBdJJosDRS",
+				"WAVES"
+			],
+			"il7d": -0.48208,
+			"apyBase7d": null,
+			"apyMean30d": 13.14638,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Waves",
+			"project": "swop",
+			"symbol": "SWOP-XTN",
+			"tvlUsd": 14187,
+			"apyBase": 6.51,
+			"apyReward": 4.42,
+			"apy": 10.93,
+			"rewardTokens": [
+				"Ehie5xYpeN8op1Cctc6aGUrqx8jq3jtf1DSjXDbfm7aT"
+			],
+			"pool": "889a7f2a-5307-4c16-9dbb-bc7eba48a378",
+			"apyPct1D": 5.21,
+			"apyPct7D": 7.22,
+			"apyPct30D": 9.2,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 86,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 5.28089,
+			"sigma": 0.18619,
+			"count": 233,
+			"outlier": false,
+			"underlyingTokens": [
+				"Ehie5xYpeN8op1Cctc6aGUrqx8jq3jtf1DSjXDbfm7aT",
+				"DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"
+			],
+			"il7d": -3.64835,
+			"apyBase7d": null,
+			"apyMean30d": 2.90342,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Waves",
+			"project": "swop",
+			"symbol": "SURF-XTN",
+			"tvlUsd": 10310,
+			"apyBase": 0.15,
+			"apyReward": 0.08,
+			"apy": 0.23,
+			"rewardTokens": [
+				"Ehie5xYpeN8op1Cctc6aGUrqx8jq3jtf1DSjXDbfm7aT"
+			],
+			"pool": "57ce6c20-5a54-4348-a6df-26881209525c",
+			"apyPct1D": 0.06,
+			"apyPct7D": -0.51,
+			"apyPct30D": 0.13,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 61,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 1.77159,
+			"sigma": 0.1234,
+			"count": 215,
+			"outlier": false,
+			"underlyingTokens": [
+				"At8D6NFFpheCbvKVnjVoeLL84Eo8NZn6ovManxfLaFWL",
+				"DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.92799,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Waves",
+			"project": "swop",
+			"symbol": "WEST-XTN",
+			"tvlUsd": 10118,
+			"apyBase": 6.91,
+			"apyReward": 0,
+			"apy": 6.91,
+			"rewardTokens": [
+				"Ehie5xYpeN8op1Cctc6aGUrqx8jq3jtf1DSjXDbfm7aT"
+			],
+			"pool": "3b8ddef9-208b-4494-83cf-fca5c9601312",
+			"apyPct1D": -2.27,
+			"apyPct7D": -12.78,
+			"apyPct30D": 6.4,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 72,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 5.84402,
+			"sigma": 0.49156,
+			"count": 229,
+			"outlier": false,
+			"underlyingTokens": [
+				"4LHHvYGNKJUg5hj65aGD5vgScvCBmLpdRFtjokvCjSL8",
+				"DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p"
+			],
+			"il7d": -0.00002,
+			"apyBase7d": null,
+			"apyMean30d": 4.5802,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 6
+}

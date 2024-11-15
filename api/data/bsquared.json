@@ -1,0 +1,151 @@
+{
+	"timestamp": "2024-11-15T14:14:18.498Z",
+	"chain": "bsquared",
+	"protocols": [
+		{
+			"chain": "Bsquared",
+			"project": "kiloex",
+			"symbol": "USDT",
+			"tvlUsd": 262558,
+			"apyBase": 0.4,
+			"apyReward": null,
+			"apy": 0.4,
+			"rewardTokens": null,
+			"pool": "4948fcbe-f608-4c3c-9b27-4ecf1bb383a6",
+			"apyPct1D": -0.01,
+			"apyPct7D": -0.21,
+			"apyPct30D": -28.89,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 76,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 24.90353,
+			"sigma": 0.55303,
+			"count": 68,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x681202351a488040fa4fdcc24188afb582c9dd62"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 16.54562,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Bsquared",
+			"project": "kiloex",
+			"symbol": "USDC",
+			"tvlUsd": 27683,
+			"apyBase": 0.37,
+			"apyReward": null,
+			"apy": 0.37,
+			"rewardTokens": null,
+			"pool": "a4c9dc9d-51f4-4a2e-b3be-4e70c3597791",
+			"apyPct1D": -0.01,
+			"apyPct7D": -0.2,
+			"apyPct30D": -26.87,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 53,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 22.9287,
+			"sigma": 0.5149,
+			"count": 67,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xe544e8a38add9b1abf21922090445ba93f74b9e5"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 15.38805,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Bsquared",
+			"project": "kiloex",
+			"symbol": "UBTC",
+			"tvlUsd": 20012,
+			"apyBase": 0.24,
+			"apyReward": null,
+			"apy": 0.24,
+			"rewardTokens": null,
+			"pool": "ddc6888e-a4b2-4353-9452-518709a43db8",
+			"apyPct1D": -0.01,
+			"apyPct7D": -0.13,
+			"apyPct30D": -17.33,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 66,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 15.08655,
+			"sigma": 0.35324,
+			"count": 68,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x796e4d53067ff374b89b2ac101ce0c1f72ccaac2"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 9.92742,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Bsquared",
+			"project": "kiloex",
+			"symbol": "BSTONE",
+			"tvlUsd": 14660,
+			"apyBase": 0.26,
+			"apyReward": null,
+			"apy": 0.26,
+			"rewardTokens": null,
+			"pool": "164d2a90-0e3e-4126-a9ff-0de6db888bdf",
+			"apyPct1D": -0.01,
+			"apyPct7D": -0.14,
+			"apyPct30D": -18.78,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 64,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 16.32396,
+			"sigma": 0.37952,
+			"count": 68,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x7537c1f80c9e157ed7afd93a494be3e1f04f1462"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 10.75524,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 4
+}

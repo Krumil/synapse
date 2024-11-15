@@ -1,0 +1,82 @@
+{
+	"timestamp": "2024-11-15T14:14:18.484Z",
+	"chain": "karura",
+	"protocols": [
+		{
+			"chain": "Karura",
+			"project": "taiga-karura",
+			"symbol": "TKSM",
+			"tvlUsd": 786254,
+			"apyBase": 8.26281,
+			"apyReward": 0,
+			"apy": 8.26281,
+			"rewardTokens": [
+				"TAI"
+			],
+			"pool": "d25d5f0c-38a7-4460-9719-c78e9f8538e3",
+			"apyPct1D": -0.18865,
+			"apyPct7D": -0.17284,
+			"apyPct30D": -1.57195,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 81,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 13.71991,
+			"sigma": 0.19262,
+			"count": 845,
+			"outlier": false,
+			"underlyingTokens": null,
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 9.30516,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Karura",
+			"project": "taiga-karura",
+			"symbol": "3USD",
+			"tvlUsd": 510004,
+			"apyBase": 0.1545,
+			"apyReward": 41.36891,
+			"apy": 41.52341,
+			"rewardTokens": [
+				"TAI",
+				"sa://0",
+				"LKSM",
+				"KAR"
+			],
+			"pool": "2ea21b97-d104-4ded-a671-76d46d0f6ea4",
+			"apyPct1D": -0.10584,
+			"apyPct7D": 1.58742,
+			"apyPct30D": 0.20004,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 94,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 23.43861,
+			"sigma": 0.50109,
+			"count": 845,
+			"outlier": false,
+			"underlyingTokens": null,
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 41.1231,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 2
+}

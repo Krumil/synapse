@@ -1,0 +1,310 @@
+{
+	"timestamp": "2024-11-15T14:14:18.483Z",
+	"chain": "klaytn",
+	"protocols": [
+		{
+			"chain": "Klaytn",
+			"project": "kokonut-swap",
+			"symbol": "KLAY-AKLAY",
+			"tvlUsd": 957619,
+			"apyBase": 0.48,
+			"apyReward": 0,
+			"apy": 0.48,
+			"rewardTokens": [
+				"0xcd670d77f3dcab82d43dff9bd2c4b87339fb3560"
+			],
+			"pool": "2e2e171e-66ce-47ea-93d6-44590da86d4c",
+			"apyPct1D": 0.47,
+			"apyPct7D": 0.46,
+			"apyPct30D": 0.47,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 67,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 0.46788,
+			"sigma": 0.06643,
+			"count": 820,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+				"0x74BA03198FEd2b15a51AF242b9c63Faf3C8f4D34"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.06765,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Klaytn",
+			"project": "kokonut-swap",
+			"symbol": "KLAY-KSD",
+			"tvlUsd": 620116,
+			"apyBase": 0.08,
+			"apyReward": 0,
+			"apy": 0.08,
+			"rewardTokens": [
+				"0xcd670d77f3dcab82d43dff9bd2c4b87339fb3560"
+			],
+			"pool": "89248e68-df8f-4317-89ce-fc35070f6fed",
+			"apyPct1D": 0.03,
+			"apyPct7D": 0.07,
+			"apyPct30D": -0.12,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 89,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 9.02768,
+			"sigma": 0.57908,
+			"count": 820,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+				"0x4Fa62F1f404188CE860c8f0041d6Ac3765a72E67"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.09526,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Klaytn",
+			"project": "kokoa-finance",
+			"symbol": "KSD",
+			"tvlUsd": 154758,
+			"apyBase": null,
+			"apyReward": null,
+			"apy": 3.47,
+			"rewardTokens": null,
+			"pool": "bc5db936-e648-4d58-8900-fa37d80a1fa3",
+			"apyPct1D": -0.01,
+			"apyPct7D": 0.07,
+			"apyPct30D": 0.01,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 65,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 5.8587,
+			"sigma": 0.15887,
+			"count": 855,
+			"outlier": false,
+			"underlyingTokens": null,
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 3.55779,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Klaytn",
+			"project": "kokonut-swap",
+			"symbol": "4NUTS",
+			"tvlUsd": 47623,
+			"apyBase": 0.15,
+			"apyReward": 32.28,
+			"apy": 32.43,
+			"rewardTokens": [
+				"0xcd670d77f3dcab82d43dff9bd2c4b87339fb3560"
+			],
+			"pool": "13617740-ce40-4ba0-b2f2-405cb213a983",
+			"apyPct1D": -1.13,
+			"apyPct7D": -0.08,
+			"apyPct30D": -8.91,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 98,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 11.45225,
+			"sigma": 0.59627,
+			"count": 820,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x4Fa62F1f404188CE860c8f0041d6Ac3765a72E67",
+				"0x5c74070FDeA071359b86082bd9f9b3dEaafbe32b",
+				"0x754288077D0fF82AF7a5317C7CB8c444D421d103",
+				"0xceE8FAF64bB97a73bb51E115Aa89C17FfA8dD167"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 32.34689,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Klaytn",
+			"project": "kokonut-swap",
+			"symbol": "KLAY-OETH",
+			"tvlUsd": 14851,
+			"apyBase": 1.41,
+			"apyReward": 0,
+			"apy": 1.41,
+			"rewardTokens": [
+				"0xcd670d77f3dcab82d43dff9bd2c4b87339fb3560"
+			],
+			"pool": "8b9a471a-cb07-4717-9eed-f910f233d3bb",
+			"apyPct1D": null,
+			"apyPct7D": null,
+			"apyPct30D": null,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 51,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 3.3376,
+			"sigma": 0.29451,
+			"count": 460,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+				"0x34d21b1e550D73cee41151c77F3c73359527a396"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 1.03368,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Klaytn",
+			"project": "kokoa-finance",
+			"symbol": "OUSDT",
+			"tvlUsd": 13780,
+			"apyBase": null,
+			"apyReward": null,
+			"apy": 0,
+			"rewardTokens": [
+				"0xb15183d0d4d5e86ba702ce9bb7b633376e7db29f"
+			],
+			"pool": "347dead7-bb12-4fba-858a-2929c67ea451",
+			"apyPct1D": 0,
+			"apyPct7D": 0,
+			"apyPct30D": 0,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": null,
+				"predictedProbability": null,
+				"binnedConfidence": null
+			},
+			"poolMeta": null,
+			"mu": 0,
+			"sigma": 0,
+			"count": 489,
+			"outlier": false,
+			"underlyingTokens": null,
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Klaytn",
+			"project": "kokonut-swap",
+			"symbol": "KOKOS-KSD",
+			"tvlUsd": 11103,
+			"apyBase": 0.72,
+			"apyReward": 0,
+			"apy": 0.72,
+			"rewardTokens": [
+				"0xcd670d77f3dcab82d43dff9bd2c4b87339fb3560"
+			],
+			"pool": "34e25773-a759-4e27-becd-0f9fef880e09",
+			"apyPct1D": null,
+			"apyPct7D": null,
+			"apyPct30D": null,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 62,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 21.9297,
+			"sigma": 1.51242,
+			"count": 475,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xCd670d77f3dCAB82d43DFf9BD2C4b87339FB3560",
+				"0x4Fa62F1f404188CE860c8f0041d6Ac3765a72E67"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 6.48979,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Klaytn",
+			"project": "kokoa-finance",
+			"symbol": "OUSDT-OUSDC",
+			"tvlUsd": 10638,
+			"apyBase": null,
+			"apyReward": null,
+			"apy": 0,
+			"rewardTokens": [
+				"0xb15183d0d4d5e86ba702ce9bb7b633376e7db29f"
+			],
+			"pool": "83a841bb-dfc9-4d57-85a9-0252e45cef99",
+			"apyPct1D": 0,
+			"apyPct7D": 0,
+			"apyPct30D": 0,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": null,
+				"predictedProbability": null,
+				"binnedConfidence": null
+			},
+			"poolMeta": "KlaySwap LP",
+			"mu": 0,
+			"sigma": 0,
+			"count": 489,
+			"outlier": false,
+			"underlyingTokens": null,
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 8
+}

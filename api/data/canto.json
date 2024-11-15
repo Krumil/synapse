@@ -1,0 +1,535 @@
+{
+	"timestamp": "2024-11-15T14:14:18.465Z",
+	"chain": "canto",
+	"protocols": [
+		{
+			"chain": "Canto",
+			"project": "canto-lending",
+			"symbol": "FBILL",
+			"tvlUsd": 2541247,
+			"apyBase": 0,
+			"apyReward": 0,
+			"apy": 0,
+			"rewardTokens": [
+				"0x826551890Dc65655a0Aceca109aB11AbDbD7a07B"
+			],
+			"pool": "51f75195-41f1-47e7-8db2-9c5bcd5acdaa",
+			"apyPct1D": 0,
+			"apyPct7D": 0,
+			"apyPct30D": 0,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": null,
+				"predictedProbability": null,
+				"binnedConfidence": null
+			},
+			"poolMeta": null,
+			"mu": 0,
+			"sigma": 0,
+			"count": 84,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x79ECCE8E2D17603877Ff15BC29804CbCB590EC08"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "canto-lending",
+			"symbol": "USYC",
+			"tvlUsd": 1884457,
+			"apyBase": 0,
+			"apyReward": 0,
+			"apy": 0,
+			"rewardTokens": [
+				"0x826551890Dc65655a0Aceca109aB11AbDbD7a07B"
+			],
+			"pool": "fe86819a-1e81-4d0f-a22d-5f054a352a47",
+			"apyPct1D": 0,
+			"apyPct7D": 0,
+			"apyPct30D": 0,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": null,
+				"predictedProbability": null,
+				"binnedConfidence": null
+			},
+			"poolMeta": null,
+			"mu": 0,
+			"sigma": 0,
+			"count": 229,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xFb8255f0De21AcEBf490F1DF6F0BDd48CC1df03B"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "canto-lending",
+			"symbol": "NOTE-WCANTO",
+			"tvlUsd": 585869,
+			"apyBase": 0,
+			"apyReward": 60.81345,
+			"apy": 60.81345,
+			"rewardTokens": [
+				"0x826551890Dc65655a0Aceca109aB11AbDbD7a07B"
+			],
+			"pool": "fc7cafb0-6f5b-4d7f-9f9d-124a44857537",
+			"apyPct1D": 1.12686,
+			"apyPct7D": -5.51699,
+			"apyPct30D": 5.12421,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 50,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 103.78513,
+			"sigma": 1.49289,
+			"count": 570,
+			"outlier": true,
+			"underlyingTokens": [
+				"0x1D20635535307208919f0b67c3B2065965A85aA9"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 62.68081,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "canto-lending",
+			"symbol": "ETH-WCANTO",
+			"tvlUsd": 280696,
+			"apyBase": 0,
+			"apyReward": 51.23321,
+			"apy": 51.23321,
+			"rewardTokens": [
+				"0x826551890Dc65655a0Aceca109aB11AbDbD7a07B"
+			],
+			"pool": "2a9c668c-9430-4c8a-b7dd-ce1456859c80",
+			"apyPct1D": 1.65897,
+			"apyPct7D": -4.30562,
+			"apyPct30D": -3.24176,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 62,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 81.1135,
+			"sigma": 1.71193,
+			"count": 569,
+			"outlier": true,
+			"underlyingTokens": [
+				"0x216400ba362d8FCE640085755e47075109718C8B"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 54.92927,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "beefy",
+			"symbol": "NOTE-CANTO",
+			"tvlUsd": 146693,
+			"apyBase": null,
+			"apyReward": null,
+			"apy": 79.67918,
+			"rewardTokens": null,
+			"pool": "5774e6c4-33e5-4a6d-a89f-2a927cf8b060",
+			"apyPct1D": 1.95966,
+			"apyPct7D": -9.57549,
+			"apyPct30D": 7.2601,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 83,
+				"binnedConfidence": 3
+			},
+			"poolMeta": "CantoDex",
+			"mu": 70.83679,
+			"sigma": 0.60819,
+			"count": 219,
+			"outlier": true,
+			"underlyingTokens": [
+				"0x4e71A2E537B7f9D9413D3991D37958c0b5e1e503",
+				"0x0000000000000000000000000000000000000000"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 83.65965,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "canto-lending",
+			"symbol": "WCANTO-ATOM",
+			"tvlUsd": 116626,
+			"apyBase": 0,
+			"apyReward": 13.70854,
+			"apy": 13.70854,
+			"rewardTokens": [
+				"0x826551890Dc65655a0Aceca109aB11AbDbD7a07B"
+			],
+			"pool": "d8183146-c111-46e3-8742-9350f7909eee",
+			"apyPct1D": 0.18674,
+			"apyPct7D": -2.25327,
+			"apyPct30D": -0.96008,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 59,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 87.03913,
+			"sigma": 2.26687,
+			"count": 570,
+			"outlier": true,
+			"underlyingTokens": [
+				"0x30838619C55B787BafC3A4cD9aEa851C1cfB7b19"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 15.34591,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "canto-lending",
+			"symbol": "NOTE-USDC",
+			"tvlUsd": 90495,
+			"apyBase": 0,
+			"apyReward": 28.62056,
+			"apy": 28.62056,
+			"rewardTokens": [
+				"0x826551890Dc65655a0Aceca109aB11AbDbD7a07B"
+			],
+			"pool": "d2848321-5e47-4647-a6f8-bc5979495a61",
+			"apyPct1D": 1.07192,
+			"apyPct7D": -2.23708,
+			"apyPct30D": 6.25641,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 94,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 15.80101,
+			"sigma": 0.36719,
+			"count": 569,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x9571997a66D63958e1B3De9647C22bD6b9e7228c"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 26.89546,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "canto-lending",
+			"symbol": "USDC",
+			"tvlUsd": 55430,
+			"apyBase": 3.89916,
+			"apyReward": 0,
+			"apy": 3.89916,
+			"rewardTokens": [
+				"0x826551890Dc65655a0Aceca109aB11AbDbD7a07B"
+			],
+			"pool": "727fc50d-b687-4f74-a30e-ee961c25c5e3",
+			"apyPct1D": -0.25383,
+			"apyPct7D": 3.3249,
+			"apyPct30D": -9.32876,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 79,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 2.53982,
+			"sigma": 0.20616,
+			"count": 570,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x80b5a32E4F032B2a058b4F29EC95EEfEEB87aDcd"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 4.15181,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "beefy",
+			"symbol": "ATOM-CANTO",
+			"tvlUsd": 43913,
+			"apyBase": null,
+			"apyReward": null,
+			"apy": 14.15798,
+			"rewardTokens": null,
+			"pool": "6c1d338e-bc74-45e2-b103-983366b6e2d0",
+			"apyPct1D": 0.20838,
+			"apyPct7D": -2.54043,
+			"apyPct30D": -1.3466,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 82,
+				"binnedConfidence": 3
+			},
+			"poolMeta": "CantoDex",
+			"mu": 14.44348,
+			"sigma": 0.61755,
+			"count": 219,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xecEEEfCEE421D8062EF8d6b4D814efe4dc898265",
+				"0x0000000000000000000000000000000000000000"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 16.00424,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "canto-lending",
+			"symbol": "USDT",
+			"tvlUsd": 18214,
+			"apyBase": 4.77478,
+			"apyReward": 0,
+			"apy": 4.77478,
+			"rewardTokens": [
+				"0x826551890Dc65655a0Aceca109aB11AbDbD7a07B"
+			],
+			"pool": "945afa2b-4f81-422f-8f51-dc41c8aeb930",
+			"apyPct1D": 2.00747,
+			"apyPct7D": 0.843,
+			"apyPct30D": 2.77123,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 71,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 3.34821,
+			"sigma": 0.15214,
+			"count": 570,
+			"outlier": false,
+			"underlyingTokens": [
+				"0xd567B3d7B8FE3C79a1AD8dA978812cfC4Fa05e75"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 2.87744,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "canto-lending",
+			"symbol": "NOTE-USDT",
+			"tvlUsd": 15874,
+			"apyBase": 0,
+			"apyReward": 18.12844,
+			"apy": 18.12844,
+			"rewardTokens": [
+				"0x826551890Dc65655a0Aceca109aB11AbDbD7a07B"
+			],
+			"pool": "656b5688-fed8-4655-831e-acc0e1c191e2",
+			"apyPct1D": 0.71341,
+			"apyPct7D": -3.9849,
+			"apyPct30D": -0.27223,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 87,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 13.92135,
+			"sigma": 0.33547,
+			"count": 569,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x35DB1f3a6A6F07f82C76fCC415dB6cFB1a7df833"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 20.3204,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "canto-lending",
+			"symbol": "IFBILL",
+			"tvlUsd": 13757,
+			"apyBase": 0,
+			"apyReward": 0,
+			"apy": 0,
+			"rewardTokens": [
+				"0x826551890Dc65655a0Aceca109aB11AbDbD7a07B"
+			],
+			"pool": "2b05d1fe-422f-4dd6-8ce5-ef0cec396fda",
+			"apyPct1D": 0,
+			"apyPct7D": 0,
+			"apyPct30D": 0,
+			"stablecoin": false,
+			"ilRisk": "no",
+			"exposure": "single",
+			"predictions": {
+				"predictedClass": null,
+				"predictedProbability": null,
+				"binnedConfidence": null
+			},
+			"poolMeta": null,
+			"mu": 0,
+			"sigma": 0,
+			"count": 85,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x45bafad5a6a531Bc18Cf6CE5B02C58eA4D20589b"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "beefy",
+			"symbol": "NOTE-USDC",
+			"tvlUsd": 13098,
+			"apyBase": null,
+			"apyReward": null,
+			"apy": 31.77116,
+			"rewardTokens": null,
+			"pool": "c3777339-dc33-4bee-b449-de6aa4eebf4e",
+			"apyPct1D": 1.35044,
+			"apyPct7D": -2.72336,
+			"apyPct30D": 7.21074,
+			"stablecoin": true,
+			"ilRisk": "no",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 75,
+				"binnedConfidence": 2
+			},
+			"poolMeta": "CantoDex",
+			"mu": 24.48661,
+			"sigma": 0.36226,
+			"count": 190,
+			"outlier": false,
+			"underlyingTokens": [
+				"0x4e71A2E537B7f9D9413D3991D37958c0b5e1e503",
+				"0x80b5a32E4F032B2a058b4F29EC95EEfEEB87aDcd"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 29.8,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Canto",
+			"project": "beefy",
+			"symbol": "ETH-CANTO",
+			"tvlUsd": 10845,
+			"apyBase": null,
+			"apyReward": null,
+			"apy": 63.86819,
+			"rewardTokens": null,
+			"pool": "dc289e44-09f9-42d0-bdad-0320d660094c",
+			"apyPct1D": 2.65491,
+			"apyPct7D": -7.00606,
+			"apyPct30D": -6.56321,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 83,
+				"binnedConfidence": 3
+			},
+			"poolMeta": "CantoDex",
+			"mu": 45.69164,
+			"sigma": 0.77381,
+			"count": 219,
+			"outlier": true,
+			"underlyingTokens": [
+				"0x5FD55A1B9FC24967C4dB09C513C3BA0DFa7FF687",
+				"0x0000000000000000000000000000000000000000"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 70.23553,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 14
+}

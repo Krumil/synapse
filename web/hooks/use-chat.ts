@@ -5,50 +5,10 @@ import { useTransaction } from '@/hooks/use-transaction';
 
 export function useChat() {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
-	const [input, setInput] = useState('');
+	const [input, setInput] = useState('stake 0.001 eth on nostra');
 	const [isLoading, setIsLoading] = useState(false);
 	const { address } = useAccount();
 	const { handleTransaction } = useTransaction();
-
-	const handleToolResponse = async (data: { type: string; content: string }) => {
-		if (data.type === 'tool') {
-			try {
-				const toolResponse: ToolResponse = JSON.parse(data.content);
-
-				if (toolResponse.type === 'transaction' && toolResponse.transactions) {
-					await handleTransaction(toolResponse.transactions);
-					setMessages(prev => [...prev, {
-						role: 'assistant',
-						content: toolResponse.message || 'Transaction processed successfully.',
-						type: 'tool'
-					}]);
-				} else if (toolResponse.type === 'knowledge') {
-					setMessages(prev => [...prev, {
-						role: 'assistant',
-						content: toolResponse.answer || 'No answer available.',
-						type: 'tool'
-					}]);
-				} else {
-					setMessages(prev => [...prev, {
-						role: 'assistant',
-						content: toolResponse.message || 'Processed successfully.',
-						type: 'tool'
-					}]);
-				}
-			} catch (error) {
-				console.error('Error parsing tool response:', error);
-				setMessages(prev => [...prev, {
-					role: 'assistant',
-					content: 'Sorry, there was an error processing the response.'
-				}]);
-			}
-		} else {
-			setMessages(prev => [...prev, {
-				role: 'assistant',
-				content: data.content
-			}]);
-		}
-	};
 
 	const handleSend = async () => {
 		if (!input.trim() || isLoading) return;
@@ -79,15 +39,66 @@ export function useChat() {
 				body: JSON.stringify({
 					message: userMessage,
 					address,
+					userId: address,
 				}),
 			});
 
-			if (!response.ok) {
-				throw new Error('Network response was not ok');
-			}
+			if (!response.body) throw new Error('No response body');
 
-			const data = await response.json();
-			await handleToolResponse(data);
+			const reader = response.body.getReader();
+			const decoder = new TextDecoder();
+
+			while (true) {
+				const { value, done } = await reader.read();
+				if (done) break;
+
+				const chunk = decoder.decode(value);
+				const lines = chunk.split('\n');
+
+				for (const line of lines) {
+					if (line.startsWith('data: ')) {
+						try {
+							const data = JSON.parse(line.slice(5));
+
+							if (data.type === 'tool') {
+								const toolResponse: ToolResponse = JSON.parse(data.content);
+								if (toolResponse.type === 'transaction' && toolResponse.transactions) {
+									const toAddress = toolResponse.details.data?.toAddress || null;
+									await handleTransaction(toolResponse.transactions, toAddress);
+								}
+								// if (toolResponse.type === 'knowledge') {
+								// 	setMessages(prev => [...prev, {
+								// 		role: 'assistant',
+								// 		content: toolResponse.message || toolResponse.answer || 'Processed successfully.',
+								// 		type: 'tool'
+								// 	}]);
+								// }
+							} else {
+								setMessages(prev => {
+									if (data.type === 'agent' && prev.length > 0 && prev[prev.length - 1].type === 'agent') {
+										return [...prev.slice(0, -1), {
+											content: data.content,
+											role: 'assistant',
+											type: data.type,
+										}];
+									}
+									return [...prev, {
+										content: data.content,
+										role: 'assistant',
+										type: data.type,
+									}];
+								});
+							}
+						} catch (error) {
+							console.error('Error parsing SSE message:', error);
+							setMessages(prev => [...prev, {
+								role: 'assistant',
+								content: 'Sorry, there was an error processing the response.'
+							}]);
+						}
+					}
+				}
+			}
 		} catch (error) {
 			console.error('Error sending message:', error);
 			setMessages(prev => [...prev, {

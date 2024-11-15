@@ -1,0 +1,1207 @@
+{
+	"timestamp": "2024-11-15T14:14:18.429Z",
+	"chain": "hedera",
+	"protocols": [
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBARX-HBAR",
+			"tvlUsd": 10132519,
+			"apyBase": 0.03243,
+			"apyReward": 0,
+			"apy": 0.03243,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "9aef43ba-4be9-4958-a186-ba03ac45e3c4",
+			"apyPct1D": 0.00702,
+			"apyPct7D": 0.02631,
+			"apyPct30D": -4.16953,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 66,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 6.90144,
+			"sigma": 0.7208,
+			"count": 713,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.834116",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 2.79112,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "SAUCE-HBAR",
+			"tvlUsd": 7761883,
+			"apyBase": 1.58822,
+			"apyReward": 12.24112,
+			"apy": 13.82934,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "d88fe316-2ed0-4dd1-b205-739be5aa5814",
+			"apyPct1D": 0.29259,
+			"apyPct7D": 0.32963,
+			"apyPct30D": 0.19052,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 56.99999999999999,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 23.30604,
+			"sigma": 0.43953,
+			"count": 712,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.731861",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 13.23015,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "USDC-HBAR",
+			"tvlUsd": 2095561,
+			"apyBase": 32.0003,
+			"apyReward": 14.73568,
+			"apy": 46.73598,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "fd41363a-f064-4e74-b710-ee2b3658c32b",
+			"apyPct1D": 4.08653,
+			"apyPct7D": 25.92035,
+			"apyPct30D": 29.9798,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 92,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 31.16012,
+			"sigma": 0.5942,
+			"count": 712,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.456858",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 18.7512,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "SAUCE-XSAUCE",
+			"tvlUsd": 974884,
+			"apyBase": 0.39693,
+			"apyReward": 2.9237,
+			"apy": 3.32063,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "61b8ca39-fd51-47bd-bc62-8cf83fc6f6f7",
+			"apyPct1D": 0.0428,
+			"apyPct7D": 0.21111,
+			"apyPct30D": 0.37786,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 72,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 5.22602,
+			"sigma": 0.18201,
+			"count": 671,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.731861",
+				"0.0.1460200"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 2.97577,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBAR-XSAUCE",
+			"tvlUsd": 812313,
+			"apyBase": 1.81701,
+			"apyReward": 11.69679,
+			"apy": 13.5138,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "a95e97ec-4ed8-4ebc-8dae-2f776d83cdfa",
+			"apyPct1D": 0.08214,
+			"apyPct7D": 0.13525,
+			"apyPct30D": -0.74006,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 56.99999999999999,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 17.15823,
+			"sigma": 0.28606,
+			"count": 704,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.1456986",
+				"0.0.1460200"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 13.39091,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HST-HBAR",
+			"tvlUsd": 645628,
+			"apyBase": 3.6338,
+			"apyReward": 7.35831,
+			"apy": 10.99211,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "78599397-ade5-4f09-9957-67e2c28a948d",
+			"apyPct1D": 0.15561,
+			"apyPct7D": 3.60804,
+			"apyPct30D": 1.54913,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 60,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 21.20318,
+			"sigma": 0.50816,
+			"count": 712,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.968069",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 8.67211,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "WBTC[HTS]-HBAR",
+			"tvlUsd": 423296,
+			"apyBase": 13.0392,
+			"apyReward": 12.34511,
+			"apy": 25.38431,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "6958b680-7ffa-48df-9dcc-9af9034beaf3",
+			"apyPct1D": 1.04456,
+			"apyPct7D": 10.02578,
+			"apyPct30D": 9.67455,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 99,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 18.22461,
+			"sigma": 0.38876,
+			"count": 713,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.1055483",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 15.84792,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBAR-PACK",
+			"tvlUsd": 317720,
+			"apyBase": 19.63855,
+			"apyReward": 17.94276,
+			"apy": 37.58131,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "e66c78f8-4152-4454-82c4-d8fe294bd808",
+			"apyPct1D": 3.78288,
+			"apyPct7D": 17.77304,
+			"apyPct30D": -13.10643,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 94,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 23.95891,
+			"sigma": 0.45069,
+			"count": 178,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.1456986",
+				"0.0.4794920"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 26.30749,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "WETH[HTS]-HBAR",
+			"tvlUsd": 285916,
+			"apyBase": 11.86079,
+			"apyReward": 16.61585,
+			"apy": 28.47664,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "9ef70d87-1053-4e3b-8c52-3e645ceeed72",
+			"apyPct1D": 1.37628,
+			"apyPct7D": 10.74993,
+			"apyPct30D": 10.32687,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 81,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 23.39717,
+			"sigma": 0.35756,
+			"count": 712,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.541564",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 18.52633,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "QNT[HTS]-HBAR",
+			"tvlUsd": 265036,
+			"apyBase": 2.28091,
+			"apyReward": 12.54701,
+			"apy": 14.82792,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "c66437eb-2e0a-4845-9adf-59d65e78289a",
+			"apyPct1D": 0.08536,
+			"apyPct7D": 2.73855,
+			"apyPct30D": 3.13598,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 86,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 17.48301,
+			"sigma": 0.37752,
+			"count": 712,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.1304757",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 11.7972,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "WAVAX[HTS]-HBAR",
+			"tvlUsd": 225252,
+			"apyBase": 6.26021,
+			"apyReward": 8.43707,
+			"apy": 14.69728,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "4ff7b491-a7fb-423f-9826-b4d311aec5db",
+			"apyPct1D": 0.1008,
+			"apyPct7D": 5.28158,
+			"apyPct30D": 3.35342,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 88,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 18.12338,
+			"sigma": 0.50108,
+			"count": 572,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.1157020",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 10.06386,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "USDC-SAUCE",
+			"tvlUsd": 199871,
+			"apyBase": 12.09057,
+			"apyReward": 30.4237,
+			"apy": 42.51426,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "bb5fb8d1-5ac9-4e53-9144-e52c1261ba68",
+			"apyPct1D": 3.71666,
+			"apyPct7D": 15.37992,
+			"apyPct30D": 15.25164,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 73,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 44.47812,
+			"sigma": 0.53924,
+			"count": 772,
+			"outlier": true,
+			"underlyingTokens": [
+				"0.0.456858",
+				"0.0.731861"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 27.30295,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "LCX[HTS]-HBAR",
+			"tvlUsd": 183701,
+			"apyBase": 5.07706,
+			"apyReward": 23.27604,
+			"apy": 28.35309,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "5764d7d4-0621-4525-9e6d-b8df627d561c",
+			"apyPct1D": 2.58523,
+			"apyPct7D": 8.31994,
+			"apyPct30D": 8.57401,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 71,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 29.02017,
+			"sigma": 0.42627,
+			"count": 649,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.1304772",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 21.03654,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HSUITE-HBAR",
+			"tvlUsd": 164585,
+			"apyBase": 22.89519,
+			"apyReward": 8.66009,
+			"apy": 31.55528,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "3533aeb4-60d5-4f56-af72-c3f409d6e7b9",
+			"apyPct1D": -1.10938,
+			"apyPct7D": 9.93674,
+			"apyPct30D": -3.11279,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 71,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 30.94331,
+			"sigma": 0.46564,
+			"count": 166,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.786931",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 28.83578,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "LINK[HTS]-HBAR",
+			"tvlUsd": 163120,
+			"apyBase": 12.59049,
+			"apyReward": 11.65072,
+			"apy": 24.2412,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "2db313cd-552f-4b3d-86f5-0dd7135b5f81",
+			"apyPct1D": 1.9193,
+			"apyPct7D": 10.62586,
+			"apyPct30D": 11.018,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 85,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 21.00214,
+			"sigma": 0.43781,
+			"count": 608,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.1055495",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 14.71631,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBAR-KARATE",
+			"tvlUsd": 141632,
+			"apyBase": 13.85408,
+			"apyReward": 30.18982,
+			"apy": 44.0439,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "e890a8fd-48d7-49c9-81e6-80b20f65a698",
+			"apyPct1D": -2.52677,
+			"apyPct7D": 17.59864,
+			"apyPct30D": 8.60025,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 74,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 44.35907,
+			"sigma": 0.55096,
+			"count": 538,
+			"outlier": true,
+			"underlyingTokens": [
+				"0.0.1456986",
+				"0.0.2283230"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 28.74038,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBAR-DOVU",
+			"tvlUsd": 138028,
+			"apyBase": 19.93309,
+			"apyReward": 10.32632,
+			"apy": 30.25941,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "25280848-1b55-488e-b9af-925c8330e8de",
+			"apyPct1D": 6.45854,
+			"apyPct7D": 13.23552,
+			"apyPct30D": 16.55838,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 68,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 25.91598,
+			"sigma": 0.73352,
+			"count": 425,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.1456986",
+				"0.0.3716059"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 16.12558,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "SAUCE-GRELF",
+			"tvlUsd": 107471,
+			"apyBase": 0.83481,
+			"apyReward": 13.26234,
+			"apy": 14.09715,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "65d35a54-803a-4387-a3da-f59e2f51381d",
+			"apyPct1D": -0.21047,
+			"apyPct7D": -0.83097,
+			"apyPct30D": 0.63161,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 61,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 17.52812,
+			"sigma": 0.59538,
+			"count": 310,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.731861",
+				"0.0.1159074"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 13.60255,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "CLXY-HBAR",
+			"tvlUsd": 102187,
+			"apyBase": 76.74079,
+			"apyReward": 13.94812,
+			"apy": 90.68891,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "b1979187-2902-4a7d-ac9e-070ebb946bd8",
+			"apyPct1D": 10.09046,
+			"apyPct7D": 73.49785,
+			"apyPct30D": 61.63813,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 92,
+				"binnedConfidence": 3
+			},
+			"poolMeta": null,
+			"mu": 29.81085,
+			"sigma": 0.59678,
+			"count": 712,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.859814",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 25.24285,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "SAUCE-SAUCEINU",
+			"tvlUsd": 101258,
+			"apyBase": 5.92655,
+			"apyReward": 9.38242,
+			"apy": 15.30897,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "6b64d2d4-6a2b-4415-b59c-e39ed8613c0f",
+			"apyPct1D": -0.00849,
+			"apyPct7D": 1.98973,
+			"apyPct30D": 1.99125,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 55.00000000000001,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 30.1434,
+			"sigma": 0.72198,
+			"count": 479,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.731861",
+				"0.0.2964435"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 13.39639,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "SAUCE-HBARX",
+			"tvlUsd": 80185,
+			"apyBase": 0.15961,
+			"apyReward": 0,
+			"apy": 0.15961,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "5d93005f-520f-4471-8404-7458dbad194b",
+			"apyPct1D": -0.00593,
+			"apyPct7D": -0.18835,
+			"apyPct30D": -0.20982,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 66,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 7.39747,
+			"sigma": 0.76858,
+			"count": 772,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.731861",
+				"0.0.834116"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.20756,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBAR-STEAM",
+			"tvlUsd": 63124,
+			"apyBase": 0.65674,
+			"apyReward": 22.57973,
+			"apy": 23.23647,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "e2e37451-cc2c-43ee-9d01-55c985087b82",
+			"apyPct1D": -1.76171,
+			"apyPct7D": -5.81877,
+			"apyPct30D": -17.84245,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 56.99999999999999,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 44.16548,
+			"sigma": 0.69954,
+			"count": 160,
+			"outlier": true,
+			"underlyingTokens": [
+				"0.0.1456986",
+				"0.0.3210123"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 33.14404,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBAR-SENTX",
+			"tvlUsd": 58487,
+			"apyBase": 1.60706,
+			"apyReward": 24.36992,
+			"apy": 25.97698,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "30896782-dece-49e5-8069-ee92d1b9b17d",
+			"apyPct1D": 0.30854,
+			"apyPct7D": 1.39309,
+			"apyPct30D": -1.0713,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 60,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 38.02838,
+			"sigma": 0.42586,
+			"count": 305,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.1456986",
+				"0.0.2672057"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 25.56811,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBAR-DAVINCI",
+			"tvlUsd": 56291,
+			"apyBase": 3.27385,
+			"apyReward": 42.19809,
+			"apy": 45.47194,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "7495bf2e-a1e4-44b7-881e-6d5a4fd26888",
+			"apyPct1D": 0.341,
+			"apyPct7D": 2.85732,
+			"apyPct30D": 5.28862,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 60,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 50.24641,
+			"sigma": 0.7641,
+			"count": 164,
+			"outlier": true,
+			"underlyingTokens": [
+				"0.0.1456986",
+				"0.0.3706639"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 41.04616,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBAR-BSL",
+			"tvlUsd": 52300,
+			"apyBase": 2.89191,
+			"apyReward": 45.41851,
+			"apy": 48.31042,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "6feebe09-921c-4f77-805e-2cd57c736b8f",
+			"apyPct1D": 1.33294,
+			"apyPct7D": 4.91132,
+			"apyPct30D": -1.7559,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 71,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 48.8157,
+			"sigma": 0.58418,
+			"count": 166,
+			"outlier": true,
+			"underlyingTokens": [
+				"0.0.1456986",
+				"0.0.4431990"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 46.79051,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "JAM-HBAR",
+			"tvlUsd": 49975,
+			"apyBase": 21.08601,
+			"apyReward": 28.52045,
+			"apy": 49.60646,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "b844c117-bdde-47e1-ab72-a01059a8c671",
+			"apyPct1D": 4.06658,
+			"apyPct7D": 17.57693,
+			"apyPct30D": 12.05903,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 74,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 47.86799,
+			"sigma": 0.59538,
+			"count": 712,
+			"outlier": true,
+			"underlyingTokens": [
+				"0.0.127877",
+				"0.0.1456986"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 44.07008,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "SAUCE-HBAR",
+			"tvlUsd": 39711,
+			"apyBase": 0.30979,
+			"apyReward": 0,
+			"apy": 0.30979,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "4e121579-4721-4730-a838-0642ae542c43",
+			"apyPct1D": 0.04338,
+			"apyPct7D": -0.09786,
+			"apyPct30D": -0.36178,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 61,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 4.55604,
+			"sigma": 0.5884,
+			"count": 772,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.28925,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBARX-HBAR",
+			"tvlUsd": 28602,
+			"apyBase": 0.01482,
+			"apyReward": 0,
+			"apy": 0.01482,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "33f50d1e-0e31-4ce1-a082-4772b92e4b32",
+			"apyPct1D": 0.00582,
+			"apyPct7D": 0.01482,
+			"apyPct30D": 0.00748,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 66,
+				"binnedConfidence": 2
+			},
+			"poolMeta": null,
+			"mu": 1.83969,
+			"sigma": 0.25196,
+			"count": 772,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.834116",
+				"0.0.1062664"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 0.00376,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "HBAR-BULL",
+			"tvlUsd": 19939,
+			"apyBase": 0.82557,
+			"apyReward": 9.52101,
+			"apy": 10.34658,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "d09b8e04-71ca-43d0-afa2-923b3918dc8f",
+			"apyPct1D": -0.19089,
+			"apyPct7D": 0.99705,
+			"apyPct30D": 0.32848,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 62,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 23.78132,
+			"sigma": 0.75098,
+			"count": 293,
+			"outlier": false,
+			"underlyingTokens": [
+				"0.0.1456986",
+				"0.0.3155326"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 9.72082,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		},
+		{
+			"chain": "Hedera",
+			"project": "saucerswap",
+			"symbol": "SAUCE-SPACEAPE",
+			"tvlUsd": 18524,
+			"apyBase": 3.15901,
+			"apyReward": 15.38858,
+			"apy": 18.54759,
+			"rewardTokens": [
+				"0.0.731861",
+				"0.0.1062664"
+			],
+			"pool": "0f70b43c-6c55-4e5a-8ca8-47fe638b3be2",
+			"apyPct1D": 0.31808,
+			"apyPct7D": 4.58507,
+			"apyPct30D": 4.71613,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Stable/Up",
+				"predictedProbability": 62,
+				"binnedConfidence": 1
+			},
+			"poolMeta": null,
+			"mu": 43.97592,
+			"sigma": 1.22263,
+			"count": 278,
+			"outlier": true,
+			"underlyingTokens": [
+				"0.0.731861",
+				"0.0.3176721"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 15.15174,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 30
+}

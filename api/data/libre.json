@@ -1,0 +1,46 @@
+{
+	"timestamp": "2024-11-15T14:14:18.509Z",
+	"chain": "libre",
+	"protocols": [
+		{
+			"chain": "Libre",
+			"project": "libre-swap",
+			"symbol": "BTC-USD",
+			"tvlUsd": 18676,
+			"apyBase": null,
+			"apyReward": 68.59,
+			"apy": 68.59,
+			"rewardTokens": [
+				"LIBRE"
+			],
+			"pool": "64921981-0ecb-4724-9899-f7933a203da6",
+			"apyPct1D": 0,
+			"apyPct7D": -0.64,
+			"apyPct30D": -0.93,
+			"stablecoin": false,
+			"ilRisk": "yes",
+			"exposure": "multi",
+			"predictions": {
+				"predictedClass": "Down",
+				"predictedProbability": 93,
+				"binnedConfidence": 3
+			},
+			"poolMeta": "BTC - USDT farming pool",
+			"mu": 36.28957,
+			"sigma": 0.76785,
+			"count": 641,
+			"outlier": false,
+			"underlyingTokens": [
+				"BTC",
+				"USDT"
+			],
+			"il7d": null,
+			"apyBase7d": null,
+			"apyMean30d": 60.49155,
+			"volumeUsd1d": null,
+			"volumeUsd7d": null,
+			"apyBaseInception": null
+		}
+	],
+	"count": 1
+}

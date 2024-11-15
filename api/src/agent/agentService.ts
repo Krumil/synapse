@@ -4,6 +4,9 @@ import { MemorySaver } from "@langchain/langgraph";
 import { Response } from 'express';
 import { brianTools } from "./tools/brianTools";
 import { memoryTool } from "./tools/memoryTool";
+import { blockchainTools } from "./tools/blockchainTools";
+import { defiTools } from "./tools/defiTools";
+import { defiTransactionTools } from "./tools/createDefiTransactionTools";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import dotenv from "dotenv";
 import fs from "fs/promises";
@@ -13,6 +16,9 @@ dotenv.config();
 
 const tools = [
 	...brianTools,
+	...blockchainTools,
+	...defiTools,
+	...defiTransactionTools,
 	memoryTool,
 ];
 
@@ -22,7 +28,8 @@ const llm = new ChatAnthropic({
 			"X-Api-Key": process.env.ANTHROPIC_API_KEY,
 		},
 	},
-	modelName: "claude-3-5-sonnet-20240620",
+	// modelName: "claude-3-5-sonnet-20240620",
+	modelName: "claude-3-5-haiku-20241022",
 	temperature: 0,
 	streaming: false,
 });

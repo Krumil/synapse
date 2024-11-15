@@ -109,7 +109,7 @@ export const brianAgentTool = tool(
 	},
 	{
 		name: "BrianAgent",
-		description: "Interact with Brian AI to get information or generate transactions",
+		description: "Interact with Brian AI to get information or generate swap transactions",
 		schema: brianAgentSchema,
 	}
 );
