@@ -43,7 +43,6 @@ export const brianAgentTool = tool(
 
 			const result = data.result[0];
 
-			// Update conversation history with the successful response
 			messages = [
 				...messages,
 				{ sender: "user", content: prompt },
@@ -54,7 +53,6 @@ export const brianAgentTool = tool(
 			];
 			conversationHistory.set(conversationKey, messages);
 
-			// If it's a transaction
 			if (result.type === "write") {
 				return JSON.stringify({
 					type: "transaction",
@@ -65,10 +63,9 @@ export const brianAgentTool = tool(
 				});
 			}
 
-			// If it's a knowledge query
 			return JSON.stringify({
 				type: "knowledge",
-				answer: result.answer || result.data.description,
+				answer: result.answer,
 				details: result,
 				conversationHistory: messages
 			});
@@ -109,7 +106,7 @@ export const brianAgentTool = tool(
 	},
 	{
 		name: "BrianAgent",
-		description: "Interact with Brian AI to get generic information about crypto or generate swap transactions. Don't use this for defi actions like staking and unstaking.",
+		description: "Interact with Brian AI if you need to swap tokens",
 		schema: brianAgentSchema,
 	}
 );

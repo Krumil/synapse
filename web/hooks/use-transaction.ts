@@ -47,6 +47,14 @@ export function useTransaction() {
 
 		} catch (error) {
 			console.error('Transaction failed:', error);
+
+			if (error instanceof Error && error.message.includes('User rejected request')) {
+				return {
+					status: 'error',
+					error: 'Transaction was cancelled by user'
+				};
+			}
+
 			return {
 				status: 'error',
 				error: error instanceof Error ? error.message : 'Unknown error occurred'

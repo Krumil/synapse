@@ -58,12 +58,13 @@ const createTransactionTool = tool(
 		action: string;
 		amount?: string;
 		amountInSmallestUnit?: string;
-		asset?: string;
-		assetPair?: string;
 		protocol: string;
 		userAddress: string;
+		asset?: string;
+		assetPair?: string;
+		tokenPricesUSD?: Record<string, number>; // Add this parameter
 	}) => {
-		const { action, amount, amountInSmallestUnit, asset, assetPair, protocol, userAddress } = input;
+		const { action, amount, amountInSmallestUnit, asset, assetPair, protocol, userAddress, tokenPricesUSD } = input;
 
 		try {
 			// Validate protocol
@@ -155,12 +156,9 @@ const createTransactionTool = tool(
 				const amount0USD = totalAmountUSD / 2;
 				const amount1USD = totalAmountUSD / 2;
 
-				// Placeholder: Fetch token prices to convert USD amounts to token amounts
-				// For this example, let's assume 1 ETH = $2000, 1 USDC = $1
-				const tokenPricesUSD = {
-					"ETH": 3100,
-					"USDC": 1
-				};
+				if (!tokenPricesUSD) {
+					throw new Error("Token prices in USD are required for add_liquidity.");
+				}
 
 				const amount0Tokens = amount0USD / tokenPricesUSD[token0Symbol as keyof typeof tokenPricesUSD];
 				const amount1Tokens = amount1USD / tokenPricesUSD[token1Symbol as keyof typeof tokenPricesUSD];
@@ -259,6 +257,7 @@ const createTransactionTool = tool(
 			assetPair: z.string().optional().describe("The asset pair for liquidity provision, e.g., 'ETH/USDC' (required for 'add_liquidity')"),
 			protocol: z.string().describe("The protocol name, e.g., 'Nostra'"),
 			userAddress: z.string().describe("The user's wallet address"),
+			tokenPricesUSD: z.record(z.string(), z.number()).describe("The prices of assets in USD"),
 		}),
 	}
 );
