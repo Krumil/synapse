@@ -7,7 +7,7 @@ export const TextGenerateEffect = ({
 	words,
 	className,
 	filter = true,
-	duration = 0.2,
+	duration = 0.1,
 }: {
 	words: string;
 	className?: string;
@@ -25,7 +25,7 @@ export const TextGenerateEffect = ({
 			},
 			{
 				duration: duration ? duration : 1,
-				delay: stagger(0.1),
+				delay: stagger(0.05),
 			}
 		);
 	}, [scope.current]);

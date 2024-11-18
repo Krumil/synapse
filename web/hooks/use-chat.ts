@@ -75,13 +75,13 @@ export function useChat() {
 								// }
 							} else {
 								setMessages(prev => {
-									if (data.type === 'agent' && prev.length > 0 && prev[prev.length - 1].type === 'agent') {
-										return [...prev.slice(0, -1), {
-											content: data.content,
-											role: 'assistant',
-											type: data.type,
-										}];
-									}
+									// if (data.type === 'agent' && prev.length > 0 && prev[prev.length - 1].type === 'agent') {
+									// 	return [...prev.slice(0, -1), {
+									// 		content: data.content,
+									// 		role: 'assistant',
+									// 		type: data.type,
+									// 	}];
+									// }
 									return [...prev, {
 										content: data.content,
 										role: 'assistant',

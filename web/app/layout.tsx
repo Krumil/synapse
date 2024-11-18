@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { Providers } from "./providers";
-
+import { SparklesCore } from '@/components/ui/sparkles';
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
 	variable: "--font-geist-sans",
@@ -31,8 +31,24 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
+				<script
+					type="module"
+					defer
+					src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/mirage.js"
+				></script>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 					<Providers>
+						<div className="w-full absolute inset-0 h-screen">
+							<SparklesCore
+								id="tsparticlesfullpage"
+								background="transparent"
+								minSize={0.6}
+								maxSize={1.4}
+								particleDensity={100}
+								className="w-full h-full"
+								particleColor="#FFFFFF"
+							/>
+						</div>
 						{children}
 					</Providers>
 				</ThemeProvider>
@@ -40,3 +56,4 @@ export default function RootLayout({
 		</html>
 	);
 }
+
