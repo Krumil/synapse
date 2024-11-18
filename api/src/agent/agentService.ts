@@ -1,5 +1,5 @@
 import { ChatAnthropic } from "@langchain/anthropic";
-import { HumanMessage } from "@langchain/core/messages";
+import { HumanMessage, AIMessage } from "@langchain/core/messages";
 import { MemorySaver } from "@langchain/langgraph";
 import { Response } from 'express';
 import { brianTools } from "./tools/brianTools";
@@ -28,8 +28,8 @@ const llm = new ChatAnthropic({
 			"X-Api-Key": process.env.ANTHROPIC_API_KEY,
 		},
 	},
-	modelName: "claude-3-5-sonnet-20240620",
-	// modelName: "claude-3-5-haiku-20241022",
+	// modelName: "claude-3-5-sonnet-20240620",
+	modelName: "claude-3-5-haiku-20241022",
 	temperature: 0,
 	streaming: false,
 });
@@ -53,10 +53,37 @@ async function createSystemMessage(address: string): Promise<string> {
 	return prompt;
 }
 
-export async function chat(message: string, address: string, res: Response): Promise<void> {
-	console.log("Processing chat message...");
+export async function chat(
+	messages: { role: string; content: string }[],
+	address: string,
+	res: Response,
+	existingMemory?: {
+		preferences: {
+			risk_tolerance: string
+		},
+		importantInfo: Record<string, any>,
+		lastUpdated: string
+	}
+): Promise<void> {
+	console.log("Processing chat messages...");
 	const systemMessage = await createSystemMessage(address);
 	const memory = new MemorySaver();
+
+	// Convert the message history to LangChain format
+	const formattedMessages = messages.map(msg => {
+		if (msg.role === 'user') {
+			return new HumanMessage(msg.content);
+		} else if (msg.role === 'assistant') {
+			return new AIMessage(msg.content);
+		}
+		return new HumanMessage(msg.content);
+	});
+
+	// Add memory context to the last message if it exists
+	if (existingMemory && formattedMessages.length > 0) {
+		const lastMessage = formattedMessages[formattedMessages.length - 1];
+		lastMessage.content = `${lastMessage.content}\n<previous_context>${JSON.stringify(existingMemory)}</previous_context>`;
+	}
 
 	const app = createReactAgent({
 		llm,
@@ -82,7 +109,7 @@ export async function chat(message: string, address: string, res: Response): Pro
 
 	try {
 		for await (const event of await app.stream({
-			messages: [new HumanMessage(message)]
+			messages: formattedMessages
 		}, { ...config, streamMode: "updates" })) {
 			try {
 				if (event.agent && event.agent.messages && event.agent.messages.length > 0) {

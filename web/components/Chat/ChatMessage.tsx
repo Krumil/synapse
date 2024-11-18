@@ -14,10 +14,21 @@ export function ChatMessage({ content, role, type }: ChatMessageProps) {
 		return trimmed.startsWith('<') && trimmed.endsWith('>');
 	};
 
+	// Helper function to convert newlines to <br> tags
+	const formatContent = (text: string) => {
+		return text.split('\n').map((line, i) => (
+			<span key={i}>
+				{line}
+				{i !== text.split('\n').length - 1 && <br />}
+			</span>
+		));
+	};
+
+	if (!content) return null;
 	return (
 		<div className={`flex ${role === 'user' ? 'justify-end' : 'justify-start'}`}>
 			<div
-				className={`max-w-[80%] rounded-lg p-3 text-sm ${role === 'user'
+				className={`max-w-[80%] rounded-lg p-3 ${role === 'user'
 					? 'bg-primary text-primary-foreground ml-4'
 					: type === 'tool'
 						? 'bg-orange-100 dark:bg-orange-900 mr-4'
@@ -27,9 +38,9 @@ export function ChatMessage({ content, role, type }: ChatMessageProps) {
 				{isHTML(content) ? (
 					<div dangerouslySetInnerHTML={{ __html: content }} />
 				) : role === 'assistant' ? (
-					<TextGenerateEffect words={content} className="text-sm leading-tight" />
+					<TextGenerateEffect words={content} className="whitespace-pre-line" />
 				) : (
-					content
+					formatContent(content)
 				)}
 			</div>
 		</div>

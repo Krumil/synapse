@@ -48,6 +48,12 @@ export default function WalletSection() {
 				return;
 			}
 			await connect({ connector: connector as Connector });
+
+			// Connection successful toast
+			toast({
+				title: "Connected",
+				description: "Wallet connected successfully. Starting your DeFi assessment...",
+			});
 		} catch (error) {
 			toast({
 				title: "Connection failed",

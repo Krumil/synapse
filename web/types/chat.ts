@@ -4,16 +4,24 @@ export interface ChatMessage {
 	type?: 'agent' | 'tool';
 }
 
-export type ToolResponse = {
-	type: 'transaction' | 'knowledge' | 'memory_update' | 'memory_retrieve' | 'error';
-	message?: string;
-	answer?: string;
-	transactions?: any[];
+export interface ToolResponse {
+	type: 'transaction' | 'memory_update' | string;
+	status?: string;
 	memory?: {
-		preferences: Record<string, any>;
-		importantInfo: Record<string, any>;
-		lastUpdated: string;
+		preferences?: {
+			risk_tolerance?: string;
+			experience_level?: string;
+			timeframe?: string;
+			investment_goals?: string;
+		};
+		importantInfo?: Record<string, any>;
+		lastUpdated?: string;
 	};
-	details?: any;
-	conversationHistory?: Array<{ sender: string; content: string }>;
-};
+	transactions?: any[];
+	details?: {
+		data?: {
+			toAddress?: string;
+		};
+	};
+	message?: string;
+}

@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 const colors = require("tailwindcss/colors");
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 const {
 	default: flattenColorPalette,
@@ -55,6 +56,12 @@ const config: Config = {
 					'4': 'hsl(var(--chart-4))',
 					'5': 'hsl(var(--chart-5))'
 				}
+			},
+			fontFamily: {
+				sans: ['var(--font-space-grotesk)', ...defaultTheme.fontFamily.sans],
+				mono: ["var(--font-geist-mono)"],
+				spaceGrotesk: ["var(--font-space-grotesk)"],
+				syne: ["var(--font-syne)"],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

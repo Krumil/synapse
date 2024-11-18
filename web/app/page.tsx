@@ -22,6 +22,10 @@ export default function Home() {
 		}
 	}, [messages]);
 
+	useEffect(() => {
+		console.log('isLoading', isLoading);
+	}, [isLoading]);
+
 	return (
 		<div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
 			<Header />
@@ -31,16 +35,18 @@ export default function Home() {
 					<ScrollArea className="h-full" ref={scrollAreaRef}>
 						<div className="flex flex-col gap-4 px-3">
 							{messages.map((message, index) => (
-								<ChatMessage key={index} {...message} />
+								index === messages.length - 1 && isLoading && message.role === 'assistant' ? null : (
+									<ChatMessage key={index} {...message} />
+								)
 							))}
-							<div className="flex py-4">
+							<div className="flex justify-center py-4">
 								{isLoading && (
 									<div
 										className="animate-in fade-in duration-500"
 										style={{ animationTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)" }}
 									>
 										<l-mirage
-											size="65"
+											size="105"
 											speed="2.5"
 											color="currentColor"
 										></l-mirage>
