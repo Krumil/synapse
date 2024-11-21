@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
 import { RpcProvider, Contract } from "starknet";
-import { ProtocolConfig } from "@/types/defi";
+import { ProtocolConfig } from "../../types/defi";
 import { ERC20_ABI, LP_ABI } from "../../constants/contracts"
 import {
 	hexToDecimalString,

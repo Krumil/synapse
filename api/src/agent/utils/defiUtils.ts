@@ -1,5 +1,5 @@
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
-import { YieldData, Token } from '@/types/defi';
+import { YieldData, Token } from '../../types/defi';
 
 export function convertAmountToSmallestUnit(amount: string, decimals: number): string {
 	const amountNum = parseFloat(amount);

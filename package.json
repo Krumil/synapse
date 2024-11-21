@@ -16,6 +16,7 @@
 	"description": "",
 	"dependencies": {
 		"starknet": "^6.11.0",
+		"typescript": "^5.6.3",
 		"vercel": "^39.1.0"
 	}
 }

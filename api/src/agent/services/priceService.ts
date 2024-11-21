@@ -1,6 +1,6 @@
 import { RpcProvider, Contract } from "starknet";
 import axios from 'axios';
-import { ProtocolConfig } from '@/types/defi';
+import { ProtocolConfig } from '../../types/defi';
 import { reconstructUint256 } from '../utils/defiUtils';
 
 interface PoolReserves {
