@@ -1,8 +1,8 @@
 {
 	"rewrites": [
 		{
-			"source": "/(.*)",
-			"destination": "/dist/server.js"
+			"source": "/api/(.*)",
+			"destination": "/api/dist/server.js"
 		}
 	],
 	"functions": {
