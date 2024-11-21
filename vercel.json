@@ -2,7 +2,12 @@
 	"rewrites": [
 		{
 			"source": "/api/(.*)",
-			"destination": "/api/src/server.ts"
+			"destination": "/api/src/server.js"
 		}
-	]
+	],
+	"functions": {
+		"api/src/server.ts": {
+			"runtime": "@vercel/node"
+		}
+	}
 }
