@@ -1,8 +1,4 @@
 {
-	"projects": {
-		"web": "./web",
-		"api": "./api"
-	},
 	"rewrites": [
 		{
 			"source": "/api/(.*)",
