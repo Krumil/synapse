@@ -7,7 +7,7 @@ interface ChatInputProps {
 	onSend: () => void;
 }
 
-export function ChatInput({ input, isLoading, onInputChange, onSend }: ChatInputProps) {
+export function ChatInput({ onInputChange, onSend }: ChatInputProps) {
 	const placeholders = [
 		"Swap 0.1 ETH to USDC",
 		"Check my Nostra LP positions",

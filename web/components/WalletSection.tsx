@@ -55,6 +55,7 @@ export default function WalletSection() {
 				description: "Wallet connected successfully. Starting your DeFi assessment...",
 			});
 		} catch (error) {
+			console.error(error);
 			toast({
 				title: "Connection failed",
 				description: "Failed to connect wallet. Please try again.",
@@ -74,6 +75,7 @@ export default function WalletSection() {
 				description: "Wallet disconnected successfully",
 			});
 		} catch (error) {
+			console.error(error);
 			toast({
 				title: "Error",
 				description: "Failed to disconnect wallet",
