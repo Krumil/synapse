@@ -1,46 +1,24 @@
-import fs from 'fs/promises';
-import path from 'path';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import axios from 'axios';
+import { YieldData } from './types/defi';
 
 const YIELDS_API_URL = 'https://yields.llama.fi/pools';
-const DATA_DIR = path.join(__dirname, '../data');
 
-interface YieldData {
-	chain: string;
-	project: string;
-	symbol: string;
-	tvlUsd: number;
-	apyBase: number;
-	apyReward: number | null;
-	apy: number;
-	rewardTokens: string[] | null;
-	pool: string;
-	apyPct1D: number;
-	apyPct7D: number;
-	apyPct30D: number;
-	stablecoin: boolean;
-	ilRisk: string;
-	exposure: string;
-	predictions: {
-		predictedClass: string | null;
-		predictedProbability: number | null;
-		binnedConfidence: number | null;
-	};
-	poolMeta: string | null;
-	mu: number;
-	sigma: number;
-	count: number;
-	outlier: boolean;
-	underlyingTokens: string[];
-	il7d: number | null;
-	apyBase7d: number | null;
-	apyMean30d: number;
-	volumeUsd1d: number | null;
-	volumeUsd7d: number | null;
-	apyBaseInception: number | null;
-}
+// Configure S3 Client
+const s3Client = new S3Client({
+	region: process.env.AWS_REGION,
+	credentials: {
+		accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+	},
+	endpoint: process.env.AWS_ENDPOINT
+});
 
-export async function fetchAndSaveYields() {
+export async function fetchYields() {
+	if (!process.env.S3_BUCKET_NAME) {
+		throw new Error('S3_BUCKET_NAME is not defined');
+	}
+
 	try {
 		console.log('Fetching yields data...');
 		const response = await axios.get(YIELDS_API_URL);
@@ -55,21 +33,24 @@ export async function fetchAndSaveYields() {
 		});
 
 		for (const [chain, protocols] of Object.entries(chainData)) {
-			const filename = `${chain}.json`;
-			const filepath = path.join(DATA_DIR, filename);
-			await fs.writeFile(
-				filepath,
-				JSON.stringify({
-					timestamp: new Date().toISOString(),
-					chain,
-					protocols,
-					count: protocols.length,
-				}, null, '\t')
-			);
-			console.log(`${chain} data saved to ${filename}`);
+			const data = {
+				timestamp: new Date().toISOString(),
+				chain,
+				protocols,
+				count: protocols.length,
+			};
+
+			const command = new PutObjectCommand({
+				Bucket: process.env.S3_BUCKET_NAME,
+				Key: `yields/${chain}.json`,
+				Body: JSON.stringify(data, null, '\t'),
+				ContentType: 'application/json'
+			});
+
+			await s3Client.send(command);
+			console.log(`${chain} data saved to S3: yields/${chain}.json`);
 		}
 	} catch (error) {
 		console.error('Error fetching yields data:', error);
 	}
 }
-

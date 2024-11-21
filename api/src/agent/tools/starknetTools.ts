@@ -1,86 +1,14 @@
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import tokensData from '../config/tokens.json';
-
-interface TokenMarket {
-	currentPrice: number;
-	marketCap: number;
-	fullyDilutedValuation: number;
-	starknetTvl: number;
-	priceChange1h: number;
-	priceChangePercentage1h: number;
-	priceChange24h: number;
-	priceChangePercentage24h: number;
-	priceChange7d: number;
-	priceChangePercentage7d: number;
-	marketCapChange24h: number;
-	marketCapChangePercentage24h: number;
-	starknetVolume24h: number;
-	starknetTradingVolume24h: number;
-}
-
-interface Token {
-	name: string;
-	symbol: string;
-	address: string;
-	decimals: number;
-	logoUri: string;
-	verified: boolean;
-	market: TokenMarket;
-	linePriceFeedInUsd: Array<{
-		date: string;
-		value: number;
-	}>;
-}
-
-const getTopStarknetTokensTool = tool(
-	async ({ limit = 10 }: { limit?: number }) => {
-		try {
-			const response = await fetch('https://starknet.impulse.avnu.fi/v1/tokens');
-			if (!response.ok) {
-				throw new Error(`API request failed with status ${response.status}`);
-			}
-
-			const tokens: Token[] = await response.json();
-
-			// Sort by TVL and take top N
-			const topTokens = tokens
-				.sort((a, b) => b.market.starknetTvl - a.market.starknetTvl)
-				.slice(0, limit)
-				.map(token => ({
-					name: token.name,
-					symbol: token.symbol,
-					tvlUsd: token.market.starknetTvl,
-					price: token.market.currentPrice,
-					priceChange24h: token.market.priceChangePercentage24h,
-					volume24h: token.market.starknetVolume24h,
-					marketCap: token.market.marketCap,
-					address: token.address
-				}));
-
-			return JSON.stringify({
-				timestamp: new Date().toISOString(),
-				count: topTokens.length,
-				tokens: topTokens
-			}, null, 2);
-		} catch (error) {
-			throw new Error(`Failed to fetch Starknet tokens: ${error instanceof Error ? error.message : 'Unknown error'}`);
-		}
-	},
-	{
-		name: "get_top_starknet_tokens",
-		description: "Get the top tokens on Starknet by TVL",
-		schema: z.object({
-			limit: z.number().optional().describe("Maximum number of tokens to return (default: 10)")
-		})
-	}
-);
+import { getTokensFromS3 } from "../utils/defiUtils";
+import { Token } from "@/types/defi";
 
 const getTokenDetailsTool = tool(
 	async ({ symbol, name }: { symbol: string, name: string }) => {
-		let address = tokensData.find((token: any) => token.symbol === symbol)?.l2_token_address;
+		const tokens = await getTokensFromS3();
+		let address = tokens.find((token: Token) => token.symbol === symbol)?.l2_token_address;
 		if (!address) {
-			address = tokensData.find((token: any) => token.name === name)?.l2_token_address;
+			address = tokens.find((token: Token) => token.name === name)?.l2_token_address;
 		}
 		try {
 			const response = await fetch(`https://starknet.impulse.avnu.fi/v1/tokens/${address}`);
@@ -208,7 +136,6 @@ const getTokenPriceFeedTool = tool(
 );
 
 export const starknetTools = [
-	getTopStarknetTokensTool,
 	getTokenDetailsTool,
 	getTokenExchangeDataTool,
 	getTokenPriceFeedTool

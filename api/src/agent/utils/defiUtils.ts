@@ -1,3 +1,6 @@
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
+import { YieldData, Token } from '@/types/defi';
+
 export function convertAmountToSmallestUnit(amount: string, decimals: number): string {
 	const amountNum = parseFloat(amount);
 	if (isNaN(amountNum)) {
@@ -42,4 +45,53 @@ export function reconstructUint256(low: string | number | bigint, high: string |
 	const lowBigInt = BigInt(low);
 	const highBigInt = BigInt(high);
 	return (highBigInt << BigInt(128)) + lowBigInt;
+}
+
+const s3Client = new S3Client({
+	region: process.env.AWS_REGION,
+	credentials: {
+		accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+	},
+	endpoint: process.env.AWS_ENDPOINT
+});
+
+export async function getTokensFromS3(): Promise<Token[]> {
+	if (!process.env.S3_BUCKET_NAME) {
+		throw new Error('S3_BUCKET_NAME is not defined');
+	}
+
+	try {
+		const command = new GetObjectCommand({
+			Bucket: process.env.S3_BUCKET_NAME,
+			Key: 'tokens.json'
+		});
+
+		const response = await s3Client.send(command);
+		const tokensData = JSON.parse(await response.Body?.transformToString() || '[]');
+		return tokensData;
+	} catch (error) {
+		console.error('Error fetching tokens from S3:', error);
+		return [];
+	}
+}
+
+export async function getYieldsFromS3(): Promise<YieldData[]> {
+	if (!process.env.S3_BUCKET_NAME) {
+		throw new Error('S3_BUCKET_NAME is not defined');
+	}
+
+	try {
+		const command = new GetObjectCommand({
+			Bucket: process.env.S3_BUCKET_NAME,
+			Key: 'yields.json'
+		});
+
+		const response = await s3Client.send(command);
+		const yieldsData = JSON.parse(await response.Body?.transformToString() || '[]');
+		return yieldsData;
+	} catch (error) {
+		console.error('Error fetching yields from S3:', error);
+		return [];
+	}
 }

@@ -4,8 +4,8 @@ import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
 import { RpcProvider, Contract } from "starknet";
-import { ProtocolConfig } from "../types/defi";
-import { ERC20_ABI, LP_ABI } from "../constants/contracts";
+import { ProtocolConfig } from "@/types/defi";
+import { ERC20_ABI, LP_ABI } from "../../constants/contracts"
 import {
 	hexToDecimalString,
 	getDeadline,
@@ -13,18 +13,16 @@ import {
 	reconstructUint256,
 	convertAmountToSmallestUnit,
 	splitUint256,
-	replacePlaceholders
+	replacePlaceholders,
+	getTokensFromS3
 } from "../utils/defiUtils";
 
 // Load the configuration file
-const configFilePath = path.join(__dirname, '../config/protocolConfig.json');
+const configFilePath = path.join(__dirname, '../../config/protocolConfig.json');
 const configData: ProtocolConfig = JSON.parse(fs.readFileSync(configFilePath, 'utf-8'));
 
 async function getTokenPrice(
 	tokenAddress: string,
-	protocolConfig: ProtocolConfig,
-	protocol: string,
-	tokenKey: string
 ): Promise<number> {
 	try {
 		// For basic tokens, use the existing price feed
@@ -74,15 +72,9 @@ async function getLPTokenPrice(
 		// Get underlying token prices
 		const token0Price = await getTokenPrice(
 			token0Config.assetContractAddress,
-			protocolConfig,
-			protocol,
-			underlyingTokens[0]
 		);
 		const token1Price = await getTokenPrice(
-			token1Config.assetContractAddress,
-			protocolConfig,
-			protocol,
-			underlyingTokens[1]
+			token1Config.assetContractAddress
 		);
 
 		// Calculate reserves in USD
@@ -216,8 +208,8 @@ const createTransactionsTool = tool(
 						}
 
 						// Fetch token prices directly instead of using tokenPricesUSD parameter
-						const token0Price = await getTokenPrice(token0Details.assetContractAddress, configData, protocol, token0Symbol);
-						const token1Price = await getTokenPrice(token1Details.assetContractAddress, configData, protocol, token1Symbol);
+						const token0Price = await getTokenPrice(token0Details.assetContractAddress);
+						const token1Price = await getTokenPrice(token1Details.assetContractAddress);
 
 						const amount0USD = totalAmountUSD / 2;
 						const amount1USD = totalAmountUSD / 2;
@@ -355,7 +347,7 @@ const getWalletBalancesTool = tool(
 
 			const ALCHEMY_API_ENDPOINT = process.env.ALCHEMY_API_ENDPOINT + process.env.ALCHEMY_API_KEY;
 			const provider = new RpcProvider({ nodeUrl: ALCHEMY_API_ENDPOINT });
-			const tokens = require("../config/tokens.json");
+			const tokens = await getTokensFromS3();
 			const protocolConfig = require("../config/protocolConfig.json");
 
 			// Extract additional contract addresses from protocol config
@@ -384,7 +376,7 @@ const getWalletBalancesTool = tool(
 				// Fetch regular token prices
 				const regularPricePromises = regularTokenAddresses.map(async (address: string) => {
 					try {
-						const price = await getTokenPrice(address, protocolConfig, "Nostra", address);
+						const price = await getTokenPrice(address);
 						tokenPrices.set(address, price);
 					} catch (error) {
 						console.warn(`Failed to fetch price for regular token ${address}`);
