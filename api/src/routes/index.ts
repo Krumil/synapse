@@ -16,4 +16,8 @@ router.get('/trigger-data-fetch', async (req, res) => {
 	}
 });
 
+router.get('/health', (req, res) => {
+	res.json({ status: 'ok' });
+});
+
 export default router;
