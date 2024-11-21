@@ -13,5 +13,8 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"description": ""
+	"description": "",
+	"dependencies": {
+		"starknet": "^6.11.0"
+	}
 }

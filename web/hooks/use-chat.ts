@@ -15,12 +15,13 @@ interface Memory {
 }
 
 export function useChat() {
-	const [messages, setMessages] = useState<ChatMessage[]>([]);
+	const [hasInitiatedConversation, setHasInitiatedConversation] = useState(false);
 	const [input, setInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [messages, setMessages] = useState<ChatMessage[]>([]);
+	const [pendingToolResponses, setPendingToolResponses] = useState<ToolResponse[]>([]);
 	const { address } = useAccount();
 	const { handleTransaction } = useTransaction();
-	const [hasInitiatedConversation, setHasInitiatedConversation] = useState(false);
 	const [memory, setMemory] = useState<Memory>(() => {
 		if (typeof window !== 'undefined') {
 			const savedMemory = localStorage.getItem('chatMemory');
@@ -28,6 +29,7 @@ export function useChat() {
 		}
 		return {};
 	});
+	const [agentMessageReceived, setAgentMessageReceived] = useState(false);
 
 	useEffect(() => {
 		if (typeof window !== 'undefined' && Object.keys(memory).length > 0) {
@@ -42,6 +44,20 @@ export function useChat() {
 		}
 	}, [address]);
 
+	useEffect(() => {
+		const processToolResponses = async () => {
+			if (agentMessageReceived && pendingToolResponses.length > 0) {
+				for (const toolResponse of pendingToolResponses) {
+					await handleToolResponse(toolResponse);
+				}
+				setPendingToolResponses([]);
+				setAgentMessageReceived(false);
+			}
+		};
+
+		processToolResponses();
+	}, [agentMessageReceived, pendingToolResponses]);
+
 	const handleToolResponse = async (toolResponse: ToolResponse) => {
 		if (toolResponse.type === 'transaction' && toolResponse.transactions) {
 			const toAddress = toolResponse.details?.data?.toAddress || undefined;
@@ -52,24 +68,53 @@ export function useChat() {
 	};
 
 	const processStreamMessage = async (data: any) => {
-		if (data.type === 'tool') {
-			const toolResponse: ToolResponse = JSON.parse(data.content);
-			await handleToolResponse(toolResponse);
-		} else {
-			setMessages(prev => {
-				if (prev.length > 0 && prev[prev.length - 1].role === 'assistant') {
-					return [...prev.slice(0, -1), {
-						content: prev[prev.length - 1].content + '\n' + data.content,
+		console.log(data);
+		switch (data.type) {
+			case 'tool': {
+				const toolResponse: ToolResponse = JSON.parse(data.content);
+				setPendingToolResponses(prev => [...prev, toolResponse]);
+				break;
+			}
+			case 'agent_reasoning': {
+				setMessages(prev => {
+					const lastMessage = prev[prev.length - 1];
+					if (lastMessage?.role === 'assistant' && lastMessage?.type === 'agent_reasoning') {
+						const updatedMessages = [...prev];
+						updatedMessages[prev.length - 1] = {
+							...lastMessage,
+							content: lastMessage.content + '\n' + data.content
+						};
+						return updatedMessages;
+					}
+					return [...prev, {
+						content: data.content,
 						role: 'assistant',
 						type: data.type,
 					}];
-				}
-				return [...prev, {
-					content: data.content,
-					role: 'assistant',
-					type: data.type,
-				}];
-			});
+				});
+				break;
+			}
+			case 'agent': {
+				setAgentMessageReceived(true);
+				setMessages(prev => {
+					return [...prev, {
+						content: data.content,
+						role: 'assistant',
+						type: data.type,
+					}];
+				});
+				break;
+			}
+			default: {
+				setMessages(prev => {
+					return [...prev, {
+						content: data.content,
+						role: 'assistant',
+						type: data.type,
+					}];
+				});
+				break;
+			}
 		}
 	};
 

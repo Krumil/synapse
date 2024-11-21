@@ -116,13 +116,15 @@ export async function chat(
 					const messages = event.agent.messages;
 					const content = messages.find((message: any) => message.content);
 					if (content) {
+						const stop_reason = content.additional_kwargs?.stop_reason;
+						const type = stop_reason === "end_turn" ? "agent" : "agent_reasoning";
 						const messagesContent = content.content;
 						if (typeof messagesContent === "string") {
-							res.write(`data: {"type": "agent", "content": ${JSON.stringify(messagesContent)}}\n\n`);
+							res.write(`data: {"type": "${type}", "content": ${JSON.stringify(messagesContent)}}\n\n`);
 						} else if (Array.isArray(messagesContent)) {
 							const textMessages = messagesContent.filter((message: any) => message.type === "text");
 							const textContent = textMessages.map((message: any) => message.text).join("\n");
-							res.write(`data: {"type": "agent", "content": ${JSON.stringify(textContent)}}\n\n`);
+							res.write(`data: {"type": "${type}", "content": ${JSON.stringify(textContent)}}\n\n`);
 						}
 					}
 				}

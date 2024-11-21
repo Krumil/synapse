@@ -11,6 +11,7 @@
 	"dependencies": {
 		"@privy-io/react-auth": "^1.92.7",
 		"@privy-io/wagmi": "^0.2.12",
+		"@radix-ui/react-collapsible": "^1.1.1",
 		"@radix-ui/react-dropdown-menu": "^2.1.2",
 		"@radix-ui/react-scroll-area": "^1.2.0",
 		"@radix-ui/react-slot": "^1.1.0",

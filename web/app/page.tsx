@@ -22,10 +22,6 @@ export default function Home() {
 		}
 	}, [messages]);
 
-	useEffect(() => {
-		console.log('isLoading', isLoading);
-	}, [isLoading]);
-
 	return (
 		<div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
 			<Header />

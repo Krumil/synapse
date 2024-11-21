@@ -10,22 +10,20 @@ export function useTransaction() {
 	});
 
 	const handleTransaction = async (txData: any, toAddress?: string): Promise<TransactionResult> => {
-		console.log('txData', txData);
-		console.log('toAddress', toAddress);
 		try {
 			const calls: Call[] = txData.map((tx: any) => {
-				const txType = Object.keys(tx)[0];
-				if (txType) {
-					let contractAddress = tx[txType].contractAddress;
-					let calldata = tx[txType].calldata;
+				const txEntrypoint = tx.entrypoint
+				if (txEntrypoint) {
+					let contractAddress = tx.contractAddress;
+					let calldata = tx.calldata;
 
-					if (txType === 'approve' && calldata && toAddress) {
-						calldata[0] = BigInt(toAddress).toString();
-					}
+					// if (txEntrypoint === 'approve' && calldata && toAddress) {
+					// 	calldata[0] = BigInt(toAddress).toString();
+					// }
 
 					return {
 						contractAddress: contractAddress,
-						entrypoint: tx[txType].entrypoint,
+						entrypoint: txEntrypoint,
 						calldata: calldata,
 					};
 				}

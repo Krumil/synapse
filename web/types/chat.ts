@@ -1,7 +1,7 @@
 export interface ChatMessage {
 	content: string;
 	role: 'user' | 'assistant';
-	type?: 'agent' | 'tool';
+	type?: 'agent' | 'tool' | 'agent_reasoning';
 }
 
 export interface ToolResponse {
