@@ -9,17 +9,13 @@ export function useTransaction() {
 		calls: currentCallsRef.current
 	});
 
-	const handleTransaction = async (txData: any, toAddress?: string): Promise<TransactionResult> => {
+	const handleTransaction = async (txData: any): Promise<TransactionResult> => {
 		try {
 			const calls: Call[] = txData.map((tx: any) => {
 				const txEntrypoint = tx.entrypoint
 				if (txEntrypoint) {
 					let contractAddress = tx.contractAddress;
 					let calldata = tx.calldata;
-
-					// if (txEntrypoint === 'approve' && calldata && toAddress) {
-					// 	calldata[0] = BigInt(toAddress).toString();
-					// }
 
 					return {
 						contractAddress: contractAddress,

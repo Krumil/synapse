@@ -10,8 +10,9 @@ import {
 import { Button } from "@/components/ui/button"
 import { Chart } from "@/components/WalletBalance/Chart";
 import { ProtocolsTable } from "@/components/ProtocolsTable/ProtocolsTable";
+import { X } from "lucide-react";
 
-export function ChatMessage({ content, role, type }: ChatMessageType) {
+export function ChatMessage({ content, role, type, onDelete }: ChatMessageType & { onDelete: () => void }) {
 	const formatContent = (text: string) => {
 		return text.split('\n').map((line, i) => (
 			<span key={i}>
@@ -41,13 +42,20 @@ export function ChatMessage({ content, role, type }: ChatMessageType) {
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.3, ease: "easeOut" }}
-				className={`rounded-lg ${type === 'agent_reasoning' ? 'px-3 py-1' : 'p-3'} ${role === 'user'
+				className={`rounded-lg relative ${type === 'agent_reasoning' ? 'px-3 py-1' : 'p-3'} ${role === 'user'
 					? 'bg-primary text-primary-foreground ml-10'
 					: type === 'tool'
 						? 'bg-transparent mr-10 p-0 w-[100%]'
 						: 'bg-muted mr-10'
 					}`}
 			>
+				<button
+					onClick={onDelete}
+					className="absolute top-1/2 -translate-y-1/2 -right-[35px] p-1 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
+				>
+					<X size={20} />
+				</button>
+
 				<div className="flex flex-col gap-2">
 					{role === 'user' && (
 						<div className="whitespace-pre-line">{content}</div>

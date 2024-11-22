@@ -14,13 +14,26 @@ interface Memory {
 	lastUpdated?: string;
 }
 
+const waitForTransactionStatus = (currentStatus: string): Promise<void> => {
+	return new Promise((resolve) => {
+		const checkStatus = () => {
+			if (currentStatus === 'success' || currentStatus === 'error') {
+				resolve();
+			} else {
+				setTimeout(checkStatus, 1000); // Check every second
+			}
+		};
+		checkStatus();
+	});
+};
+
 export function useChat() {
 	const [hasInitiatedConversation, setHasInitiatedConversation] = useState(false);
 	const [input, setInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const { address } = useAccount();
-	const { handleTransaction } = useTransaction();
+	const { handleTransaction, transactionStatus } = useTransaction();
 	const [memory, setMemory] = useState<Memory>(() => {
 		if (typeof window !== 'undefined') {
 			const savedMemory = localStorage.getItem('chatMemory');
@@ -44,8 +57,16 @@ export function useChat() {
 
 	const handleToolResponse = async (toolResponse: ToolResponse) => {
 		if (toolResponse.type === 'transaction' && toolResponse.transactions) {
-			const toAddress = toolResponse.details?.data?.toAddress || undefined;
-			await handleTransaction(toolResponse.transactions, toAddress);
+			const result = await handleTransaction(toolResponse.transactions);
+
+			// Wait for transaction status to be confirmed
+			await waitForTransactionStatus(transactionStatus);
+
+			if (result.status === 'error') {
+				console.error('Transaction failed:', result.error);
+			} else {
+				console.log('Transaction successful:', result.hash);
+			}
 		} else if (toolResponse.type === 'memory_update' && toolResponse.memory) {
 			setMemory(toolResponse.memory);
 		} else if (toolResponse.type === 'wallet_balances') {
@@ -70,6 +91,10 @@ export function useChat() {
 				type: 'tool',
 			}]);
 		}
+	};
+
+	const handleDeleteMessage = (index: number) => {
+		setMessages((prev: ChatMessage[]) => prev.filter((_: ChatMessage, i: number) => i !== index));
 	};
 
 	const processStreamMessage = async (data: any) => {
@@ -254,6 +279,7 @@ export function useChat() {
 		isLoading,
 		setInput,
 		handleSend,
+		handleDeleteMessage,
 		memory,
 	};
 }

@@ -13,7 +13,8 @@ import 'ldrs/mirage'
 
 export default function Home() {
 	const scrollAreaRef = useRef<any>(null);
-	const { messages, input, isLoading, setInput, handleSend } = useChat();
+	const { messages, input, isLoading, setInput, handleSend, handleDeleteMessage } = useChat();
+
 
 	useEffect(() => {
 		console.log('messages', messages);
@@ -28,11 +29,11 @@ export default function Home() {
 			<Header />
 
 			<main className="max-w-3xl mx-auto w-full pt-24">
-				<Card className="p-1 relative z-20 border-0 bg-transparent shadow-none backdrop-blur-sm h-[calc(100vh-12rem)]">
+				<Card className="p-1  relative z-20 border-0 bg-transparent shadow-none backdrop-blur-sm h-[calc(100vh-12rem)]">
 					<ScrollArea className="h-full" ref={scrollAreaRef}>
 						<div className="flex flex-col gap-4 px-3">
 							{messages.map((message, index) => (
-								<ChatMessage key={index} {...message} />
+								<ChatMessage key={index} {...message} onDelete={() => handleDeleteMessage(index)} />
 							))}
 							<div className="flex justify-center py-4">
 								{isLoading && (
