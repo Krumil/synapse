@@ -60,5 +60,12 @@ You focus on understanding each user's risk profile, experience level, and prefe
 </suggestion_handling>
 
 <available_protocols>
-	Available protocols: Nostra
+	Available protocols:
+		Nostra:
+			Single Asset Staking:
+				- ETH (nstETH)
+				- USDC (nstUSDC)
+			Liquidity Pools:
+				- ETH/USDC
 </available_protocols>
+

@@ -63,14 +63,19 @@ export function ProtocolsTable({ chain, totalProtocols, filteredProtocols, proto
 			const aValue = a[sortField];
 			const bValue = b[sortField];
 
-			if (aValue === null) return 1;
-			if (bValue === null) return -1;
+			if (aValue === null && bValue === null) return 0;
+			if (aValue === null) return sortDirection === 'asc' ? 1 : -1;
+			if (bValue === null) return sortDirection === 'asc' ? -1 : 1;
 
-			const comparison = typeof aValue === 'string'
-				? aValue.localeCompare(bValue as string)
-				: (aValue as number) - (bValue as number);
+			if (typeof aValue === 'string') {
+				return sortDirection === 'asc'
+					? aValue.localeCompare(bValue as string)
+					: (bValue as string).localeCompare(aValue);
+			}
 
-			return sortDirection === 'asc' ? comparison : -comparison;
+			return sortDirection === 'asc'
+				? (aValue as number) - (bValue as number)
+				: (bValue as number) - (aValue as number);
 		});
 	};
 
@@ -81,7 +86,7 @@ export function ProtocolsTable({ chain, totalProtocols, filteredProtocols, proto
 			: <ArrowDown className="ml-2 h-4 w-4" />;
 	};
 
-	const sortableHeaderClass = "cursor-pointer hover:bg-muted/50 transition-colors flex items-center justify-between";
+	const sortableHeaderClass = "cursor-pointer hover:bg-muted/50 transition-colors";
 
 	return (
 		<div className="w-full space-y-4">
@@ -96,41 +101,41 @@ export function ProtocolsTable({ chain, totalProtocols, filteredProtocols, proto
 				<TableHeader>
 					<TableRow>
 						<TableHead className={sortableHeaderClass} onClick={() => handleSort('project')}>
-							<span className="flex items-center">
+							<div className="flex items-center">
 								Project {getSortIcon('project')}
-							</span>
+							</div>
 						</TableHead>
 						<TableHead className={sortableHeaderClass} onClick={() => handleSort('symbol')}>
-							<span className="flex items-center">
+							<div className="flex items-center">
 								Symbol {getSortIcon('symbol')}
-							</span>
+							</div>
 						</TableHead>
-						<TableHead className={sortableHeaderClass} onClick={() => handleSort('tvlUsd')}>
-							<span className="flex items-center justify-end">
+						<TableHead className={`${sortableHeaderClass} text-right`} onClick={() => handleSort('tvlUsd')}>
+							<div className="flex items-center justify-end">
 								TVL {getSortIcon('tvlUsd')}
-							</span>
+							</div>
 						</TableHead>
-						<TableHead className={sortableHeaderClass} onClick={() => handleSort('apy')}>
-							<span className="flex items-center justify-end">
+						<TableHead className={`${sortableHeaderClass} text-right`} onClick={() => handleSort('apy')}>
+							<div className="flex items-center justify-end">
 								APY {getSortIcon('apy')}
-							</span>
+							</div>
 						</TableHead>
-						<TableHead className={sortableHeaderClass} onClick={() => handleSort('apyBase')}>
-							<span className="flex items-center justify-end">
+						<TableHead className={`${sortableHeaderClass} text-right`} onClick={() => handleSort('apyBase')}>
+							<div className="flex items-center justify-end">
 								Base APY {getSortIcon('apyBase')}
-							</span>
+							</div>
 						</TableHead>
-						<TableHead className={sortableHeaderClass} onClick={() => handleSort('apyReward')}>
-							<span className="flex items-center justify-end">
+						<TableHead className={`${sortableHeaderClass} text-right`} onClick={() => handleSort('apyReward')}>
+							<div className="flex items-center justify-end">
 								Reward APY {getSortIcon('apyReward')}
-							</span>
+							</div>
 						</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
 					{getSortedProtocols().map((protocol) => (
 						<TableRow key={`${protocol.project}-${protocol.symbol}`}>
-							<TableCell className="font-medium">{protocol.project}</TableCell>
+							<TableCell className="font-medium">{protocol.project.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</TableCell>
 							<TableCell>{protocol.symbol}</TableCell>
 							<TableCell className="text-right">{formatNumber(protocol.tvlUsd)}</TableCell>
 							<TableCell className="text-right">{formatPercentage(protocol.apy)}</TableCell>
