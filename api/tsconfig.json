@@ -1,22 +1,23 @@
 {
 	"compilerOptions": {
 		"target": "ES2020",
-		"lib": [
-			"ES2020",
-			"DOM"
-		],
 		"module": "commonjs",
+		"lib": [
+			"ES2020"
+		],
 		"moduleResolution": "node",
 		"outDir": "./dist",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
+		"rootDir": "./src",
 		"strict": true,
+		"esModuleInterop": true,
 		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"baseUrl": ".",
 		"paths": {
 			"*": [
-				"node_modules/*"
+				"node_modules/*",
+				"src/types/*"
 			]
 		}
 	},
