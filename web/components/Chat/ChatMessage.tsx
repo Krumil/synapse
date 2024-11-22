@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import { TextGenerateEffect } from "../ui/text-generate-effect";
 import { ChatMessage as ChatMessageType } from "../../types/chat";
 import {
@@ -7,9 +8,10 @@ import {
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { Button } from "@/components/ui/button"
+import { Chart } from "@/components/WalletBalance/Chart";
+import { ProtocolsTable } from "@/components/ProtocolsTable/ProtocolsTable";
 
 export function ChatMessage({ content, role, type }: ChatMessageType) {
-	// Helper function to convert newlines to <br> tags
 	const formatContent = (text: string) => {
 		return text.split('\n').map((line, i) => (
 			<span key={i}>
@@ -19,15 +21,31 @@ export function ChatMessage({ content, role, type }: ChatMessageType) {
 		));
 	};
 
+	// Add this helper function to safely parse JSON content
+	const parseToolContent = () => {
+		try {
+			return JSON.parse(content);
+		} catch (e) {
+			return null;
+		}
+	};
+
 	if (!content) return null;
+
+	// Get parsed content for tool responses
+	const toolContent = type === 'tool' ? parseToolContent() : null;
+
 	return (
 		<div className={`flex ${role === 'user' ? 'justify-end' : 'justify-start'}`}>
-			<div
-				className={`max-w-[80%] rounded-lg ${type === 'agent_reasoning' ? 'px-3 py-1' : 'p-3'} ${role === 'user'
-					? 'bg-primary text-primary-foreground ml-4'
+			<motion.div
+				initial={{ opacity: 0, y: 20 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.3, ease: "easeOut" }}
+				className={`rounded-lg ${type === 'agent_reasoning' ? 'px-3 py-1' : 'p-3'} ${role === 'user'
+					? 'bg-primary text-primary-foreground ml-10'
 					: type === 'tool'
-						? 'bg-orange-100 dark:bg-orange-900 mr-4'
-						: 'bg-muted mr-4'
+						? 'bg-transparent mr-10 p-0 w-[100%]'
+						: 'bg-muted mr-10'
 					}`}
 			>
 				<div className="flex flex-col gap-2">
@@ -39,13 +57,32 @@ export function ChatMessage({ content, role, type }: ChatMessageType) {
 						<TextGenerateEffect words={content} className="whitespace-pre-line" />
 					)}
 
-					{type === 'agent_reasoning' && (
+					{role === 'assistant' && type === 'tool' && toolContent?.type === 'wallet_balances' && (
+						<div className="w-full">
+							<Chart data={toolContent.balances} />
+						</div>
+					)}
+
+					{role === 'assistant' && type === 'tool' && toolContent?.type === 'top_protocols' && (
+						<ProtocolsTable
+							chain={toolContent.chain}
+							totalProtocols={toolContent.totalProtocols}
+							filteredProtocols={toolContent.filteredProtocols}
+							protocols={toolContent.protocols}
+						/>
+					)}
+
+					{role === 'assistant' && type === 'tool' && toolContent?.type !== 'wallet_balances' && toolContent?.type !== 'top_protocols' && (
+						<div className="whitespace-pre-line">{content}</div>
+					)}
+
+					{role === 'assistant' && type === 'agent_reasoning' && (
 						<Collapsible className="w-full">
 							<CollapsibleTrigger asChild>
 								<Button
 									variant="ghost"
 									size="sm"
-									className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+									className="flex items-center w-full justify-start gap-2 text-muted-foreground hover:text-primary transition-colors"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +109,7 @@ export function ChatMessage({ content, role, type }: ChatMessageType) {
 						</Collapsible>
 					)}
 				</div>
-			</div>
+			</motion.div>
 		</div>
 	);
 }

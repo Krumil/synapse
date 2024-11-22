@@ -1,5 +1,3 @@
-import { Contract } from "starknet";
-
 export const ERC20_ABI = [
 	{
 		name: "balanceOf",
@@ -35,4 +33,29 @@ export const LP_ABI = [
 		outputs: [{ name: "supply", type: "(felt, felt)" }], // Uint256 is represented as (low, high)
 		stateMutability: "view"
 	}
-] as const; 
+] as const;
+
+export const PRICE_FEED_ABI = [
+	{
+		name: "get_asset_price",
+		type: "function",
+		inputs: [
+			{ name: "_asset", type: "core::starknet::contract_address::ContractAddress" }
+		],
+		outputs: [
+			{ type: "core::integer::u256" }
+		],
+		state_mutability: "view"
+	}
+] as const;
+
+export const STAKING_ABI = [
+	{
+		name: "token_index",
+		type: "function",
+		inputs: [],
+		outputs: [{ type: "core::integer::u256" }],
+		stateMutability: "view"
+	}
+] as const;
+

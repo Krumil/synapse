@@ -12,6 +12,13 @@ export interface ProtocolConfig {
 	};
 }
 
+export interface ChainData {
+	timestamp: string;
+	chain: string;
+	protocols: YieldData[];
+	count: number;
+}
+
 export interface YieldData {
 	chain: string;
 	project: string;
@@ -52,6 +59,27 @@ export interface Token {
 	symbol: string;
 	decimals: number;
 	l2_token_address: string;
+}
+
+export interface TokenMetadata {
+	address: string;
+	name: string;
+	symbol: string;
+	type: string;
+	asset0?: string;
+	asset1?: string;
+	decimals?: number;
+	underlyingAddress?: string;
+}
+
+export interface TokenBalance {
+	contract_address: string;
+	name: string;
+	symbol: string;
+	balance: string;
+	decimals: string;
+	valueUSD: string | null;
+	error?: string;
 }
 
 export const TransactionActionSchema = z.object({

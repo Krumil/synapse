@@ -117,7 +117,8 @@ export async function chat(
 					const content = messages.find((message: any) => message.content);
 					if (content) {
 						const stop_reason = content.additional_kwargs?.stop_reason;
-						const type = stop_reason === "end_turn" ? "agent" : "agent_reasoning";
+						// const type = stop_reason === "end_turn" ? "agent" : "agent_reasoning";
+						const type = "agent";
 						const messagesContent = content.content;
 						if (typeof messagesContent === "string") {
 							res.write(`data: {"type": "${type}", "content": ${JSON.stringify(messagesContent)}}\n\n`);

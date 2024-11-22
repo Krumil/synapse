@@ -1,96 +1,27 @@
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import fs from 'fs';
-import path from 'path';
-import axios from 'axios';
-import { RpcProvider, Contract } from "starknet";
-import { ProtocolConfig } from "../../types/defi";
-import { ERC20_ABI, LP_ABI } from "../../constants/contracts"
 import {
 	hexToDecimalString,
 	getDeadline,
-	parseUnderlyingTokens,
-	reconstructUint256,
 	convertAmountToSmallestUnit,
 	splitUint256,
 	replacePlaceholders,
-	getTokensFromS3
+	getTokensFromS3,
+	extractDefiTokens,
+	prepareTokensToCheck,
+	fetchTokenPrices,
+	fetchTokenBalance,
+	filterNonZeroBalances,
+	getTokenPrice,
+	getLPTokenPrice
 } from "../utils/defiUtils";
+import fs from 'fs';
+import path from 'path';
+import { ProtocolConfig } from "../../types/defi";
 
 // Load the configuration file
 const configFilePath = path.join(__dirname, '../../config/protocolConfig.json');
 const configData: ProtocolConfig = JSON.parse(fs.readFileSync(configFilePath, 'utf-8'));
-
-async function getTokenPrice(
-	tokenAddress: string,
-): Promise<number> {
-	try {
-		// For basic tokens, use the existing price feed
-		const { data } = await axios.get(`https://starknet.impulse.avnu.fi/v1/tokens/${tokenAddress}/prices/line`);
-		const currentPrice = data[data.length - 1]?.value;
-		if (!currentPrice) {
-			throw new Error(`No price data available for token ${tokenAddress}`);
-		}
-		return currentPrice;
-	} catch (error) {
-		if (axios.isAxiosError(error)) {
-			throw new Error(`Failed to fetch price for token ${tokenAddress}: ${error.message}`);
-		}
-		throw error;
-	}
-}
-
-async function getLPTokenPrice(
-	poolAddress: string,
-	provider: RpcProvider,
-	protocolConfig: ProtocolConfig,
-	protocol: string,
-	underlyingTokens: string[]
-): Promise<number> {
-	try {
-		const poolContract = new Contract(
-			LP_ABI,
-			poolAddress,
-			provider
-		);
-
-		// Get pool data
-		const [reservesResult, totalSupplyResult] = await Promise.all([
-			poolContract.call("get_reserves", []),
-			poolContract.call("total_supply", [])
-		]) as [{ reserve0: [string, string]; reserve1: [string, string] }, { supply: [string, string] }];
-
-		// Reconstruct reserves and total supply
-		const reserve0 = reconstructUint256(reservesResult.reserve0[0], reservesResult.reserve0[1]);
-		const reserve1 = reconstructUint256(reservesResult.reserve1[0], reservesResult.reserve1[1]);
-		const totalSupply = reconstructUint256(totalSupplyResult.supply[0], totalSupplyResult.supply[1]);
-
-		// Get underlying token configs
-		const token0Config = protocolConfig.protocols[protocol].contracts.assets[underlyingTokens[0]];
-		const token1Config = protocolConfig.protocols[protocol].contracts.assets[underlyingTokens[1]];
-
-		// Get underlying token prices
-		const token0Price = await getTokenPrice(
-			token0Config.assetContractAddress,
-		);
-		const token1Price = await getTokenPrice(
-			token1Config.assetContractAddress
-		);
-
-		// Calculate reserves in USD
-		const reserve0USD = Number(reserve0) * token0Price / (10 ** token0Config.decimals);
-		const reserve1USD = Number(reserve1) * token1Price / (10 ** token1Config.decimals);
-
-		// Total pool value in USD
-		const totalPoolValueUSD = reserve0USD + reserve1USD;
-
-		// Price per LP token = Total Pool Value / Total Supply
-		return totalPoolValueUSD / (Number(totalSupply) / (10 ** 18));
-	} catch (error) {
-		console.error(`Failed to calculate LP token price for pool ${poolAddress}:`, error);
-		throw error;
-	}
-}
 
 // Main tool function
 const createTransactionsTool = tool(
@@ -208,8 +139,10 @@ const createTransactionsTool = tool(
 						}
 
 						// Fetch token prices directly instead of using tokenPricesUSD parameter
-						const token0Price = await getTokenPrice(token0Details.assetContractAddress);
-						const token1Price = await getTokenPrice(token1Details.assetContractAddress);
+						const [token0Price, token1Price] = await Promise.all([
+							getTokenPrice(token0Details.assetContractAddress),
+							getTokenPrice(token1Details.assetContractAddress)
+						]);
 
 						const amount0USD = totalAmountUSD / 2;
 						const amount1USD = totalAmountUSD / 2;
@@ -341,151 +274,32 @@ const createTransactionsTool = tool(
 const getWalletBalancesTool = tool(
 	async (input: { walletAddress: string }) => {
 		try {
-			if (!process.env.ALCHEMY_API_ENDPOINT || !process.env.ALCHEMY_API_KEY) {
-				throw new Error("Alchemy API configuration is missing");
-			}
-
-			const ALCHEMY_API_ENDPOINT = process.env.ALCHEMY_API_ENDPOINT + process.env.ALCHEMY_API_KEY;
-			const provider = new RpcProvider({ nodeUrl: ALCHEMY_API_ENDPOINT });
 			const tokens = await getTokensFromS3();
-			const protocolConfig = require("../config/protocolConfig.json");
 
-			// Extract additional contract addresses from protocol config
-			const defiAddresses = new Set<string>();
+			// Extract DeFi tokens
+			const defiTokens = extractDefiTokens();
+			const tokensToCheck = prepareTokensToCheck(tokens, defiTokens);
 
-			// Get staking contract addresses
-			Object.values(protocolConfig.protocols.Nostra.contracts.assets).forEach((asset: any) => {
-				if (asset.stakingContractAddress) {
-					defiAddresses.add(asset.stakingContractAddress);
-				}
-			});
-
-			Object.values(protocolConfig.protocols.Nostra.contracts.pairs).forEach((pair: any) => {
-				if (pair.pairAddress) {
-					defiAddresses.add(pair.pairAddress);
-				}
-			});
-
-			// Split regular tokens and DeFi tokens (additional addresses)
-			const regularTokenAddresses = tokens.map((token: any) => token.l2_token_address);
-			const defiTokenAddresses = Array.from(defiAddresses);
-
-			// Batch fetch all token prices in one go
-			const tokenPrices = new Map<string, number>();
-			try {
-				// Fetch regular token prices
-				const regularPricePromises = regularTokenAddresses.map(async (address: string) => {
-					try {
-						const price = await getTokenPrice(address);
-						tokenPrices.set(address, price);
-					} catch (error) {
-						console.warn(`Failed to fetch price for regular token ${address}`);
-					}
-				});
-
-				// Fetch DeFi token prices with proper token key lookup
-				const defiPricePromises = defiTokenAddresses.map(async (address: string) => {
-					try {
-						// Find token key by matching address with protocol config
-						const tokenKey = Object.entries(protocolConfig.protocols.Nostra.contracts.pairs)
-							.find(([_, pair]: [string, any]) => pair.pairAddress === address)?.[0] ||
-							Object.entries(protocolConfig.protocols.Nostra.contracts.assets)
-								.find(([_, asset]: [string, any]) => asset.stakingContractAddress === address)?.[0];
-
-						if (tokenKey) {
-							const underlyingTokens = parseUnderlyingTokens(tokenKey);
-							if (underlyingTokens.length > 0) {
-								const price = await getLPTokenPrice(address, provider, protocolConfig, "Nostra", underlyingTokens);
-								tokenPrices.set(address, price);
-							}
-						}
-					} catch (error) {
-						console.warn(`Failed to fetch price for DeFi token ${address}`);
-					}
-				});
-
-				await Promise.all([...regularPricePromises, ...defiPricePromises]);
-			} catch (error) {
-				console.error("Failed to fetch token prices:", error);
-			}
-
-			// Create combined list of tokens to check
-			const tokensToCheck = [
-				...tokens,
-				...Array.from(defiAddresses).map((address: string) => ({
-					l2_token_address: address,
-					name: `Contract-${address.slice(0, 8)}`,  // Add a short version of the address as name
-					symbol: 'CONTRACT'
-				}))
-			];
-
-			// Batch fetch all balances
-			const balancesWithUSD = await Promise.all(
-				tokensToCheck.map(async (token: any) => {
-					try {
-						const contract = new Contract(
-							ERC20_ABI,
-							token.l2_token_address,
-							provider
-						);
-
-						// Get balance and decimals in a single Promise.all
-						const [balanceResult, decimalsResult] = await Promise.all([
-							contract.call("balanceOf", [input.walletAddress]),
-							contract.call("decimals", [])
-						]) as [{ balance: bigint }, { decimals: bigint }];
-
-						const balance = balanceResult.balance;
-						const decimals = Number(decimalsResult.decimals);
-
-						if (!balance) {
-							return {
-								contract_address: token.l2_token_address,
-								name: token.name,
-								symbol: token.symbol,
-								balance: "0",
-								decimals: decimals.toString(),
-								valueUSD: "0"
-							};
-						}
-
-						const balanceInSmallestUnit = balance.toString();
-						const balanceInTokens = Number(balanceInSmallestUnit) / Math.pow(10, decimals);
-
-						// Use cached token price
-						const tokenPrice = tokenPrices.get(token.l2_token_address);
-						const valueUSD = tokenPrice ? (balanceInTokens * tokenPrice).toFixed(2) : null;
-
-						return {
-							contract_address: token.l2_token_address,
-							name: token.name,
-							symbol: token.symbol,
-							balance: balanceInSmallestUnit,
-							decimals: decimals.toString(),
-							valueUSD
-						};
-					} catch (error) {
-						console.error(
-							`Failed to fetch balance for token ${token.l2_token_address}:`,
-							error
-						);
-						return {
-							contract_address: token.l2_token_address,
-							name: token.name,
-							symbol: token.symbol,
-							balance: "0",
-							decimals: "0",
-							valueUSD: null,
-							error: "Failed to fetch balance"
-						};
-					}
-				})
+			// Fetch all token prices
+			const tokenPrices = await fetchTokenPrices(
+				tokensToCheck,
+				defiTokens,
 			);
+
+			// Fetch all balances
+			const balancesWithUSD = await Promise.all(
+				tokensToCheck.map(token =>
+					fetchTokenBalance(token, input.walletAddress, tokenPrices)
+				)
+			);
+
+			// Filter balances
+			const filteredBalances = filterNonZeroBalances(balancesWithUSD);
 
 			return JSON.stringify(
 				{
 					type: "wallet_balances",
-					data: balancesWithUSD,
+					data: filteredBalances,
 					details: {
 						walletAddress: input.walletAddress,
 					}
@@ -495,8 +309,7 @@ const getWalletBalancesTool = tool(
 			);
 		} catch (error) {
 			throw new Error(
-				`Failed to fetch wallet balances: ${error instanceof Error ? error.message : "Unknown error"
-				}`
+				`Failed to fetch wallet balances: ${error instanceof Error ? error.message : "Unknown error"}`
 			);
 		}
 	},

@@ -1,36 +1,26 @@
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import fs from 'fs/promises';
-import path from 'path';
+import { getYieldsFromS3 } from '../utils/defiUtils';
+import { ChainData } from '../../types/defi';
 
-interface Protocol {
-	chain: string;
-	project: string;
-	symbol: string;
-	tvlUsd: number;
-	apyBase: number;
-	apyReward: number | null;
-	apy: number;
-	pool: string;
-	stablecoin: boolean;
-	ilRisk: string;
-	exposure: string;
-	poolMeta: string | null;
-}
-
-interface ChainData {
-	timestamp: string;
-	chain: string;
-	protocols: Protocol[];
-	count: number;
-}
 
 async function readChainData(chain: string): Promise<ChainData | null> {
 	try {
-		const dataDir = path.join(__dirname, '../../../data');
-		const filePath = path.join(dataDir, `${chain.toLowerCase()}.json`);
-		const data = await fs.readFile(filePath, 'utf-8');
-		return JSON.parse(data) as ChainData;
+		const allYields: ChainData[] = await getYieldsFromS3();
+		const chainData: ChainData[] = allYields.filter(p =>
+			p.chain.toLowerCase() === chain.toLowerCase()
+		);
+
+		if (chainData.length === 0) return null;
+
+		const protocols = chainData[0].protocols;
+
+		return {
+			timestamp: new Date().toISOString(),
+			chain,
+			protocols,
+			count: protocols.length
+		};
 	} catch (error) {
 		return null;
 	}
@@ -70,6 +60,7 @@ const getDefiDataTool = tool(
 			filteredProtocols = filteredProtocols.slice(0, limit);
 
 			const result = {
+				type: "top_protocols",
 				timestamp: chainData.timestamp,
 				chain: chainData.chain,
 				totalProtocols: chainData.count,
@@ -112,26 +103,12 @@ const getTopDefiProtocolsTool = tool(
 		limit?: number;
 	}) => {
 		try {
-			const dataDir = path.join(__dirname, '../../../data');
-			const files = await fs.readdir(dataDir);
-
-			let allProtocols: Array<Protocol & { chain: string }> = [];
-
-			// Collect protocols from all chain files
-			for (const file of files) {
-				if (!file.endsWith('.json')) continue;
-
-				const filePath = path.join(dataDir, file);
-				const data = await fs.readFile(filePath, 'utf-8');
-				const chainData = JSON.parse(data) as ChainData;
-
-				allProtocols = allProtocols.concat(chainData.protocols);
-			}
+			const allChainData: ChainData[] = await getYieldsFromS3();
 
 			// Filter and sort protocols
-			const filteredProtocols = allProtocols
-				.filter(p => p.tvlUsd >= minTvl && (p.apy || 0) >= minApy)
-				.sort((a, b) => b.tvlUsd - a.tvlUsd)
+			const filteredProtocols = allChainData
+				.filter(p => p.protocols.some(p => p.tvlUsd >= minTvl && (p.apy || 0) >= minApy))
+				.sort((a, b) => b.protocols.reduce((acc, p) => acc + (p.tvlUsd || 0), 0) - a.protocols.reduce((acc, p) => acc + (p.tvlUsd || 0), 0))
 				.slice(0, limit);
 
 			const result = {
@@ -144,15 +121,15 @@ const getTopDefiProtocolsTool = tool(
 				},
 				protocols: filteredProtocols.map(p => ({
 					chain: p.chain,
-					project: p.project,
-					symbol: p.symbol,
-					tvlUsd: p.tvlUsd,
-					apy: p.apy,
-					apyBase: p.apyBase,
-					apyReward: p.apyReward,
-					stablecoin: p.stablecoin,
-					ilRisk: p.ilRisk,
-					exposure: p.exposure
+					project: p.protocols[0].project,
+					symbol: p.protocols[0].symbol,
+					tvlUsd: p.protocols[0].tvlUsd,
+					apy: p.protocols[0].apy,
+					apyBase: p.protocols[0].apyBase,
+					apyReward: p.protocols[0].apyReward,
+					stablecoin: p.protocols[0].stablecoin,
+					ilRisk: p.protocols[0].ilRisk,
+					exposure: p.protocols[0].exposure
 				}))
 			};
 
@@ -174,5 +151,5 @@ const getTopDefiProtocolsTool = tool(
 
 export const defiLlamaTools = [
 	getDefiDataTool,
-	getTopDefiProtocolsTool
+	// getTopDefiProtocolsTool
 ];

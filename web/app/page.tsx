@@ -16,6 +16,7 @@ export default function Home() {
 	const { messages, input, isLoading, setInput, handleSend } = useChat();
 
 	useEffect(() => {
+		console.log('messages', messages);
 		const viewport = scrollAreaRef.current?.querySelector('[data-radix-scroll-area-viewport]');
 		if (viewport) {
 			viewport.scrollTop = viewport.scrollHeight;
@@ -31,9 +32,7 @@ export default function Home() {
 					<ScrollArea className="h-full" ref={scrollAreaRef}>
 						<div className="flex flex-col gap-4 px-3">
 							{messages.map((message, index) => (
-								index === messages.length - 1 && isLoading && message.role === 'assistant' ? null : (
-									<ChatMessage key={index} {...message} />
-								)
+								<ChatMessage key={index} {...message} />
 							))}
 							<div className="flex justify-center py-4">
 								{isLoading && (

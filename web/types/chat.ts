@@ -1,11 +1,11 @@
 export interface ChatMessage {
 	content: string;
 	role: 'user' | 'assistant';
-	type?: 'agent' | 'tool' | 'agent_reasoning';
+	type?: 'agent' | 'tool' | 'agent_reasoning' | 'wallet_balances';
 }
 
 export interface ToolResponse {
-	type: 'transaction' | 'memory_update' | string;
+	type: 'transaction' | 'memory_update' | 'top_protocols' | string;
 	status?: string;
 	memory?: {
 		preferences?: {
@@ -24,4 +24,9 @@ export interface ToolResponse {
 		};
 	};
 	message?: string;
+	data?: any;
+	protocols?: any[];
+	chain?: string;
+	totalProtocols?: number;
+	filteredProtocols?: number;
 }

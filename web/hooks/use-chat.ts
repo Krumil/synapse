@@ -19,7 +19,6 @@ export function useChat() {
 	const [input, setInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
-	const [pendingToolResponses, setPendingToolResponses] = useState<ToolResponse[]>([]);
 	const { address } = useAccount();
 	const { handleTransaction } = useTransaction();
 	const [memory, setMemory] = useState<Memory>(() => {
@@ -29,7 +28,6 @@ export function useChat() {
 		}
 		return {};
 	});
-	const [agentMessageReceived, setAgentMessageReceived] = useState(false);
 
 	useEffect(() => {
 		if (typeof window !== 'undefined' && Object.keys(memory).length > 0) {
@@ -44,35 +42,41 @@ export function useChat() {
 		}
 	}, [address]);
 
-	useEffect(() => {
-		const processToolResponses = async () => {
-			if (agentMessageReceived && pendingToolResponses.length > 0) {
-				for (const toolResponse of pendingToolResponses) {
-					await handleToolResponse(toolResponse);
-				}
-				setPendingToolResponses([]);
-				setAgentMessageReceived(false);
-			}
-		};
-
-		processToolResponses();
-	}, [agentMessageReceived, pendingToolResponses]);
-
 	const handleToolResponse = async (toolResponse: ToolResponse) => {
 		if (toolResponse.type === 'transaction' && toolResponse.transactions) {
 			const toAddress = toolResponse.details?.data?.toAddress || undefined;
 			await handleTransaction(toolResponse.transactions, toAddress);
 		} else if (toolResponse.type === 'memory_update' && toolResponse.memory) {
 			setMemory(toolResponse.memory);
+		} else if (toolResponse.type === 'wallet_balances') {
+			setMessages(prev => [...prev, {
+				content: JSON.stringify({
+					type: toolResponse.type,
+					balances: toolResponse.data,
+				}),
+				role: 'assistant',
+				type: 'tool',
+			}]);
+		} else if (toolResponse.type === 'top_protocols' && toolResponse.protocols) {
+			setMessages(prev => [...prev, {
+				content: JSON.stringify({
+					type: toolResponse.type,
+					protocols: toolResponse.protocols,
+					chain: toolResponse.chain,
+					totalProtocols: toolResponse.totalProtocols,
+					filteredProtocols: toolResponse.filteredProtocols,
+				}),
+				role: 'assistant',
+				type: 'tool',
+			}]);
 		}
 	};
 
 	const processStreamMessage = async (data: any) => {
-		console.log(data);
 		switch (data.type) {
 			case 'tool': {
 				const toolResponse: ToolResponse = JSON.parse(data.content);
-				setPendingToolResponses(prev => [...prev, toolResponse]);
+				await handleToolResponse(toolResponse);
 				break;
 			}
 			case 'agent_reasoning': {
@@ -95,7 +99,6 @@ export function useChat() {
 				break;
 			}
 			case 'agent': {
-				setAgentMessageReceived(true);
 				setMessages(prev => {
 					return [...prev, {
 						content: data.content,
