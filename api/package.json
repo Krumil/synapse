@@ -5,7 +5,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "npx tsc && cpx \"src/config/**/*\" dist/config",
-		"start": "ts-node src/server.ts"
+		"start": "ts-node src/index.ts"
 	},
 	"keywords": [],
 	"author": "",
