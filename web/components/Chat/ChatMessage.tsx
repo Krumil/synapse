@@ -27,6 +27,7 @@ export function ChatMessage({ content, role, type, onDelete }: ChatMessageType &
 		try {
 			return JSON.parse(content);
 		} catch (e) {
+			console.error(e);
 			return null;
 		}
 	};
