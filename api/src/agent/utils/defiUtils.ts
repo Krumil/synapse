@@ -248,11 +248,11 @@ export async function fetchTokenBalance(
 
 		if (!balance) {
 			return {
-				contract_address: token.address,
+				// contract_address: token.address,
 				name: token.name,
 				symbol: token.symbol,
 				balance: "0",
-				decimals: decimals.toString(),
+				// decimals: decimals.toString(),
 				valueUSD: "0"
 			};
 		}
@@ -263,21 +263,21 @@ export async function fetchTokenBalance(
 		const valueUSD = tokenPrice ? (balanceInTokens * tokenPrice).toFixed(2) : null;
 
 		return {
-			contract_address: token.address,
+			// contract_address: token.address,
 			name: token.name,
 			symbol: token.symbol,
 			balance: balanceInSmallestUnit,
-			decimals: decimals.toString(),
+			// decimals: decimals.toString(),
 			valueUSD
 		};
 	} catch (error) {
 		console.error(`Failed to fetch balance for token ${token.address}:`, error);
 		return {
-			contract_address: token.address,
+			// contract_address: token.address,
 			name: token.name,
 			symbol: token.symbol,
 			balance: "0",
-			decimals: "0",
+			// decimals: "0",
 			valueUSD: null,
 			error: "Failed to fetch balance"
 		};

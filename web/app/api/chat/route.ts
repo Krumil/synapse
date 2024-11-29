@@ -3,7 +3,6 @@ import { NextRequest } from 'next/server';
 export async function POST(req: NextRequest) {
 	const body = await req.json();
 
-	// Ensure all required fields are present
 	const payload = {
 		messages: body.messages,
 		address: body.address,

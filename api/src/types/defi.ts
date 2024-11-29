@@ -73,11 +73,11 @@ export interface TokenMetadata {
 }
 
 export interface TokenBalance {
-	contract_address: string;
+	// contract_address: string;
 	name: string;
 	symbol: string;
 	balance: string;
-	decimals: string;
+	// decimals: string;
 	valueUSD: string | null;
 	error?: string;
 }

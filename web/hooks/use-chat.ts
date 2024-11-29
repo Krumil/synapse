@@ -205,6 +205,7 @@ export function useChat() {
 								{
 									role: 'assistant',
 									content: 'Sorry, there was an error processing the response.',
+									type: 'agent',
 								},
 							]);
 						}
@@ -291,6 +292,7 @@ export function useChat() {
 								{
 									role: 'assistant',
 									content: 'Sorry, there was an error processing the response.',
+									type: 'agent',
 								},
 							]);
 						}
