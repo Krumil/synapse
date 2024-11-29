@@ -1,5 +1,7 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
 
 // Configure S3 Client
 const s3Client = new S3Client({
@@ -18,16 +20,33 @@ export async function fetchTokens() {
 	}
 
 	try {
+		// Load protocol config the same way as defiUtils
+		const configFilePath = path.join(__dirname, './config/protocolConfig.json');
+		const protocolConfig = JSON.parse(fs.readFileSync(configFilePath, 'utf-8'));
+
+		// Extract unique token symbols from pairs and assets
+		const validTokens = new Set<string>();
+		const { assets, pairs } = protocolConfig.protocols.Nostra.contracts;
+
+		// Add tokens from assets
+		Object.keys(assets).forEach(symbol => validTokens.add(symbol));
+
+		// Add tokens from pairs
+		Object.values(pairs).forEach((pair: any) => {
+			validTokens.add(pair.asset0);
+			validTokens.add(pair.asset1);
+		});
+
 		const response = await axios.get('https://starknet.api.avnu.fi/v1/starknet/tokens');
 		const tokens = response.data.content;
 
 		const formattedTokens = tokens
-			.filter((token: any) => token.lastDailyVolumeUsd >= 100)
+			.filter((token: any) => validTokens.has(token.symbol))
 			.map((token: any) => ({
 				name: token.name,
 				symbol: token.symbol,
 				decimals: token.decimals || 18,
-				l2_token_address: token.address,
+				address: token.address,
 				tags: token.tags || [],
 				logoUri: token.logoUri,
 				lastDailyVolumeUsd: token.lastDailyVolumeUsd

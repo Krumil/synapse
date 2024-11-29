@@ -135,7 +135,7 @@ export function ProtocolsTable({ chain, totalProtocols, filteredProtocols, proto
 				<TableBody>
 					{getSortedProtocols().map((protocol) => (
 						<TableRow key={`${protocol.project}-${protocol.symbol}`}>
-							<TableCell className="font-medium">{protocol.project.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</TableCell>
+							<TableCell className="font-medium">{protocol.project}</TableCell>
 							<TableCell>{protocol.symbol}</TableCell>
 							<TableCell className="text-right">{formatNumber(protocol.tvlUsd)}</TableCell>
 							<TableCell className="text-right">{formatPercentage(protocol.apy)}</TableCell>

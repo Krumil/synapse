@@ -8,19 +8,26 @@ import {
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { Button } from "@/components/ui/button"
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient"
 import { Chart } from "@/components/WalletBalance/Chart";
 import { ProtocolsTable } from "@/components/ProtocolsTable/ProtocolsTable";
 import { X } from "lucide-react";
+import { useState, memo } from "react";
 
-export function ChatMessage({ content, role, type, onDelete }: ChatMessageType & { onDelete: () => void }) {
-	const formatContent = (text: string) => {
-		return text.split('\n').map((line, i) => (
-			<span key={i}>
-				{line}
-				{i !== text.split('\n').length - 1 && <br />}
-			</span>
-		));
-	};
+type ButtonOption = {
+	label: string;
+	value: string;
+	action?: () => void;
+	disabled?: boolean;
+};
+
+export const ChatMessage = memo(function ChatMessage({ content, role, type, onOptionClick }: ChatMessageType & {
+	onOptionClick?: (value: string) => void;
+}) {
+	// console.log('content', content);
+	// console.log('role', role);
+	// console.log('type', type);
+	const [showButtons, setShowButtons] = useState(false);
 
 	// Add this helper function to safely parse JSON content
 	const parseToolContent = () => {
@@ -30,6 +37,26 @@ export function ChatMessage({ content, role, type, onDelete }: ChatMessageType &
 			console.error(e);
 			return null;
 		}
+	};
+
+	// Enhance the helper function to extract more button metadata
+	const extractButtonOptions = (text: string): ButtonOption[] => {
+		const matches = text.match(/{{(.*?)}}/g);
+		if (!matches) return [];
+
+		return matches.map(match => {
+			const content = match.replace(/{{|}}/g, '').trim();
+			return {
+				label: content,
+				value: content.toLowerCase(),
+				disabled: false
+			};
+		});
+	};
+
+	// Add this helper function to clean the message text
+	const cleanMessage = (text: string) => {
+		return text.replace(/\*\*(.*?)\*\*/g, '$1').replace(/{{(.*?)}}/g, '').trim();
 	};
 
 	if (!content) return null;
@@ -44,18 +71,12 @@ export function ChatMessage({ content, role, type, onDelete }: ChatMessageType &
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.3, ease: "easeOut" }}
 				className={`rounded-lg relative ${type === 'agent_reasoning' ? 'px-3 py-1' : 'p-3'} ${role === 'user'
-					? 'bg-primary text-primary-foreground ml-10'
+					? 'bg-[#696969] text-white ml-10'
 					: type === 'tool'
 						? 'bg-transparent mr-10 p-0 w-[100%]'
 						: 'bg-muted mr-10'
 					}`}
 			>
-				<button
-					onClick={onDelete}
-					className="absolute top-1/2 -translate-y-1/2 -right-[35px] p-1 rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
-				>
-					<X size={20} />
-				</button>
 
 				<div className="flex flex-col gap-2">
 					{role === 'user' && (
@@ -63,7 +84,33 @@ export function ChatMessage({ content, role, type, onDelete }: ChatMessageType &
 					)}
 
 					{role === 'assistant' && type === 'agent' && (
-						<TextGenerateEffect words={content} className="whitespace-pre-line" />
+						<>
+							<TextGenerateEffect
+								words={cleanMessage(content)}
+								className="whitespace-pre-line"
+								onComplete={() => setShowButtons(true)}
+							/>
+							{extractButtonOptions(content).length > 0 && (
+								<motion.div
+									className="flex flex-wrap gap-2 mt-2 justify-end"
+									initial={{ opacity: 0, y: 10 }}
+									animate={showButtons ? { opacity: 1, y: 0 } : {}}
+									transition={{ duration: 0.3, ease: "easeOut" }}
+								>
+									{extractButtonOptions(content).map((option, index) => (
+										<HoverBorderGradient
+											key={index}
+											containerClassName="rounded-full"
+											as="button"
+											className="bg-white text-black flex items-center text-xs border-black border-[1px]"
+											onClick={() => onOptionClick?.(option.value)}
+										>
+											{option.label.toUpperCase()}
+										</HoverBorderGradient>
+									))}
+								</motion.div>
+							)}
+						</>
 					)}
 
 					{role === 'assistant' && type === 'tool' && toolContent?.type === 'wallet_balances' && (
@@ -89,8 +136,6 @@ export function ChatMessage({ content, role, type, onDelete }: ChatMessageType &
 						<Collapsible className="w-full">
 							<CollapsibleTrigger asChild>
 								<Button
-									variant="ghost"
-									size="sm"
 									className="flex items-center w-full justify-start gap-2 text-muted-foreground hover:text-primary transition-colors"
 								>
 									<svg
@@ -112,7 +157,7 @@ export function ChatMessage({ content, role, type, onDelete }: ChatMessageType &
 							</CollapsibleTrigger>
 							<CollapsibleContent>
 								<div className="text-sm text-muted-foreground bg-secondary/30 backdrop-blur-sm px-3 pb-2 rounded-lg border border-secondary/50">
-									{formatContent(content)}
+									{content}
 								</div>
 							</CollapsibleContent>
 						</Collapsible>
@@ -121,4 +166,4 @@ export function ChatMessage({ content, role, type, onDelete }: ChatMessageType &
 			</motion.div>
 		</div>
 	);
-}
+});

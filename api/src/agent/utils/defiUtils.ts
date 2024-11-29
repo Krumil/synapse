@@ -179,16 +179,16 @@ export function extractDefiTokens(): Set<TokenMetadata> {
 	return defiTokens;
 }
 
-export function prepareTokensToCheck(tokens: any[], defiTokens: Set<TokenMetadata>): any[] {
-	return [
-		...tokens,
-		...Array.from(defiTokens).map(token => ({
-			l2_token_address: token.address,
-			name: token.name,
-			symbol: token.symbol
-		}))
-	];
-}
+// export function prepareTokensToCheck(tokens: any[], defiTokens: Set<TokenMetadata>): any[] {
+// 	return [
+// 		...tokens,
+// 		...Array.from(defiTokens).map(token => ({
+// 			address: token.address,
+// 			name: token.name,
+// 			symbol: token.symbol
+// 		}))
+// 	];
+// }
 
 export async function fetchTokenPrices(
 	tokensToCheck: any[],
@@ -200,10 +200,10 @@ export async function fetchTokenPrices(
 		// Fetch regular token prices
 		const regularPricePromises = tokensToCheck.map(async (token: any) => {
 			try {
-				const price = await getTokenPrice(token.l2_token_address);
-				tokenPrices.set(token.l2_token_address, price);
+				const price = await getTokenPrice(token.address);
+				tokenPrices.set(token.address, price);
 			} catch (error) {
-				console.warn(`Failed to fetch price for regular token ${token.l2_token_address}`);
+				console.warn(`Failed to fetch price for regular token ${token.address}`);
 			}
 		});
 
@@ -236,7 +236,7 @@ export async function fetchTokenBalance(
 	tokenPrices: Map<string, number>,
 ): Promise<TokenBalance> {
 	try {
-		const contract = new Contract(ERC20_ABI, token.l2_token_address, provider);
+		const contract = new Contract(ERC20_ABI, token.address, provider);
 
 		const [balanceResult, decimalsResult] = await Promise.all([
 			contract.call("balanceOf", [walletAddress]),
@@ -248,7 +248,7 @@ export async function fetchTokenBalance(
 
 		if (!balance) {
 			return {
-				contract_address: token.l2_token_address,
+				contract_address: token.address,
 				name: token.name,
 				symbol: token.symbol,
 				balance: "0",
@@ -259,11 +259,11 @@ export async function fetchTokenBalance(
 
 		const balanceInSmallestUnit = balance.toString();
 		const balanceInTokens = Number(balanceInSmallestUnit) / Math.pow(10, decimals);
-		const tokenPrice = tokenPrices.get(token.l2_token_address);
+		const tokenPrice = tokenPrices.get(token.address);
 		const valueUSD = tokenPrice ? (balanceInTokens * tokenPrice).toFixed(2) : null;
 
 		return {
-			contract_address: token.l2_token_address,
+			contract_address: token.address,
 			name: token.name,
 			symbol: token.symbol,
 			balance: balanceInSmallestUnit,
@@ -271,9 +271,9 @@ export async function fetchTokenBalance(
 			valueUSD
 		};
 	} catch (error) {
-		console.error(`Failed to fetch balance for token ${token.l2_token_address}:`, error);
+		console.error(`Failed to fetch balance for token ${token.address}:`, error);
 		return {
-			contract_address: token.l2_token_address,
+			contract_address: token.address,
 			name: token.name,
 			symbol: token.symbol,
 			balance: "0",
@@ -294,7 +294,6 @@ export async function getTokenPrice(
 	tokenAddress: string,
 ): Promise<number> {
 	try {
-		// For basic tokens, use the existing price feed
 		const { data } = await axios.get(`https://starknet.impulse.avnu.fi/v1/tokens/${tokenAddress}/prices/line`);
 		const currentPrice = data[data.length - 1]?.value;
 		if (!currentPrice) {
@@ -332,8 +331,8 @@ export async function getStakedAssetPrice(
 		// Calculate the staked token price by multiplying underlying price with the conversion index
 		return underlyingPrice * conversionIndex;
 	} catch (error) {
-		console.error(`Failed to fetch staked asset price for ${stakingContractAddress}:`, error);
-		throw error;
+		console.warn(`Failed to fetch staked asset price for ${stakingContractAddress}:`, error);
+		return 0;
 	}
 }
 
@@ -360,18 +359,21 @@ export async function getLPTokenPrice(
 		const reserve1 = reconstructUint256(reservesResult.reserve1[0], reservesResult.reserve1[1]);
 		const totalSupply = reconstructUint256(totalSupplyResult.supply[0], totalSupplyResult.supply[1]);
 
+		// get tokens address from getTokensFromS3
+		const tokens = await getTokensFromS3();
+		const token0Config = tokens.find((token: any) => token.symbol === underlyingTokens[0]);
+		const token1Config = tokens.find((token: any) => token.symbol === underlyingTokens[1]);
 
-
-		// Get underlying token configs
-		const token0Config = protocolConfig.protocols[protocol].contracts.assets[underlyingTokens[0]];
-		const token1Config = protocolConfig.protocols[protocol].contracts.assets[underlyingTokens[1]];
+		if (!token0Config || !token1Config) {
+			throw new Error(`Token config not found for ${underlyingTokens[0]} or ${underlyingTokens[1]}`);
+		}
 
 		// Get underlying token prices
 		const token0Price = await getTokenPrice(
-			token0Config.assetContractAddress,
+			token0Config?.address,
 		);
 		const token1Price = await getTokenPrice(
-			token1Config.assetContractAddress
+			token1Config?.address
 		);
 
 		// Calculate reserves in USD
@@ -384,8 +386,8 @@ export async function getLPTokenPrice(
 		// Price per LP token = Total Pool Value / Total Supply
 		return totalPoolValueUSD / (Number(totalSupply) / (10 ** 18));
 	} catch (error) {
-		console.error(`Failed to calculate LP token price for pool ${poolAddress}:`, error);
-		throw error;
+		console.warn(`Failed to calculate LP token price for pool ${poolAddress}:`, error);
+		return 0;
 	}
 }
 

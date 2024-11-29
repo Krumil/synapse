@@ -8,12 +8,10 @@ import {
 	replacePlaceholders,
 	getTokensFromS3,
 	extractDefiTokens,
-	prepareTokensToCheck,
 	fetchTokenPrices,
 	fetchTokenBalance,
 	filterNonZeroBalances,
 	getTokenPrice,
-	getLPTokenPrice
 } from "../utils/defiUtils";
 import fs from 'fs';
 import path from 'path';
@@ -278,17 +276,22 @@ const getWalletBalancesTool = tool(
 
 			// Extract DeFi tokens
 			const defiTokens = extractDefiTokens();
-			const tokensToCheck = prepareTokensToCheck(tokens, defiTokens);
 
 			// Fetch all token prices
 			const tokenPrices = await fetchTokenPrices(
-				tokensToCheck,
+				tokens,
 				defiTokens,
 			);
 
-			// Fetch all balances
+			const tokensToCheck = [...tokens, ...Array.from(defiTokens).map(token => ({
+				address: token.address,
+				name: token.name,
+				symbol: token.symbol
+			}))];
+
+			// Fetch all balances of both regular and DeFi tokens
 			const balancesWithUSD = await Promise.all(
-				tokensToCheck.map(token =>
+				tokensToCheck.map((token: any) =>
 					fetchTokenBalance(token, input.walletAddress, tokenPrices)
 				)
 			);

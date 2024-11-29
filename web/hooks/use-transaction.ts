@@ -1,21 +1,18 @@
-import { useRef } from 'react';
 import { useSendTransaction } from '@starknet-react/core';
 import type { Call } from 'starknet';
-import type { TransactionData, TransactionResult } from '@/types/transaction';
+import type { TransactionResult } from '@/types/transaction';
 
 export function useTransaction() {
-	const currentCallsRef = useRef<Call[]>([]);
-	const { sendAsync, status } = useSendTransaction({
-		calls: currentCallsRef.current
-	});
+	// Pass `calls: undefined` to satisfy TypeScript
+	const { sendAsync, status } = useSendTransaction({ calls: undefined });
 
 	const handleTransaction = async (txData: any): Promise<TransactionResult> => {
 		try {
 			const calls: Call[] = txData.map((tx: any) => {
-				const txEntrypoint = tx.entrypoint
+				const txEntrypoint = tx.entrypoint;
 				if (txEntrypoint) {
-					let contractAddress = tx.contractAddress;
-					let calldata = tx.calldata;
+					const contractAddress = tx.contractAddress;
+					const calldata = tx.calldata;
 
 					return {
 						contractAddress: contractAddress,
@@ -26,8 +23,7 @@ export function useTransaction() {
 				throw new Error('Invalid transaction format');
 			});
 
-			currentCallsRef.current = calls;
-
+			// Send the transaction using sendAsync with the calls
 			const response = await sendAsync(calls);
 
 			if (!response?.transaction_hash) {
@@ -36,25 +32,22 @@ export function useTransaction() {
 
 			return {
 				status: 'success',
-				hash: response.transaction_hash
+				hash: response.transaction_hash,
 			};
-
 		} catch (error) {
 			console.error('Transaction failed:', error);
 
 			if (error instanceof Error && error.message.includes('User rejected request')) {
 				return {
 					status: 'error',
-					error: 'Transaction was cancelled by user'
+					error: 'Transaction was cancelled by user',
 				};
 			}
 
 			return {
 				status: 'error',
-				error: error instanceof Error ? error.message : 'Unknown error occurred'
+				error: error instanceof Error ? error.message : 'Unknown error occurred',
 			};
-		} finally {
-			currentCallsRef.current = [];
 		}
 	};
 

@@ -147,8 +147,8 @@ export class PriceService {
 				token1Config.decimals
 			);
 		} catch (error) {
-			console.error(`Failed to calculate LP token price for pool ${poolAddress}:`, error);
-			throw error;
+			console.warn(`Failed to calculate LP token price for pool ${poolAddress}:`, error);
+			return 0;
 		}
 	}
 

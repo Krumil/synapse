@@ -30,3 +30,14 @@ export interface ToolResponse {
 	totalProtocols?: number;
 	filteredProtocols?: number;
 }
+
+export interface Memory {
+	preferences?: {
+		risk_tolerance?: string;
+		experience_level?: string;
+		timeframe?: string;
+		investment_goals?: string;
+	};
+	importantInfo?: Record<string, any>;
+	lastUpdated?: string;
+}

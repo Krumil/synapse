@@ -43,7 +43,7 @@ export function Chart({ data }: ChartProps) {
 				name: token.name,
 				symbol: token.symbol,
 				value: parseFloat(token.valueUSD!),
-				fill: `hsl(var(--chart-${(index % 5) + 1}))`,
+				fill: `hsl(var(--chart-${(index % 20) + 1}))`,
 			}))
 			.sort((a, b) => b.value - a.value); // Sort in descending order
 	}, [validTokens]);
@@ -54,7 +54,7 @@ export function Chart({ data }: ChartProps) {
 			const symbol = token.symbol.toLowerCase();
 			config[symbol] = {
 				label: token.name,
-				color: `hsl(var(--chart-${(index % 5) + 1}))`, // Use index after sorting
+				color: `hsl(var(--chart-${(index % 20) + 1}))`,
 			};
 			return config;
 		}, {} as ChartConfig);

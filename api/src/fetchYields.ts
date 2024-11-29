@@ -32,7 +32,9 @@ export async function fetchYields() {
 			chainData[chain].push(protocol);
 		});
 
+		// save only new starknet yields
 		for (const [chain, protocols] of Object.entries(chainData)) {
+			if (chain !== 'starknet') continue;
 			const data = {
 				timestamp: new Date().toISOString(),
 				chain,

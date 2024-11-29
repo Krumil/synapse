@@ -15,8 +15,8 @@ app.use(express.json());
 app.use('/api', routes);
 
 // Initial fetch
-// fetchTokens();
-// fetchYields();
+fetchTokens();
+fetchYields();
 
 app.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);

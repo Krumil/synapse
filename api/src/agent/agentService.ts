@@ -1,4 +1,5 @@
 import { ChatAnthropic } from "@langchain/anthropic";
+import { ChatOpenAI } from "@langchain/openai";
 import { HumanMessage, AIMessage } from "@langchain/core/messages";
 import { MemorySaver } from "@langchain/langgraph";
 import { Response } from 'express';
@@ -7,6 +8,7 @@ import { memoryTool } from "./tools/memoryTool";
 import { starknetTools } from "./tools/starknetTools";
 import { defiLlamaTools } from "./tools/defiLlamaTools";
 import { defiTransactionsTools } from "./tools/defiTransactionsTools";
+import { memeTools } from "./tools/unruggable";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import dotenv from "dotenv";
 import fs from "fs/promises";
@@ -19,19 +21,27 @@ const tools = [
 	...defiLlamaTools,
 	...defiTransactionsTools,
 	...starknetTools,
+	...memeTools,
 	memoryTool,
 ];
 
-const llm = new ChatAnthropic({
-	clientOptions: {
-		defaultHeaders: {
-			"X-Api-Key": process.env.ANTHROPIC_API_KEY,
-		},
-	},
-	// modelName: "claude-3-5-sonnet-20240620",
-	modelName: "claude-3-5-haiku-20241022",
+// const llm = new ChatAnthropic({
+// 	clientOptions: {
+// 		defaultHeaders: {
+// 			"X-Api-Key": process.env.ANTHROPIC_API_KEY,
+// 		},
+// 	},
+// 	// modelName: "claude-3-5-sonnet-20240620",
+// 	modelName: "claude-3-5-haiku-20241022",
+// 	temperature: 0,
+// 	streaming: false,
+// });
+
+const llm = new ChatOpenAI({
+	modelName: "gpt-4o-2024-11-20",
 	temperature: 0,
 	streaming: false,
+	apiKey: process.env.OPENAI_API_KEY,
 });
 
 async function readPromptFromFile(filename: string): Promise<string> {

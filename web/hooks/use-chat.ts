@@ -1,31 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAccount } from '@starknet-react/core';
-import type { ChatMessage, ToolResponse } from '@/types/chat';
+import type { ChatMessage, ToolResponse, Memory } from '@/types/chat';
 import { useTransaction } from '@/hooks/use-transaction';
 
-interface Memory {
-	preferences?: {
-		risk_tolerance?: string;
-		experience_level?: string;
-		timeframe?: string;
-		investment_goals?: string;
-	};
-	importantInfo?: Record<string, any>;
-	lastUpdated?: string;
-}
-
-const waitForTransactionStatus = (currentStatus: string): Promise<void> => {
-	return new Promise((resolve) => {
-		const checkStatus = () => {
-			if (currentStatus === 'success' || currentStatus === 'error') {
-				resolve();
-			} else {
-				setTimeout(checkStatus, 1000); // Check every second
-			}
-		};
-		checkStatus();
-	});
-};
 
 export function useChat() {
 	const [hasInitiatedConversation, setHasInitiatedConversation] = useState(false);
@@ -42,6 +19,14 @@ export function useChat() {
 		return {};
 	});
 
+	// Create a ref to store the latest transactionStatus
+	const transactionStatusRef = useRef(transactionStatus);
+
+	// Update the ref whenever transactionStatus changes
+	useEffect(() => {
+		transactionStatusRef.current = transactionStatus;
+	}, [transactionStatus]);
+
 	useEffect(() => {
 		if (typeof window !== 'undefined' && Object.keys(memory).length > 0) {
 			localStorage.setItem('chatMemory', JSON.stringify(memory));
@@ -55,12 +40,26 @@ export function useChat() {
 		}
 	}, [address]);
 
+	const waitForTransactionStatus = (): Promise<void> => {
+		return new Promise((resolve) => {
+			const checkStatus = () => {
+				const currentStatus = transactionStatusRef.current;
+				if (currentStatus === 'success' || currentStatus === 'error') {
+					resolve();
+				} else {
+					setTimeout(checkStatus, 1000); // Check every second
+				}
+			};
+			checkStatus();
+		});
+	};
+
 	const handleToolResponse = async (toolResponse: ToolResponse) => {
 		if (toolResponse.type === 'transaction' && toolResponse.transactions) {
 			const result = await handleTransaction(toolResponse.transactions);
 
 			// Wait for transaction status to be confirmed
-			await waitForTransactionStatus(transactionStatus);
+			await waitForTransactionStatus();
 
 			if (result.status === 'error') {
 				console.error('Transaction failed:', result.error);
@@ -70,26 +69,32 @@ export function useChat() {
 		} else if (toolResponse.type === 'memory_update' && toolResponse.memory) {
 			setMemory(toolResponse.memory);
 		} else if (toolResponse.type === 'wallet_balances') {
-			setMessages(prev => [...prev, {
-				content: JSON.stringify({
-					type: toolResponse.type,
-					balances: toolResponse.data,
-				}),
-				role: 'assistant',
-				type: 'tool',
-			}]);
+			setMessages((prev) => [
+				...prev,
+				{
+					content: JSON.stringify({
+						type: toolResponse.type,
+						balances: toolResponse.data,
+					}),
+					role: 'assistant',
+					type: 'tool',
+				},
+			]);
 		} else if (toolResponse.type === 'top_protocols' && toolResponse.protocols) {
-			setMessages(prev => [...prev, {
-				content: JSON.stringify({
-					type: toolResponse.type,
-					protocols: toolResponse.protocols,
-					chain: toolResponse.chain,
-					totalProtocols: toolResponse.totalProtocols,
-					filteredProtocols: toolResponse.filteredProtocols,
-				}),
-				role: 'assistant',
-				type: 'tool',
-			}]);
+			setMessages((prev) => [
+				...prev,
+				{
+					content: JSON.stringify({
+						type: toolResponse.type,
+						protocols: toolResponse.protocols,
+						chain: toolResponse.chain,
+						totalProtocols: toolResponse.totalProtocols,
+						filteredProtocols: toolResponse.filteredProtocols,
+					}),
+					role: 'assistant',
+					type: 'tool',
+				},
+			]);
 		}
 	};
 
@@ -100,46 +105,60 @@ export function useChat() {
 	const processStreamMessage = async (data: any) => {
 		switch (data.type) {
 			case 'tool': {
+				try {
+					JSON.parse(data.content);
+				} catch (e) {
+					return;
+				}
 				const toolResponse: ToolResponse = JSON.parse(data.content);
 				await handleToolResponse(toolResponse);
 				break;
 			}
 			case 'agent_reasoning': {
-				setMessages(prev => {
+				setMessages((prev) => {
 					const lastMessage = prev[prev.length - 1];
 					if (lastMessage?.role === 'assistant' && lastMessage?.type === 'agent_reasoning') {
 						const updatedMessages = [...prev];
 						updatedMessages[prev.length - 1] = {
 							...lastMessage,
-							content: lastMessage.content + '\n' + data.content
+							content: lastMessage.content + '\n' + data.content,
 						};
 						return updatedMessages;
 					}
-					return [...prev, {
-						content: data.content,
-						role: 'assistant',
-						type: data.type,
-					}];
+					return [
+						...prev,
+						{
+							content: data.content,
+							role: 'assistant',
+							type: data.type,
+						},
+					];
 				});
 				break;
 			}
 			case 'agent': {
-				setMessages(prev => {
-					return [...prev, {
-						content: data.content,
-						role: 'assistant',
-						type: data.type,
-					}];
+				setMessages((prev) => {
+					return [
+						...prev,
+						{
+							content: data.content,
+							role: 'assistant',
+							type: data.type,
+						},
+					];
 				});
 				break;
 			}
 			default: {
-				setMessages(prev => {
-					return [...prev, {
-						content: data.content,
-						role: 'assistant',
-						type: data.type,
-					}];
+				setMessages((prev) => {
+					return [
+						...prev,
+						{
+							content: data.content,
+							role: 'assistant',
+							type: data.type,
+						},
+					];
 				});
 				break;
 			}
@@ -155,7 +174,7 @@ export function useChat() {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					messages: [{ role: 'user', content: "START_CONVERSATION" }],
+					messages: [{ role: 'user', content: 'START_CONVERSATION' }],
 					address,
 					userId: address,
 					existingMemory: memory,
@@ -177,14 +196,17 @@ export function useChat() {
 				for (const line of lines) {
 					if (line.startsWith('data: ')) {
 						try {
-							const data = JSON.parse(line.slice(5));
+							const data = JSON.parse(line.slice(6)); // Adjusted slice to account for 'data: '
 							await processStreamMessage(data);
 						} catch (error) {
 							console.error('Error parsing SSE message:', error);
-							setMessages(prev => [...prev, {
-								role: 'assistant',
-								content: 'Sorry, there was an error processing the response.'
-							}]);
+							setMessages((prev) => [
+								...prev,
+								{
+									role: 'assistant',
+									content: 'Sorry, there was an error processing the response.',
+								},
+							]);
 						}
 					}
 				}
@@ -200,10 +222,17 @@ export function useChat() {
 		if (!input.trim() || isLoading) return;
 
 		if (!address) {
-			setMessages(prev => [...prev, {
-				content: "Please connect your wallet first",
-				role: 'assistant',
-			}]);
+			setMessages((prev) => [
+				...prev,
+				{
+					content: 'Please connect your wallet first',
+					role: 'assistant',
+					type: 'agent',
+				},
+			]);
+			setTimeout(() => {
+				setMessages((prev) => prev.slice(0, -1));
+			}, 3000);
 			return;
 		}
 
@@ -211,13 +240,16 @@ export function useChat() {
 		setInput('');
 		setIsLoading(true);
 
-		setMessages(prev => [...prev, {
-			role: 'user',
-			content: userMessage
-		}]);
+		setMessages((prev) => [
+			...prev,
+			{
+				role: 'user',
+				content: userMessage,
+			},
+		]);
 
 		try {
-			// update memory reading from local storage
+			// Update memory reading from local storage
 			const savedMemory = localStorage.getItem('chatMemory');
 			const existingMemory = savedMemory ? JSON.parse(savedMemory) : {};
 
@@ -250,24 +282,30 @@ export function useChat() {
 				for (const line of lines) {
 					if (line.startsWith('data: ')) {
 						try {
-							const data = JSON.parse(line.slice(5));
+							const data = JSON.parse(line.slice(6)); // Adjusted slice to account for 'data: '
 							await processStreamMessage(data);
 						} catch (error) {
 							console.error('Error parsing SSE message:', error);
-							setMessages(prev => [...prev, {
-								role: 'assistant',
-								content: 'Sorry, there was an error processing the response.'
-							}]);
+							setMessages((prev) => [
+								...prev,
+								{
+									role: 'assistant',
+									content: 'Sorry, there was an error processing the response.',
+								},
+							]);
 						}
 					}
 				}
 			}
 		} catch (error) {
 			console.error('Error sending message:', error);
-			setMessages(prev => [...prev, {
-				role: 'assistant',
-				content: 'Sorry, there was an error processing your message.'
-			}]);
+			setMessages((prev) => [
+				...prev,
+				{
+					role: 'assistant',
+					content: 'Sorry, there was an error processing your message.',
+				},
+			]);
 		} finally {
 			setIsLoading(false);
 		}

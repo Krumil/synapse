@@ -58,7 +58,7 @@ export interface Token {
 	name: string;
 	symbol: string;
 	decimals: number;
-	l2_token_address: string;
+	address: string;
 }
 
 export interface TokenMetadata {

@@ -80,9 +80,9 @@ const getTopStarknetTokensTool = tool(
 const getTokenDetailsTool = tool(
 	async ({ symbol, name }: { symbol: string, name: string }) => {
 		const tokens = await getTokensFromS3();
-		let address = tokens.find((token: Token) => token.symbol === symbol)?.l2_token_address;
+		let address = tokens.find((token: Token) => token.symbol === symbol)?.address;
 		if (!address) {
-			address = tokens.find((token: Token) => token.name === name)?.l2_token_address;
+			address = tokens.find((token: Token) => token.name === name)?.address;
 		}
 		try {
 			const response = await fetch(`https://starknet.impulse.avnu.fi/v1/tokens/${address}`);

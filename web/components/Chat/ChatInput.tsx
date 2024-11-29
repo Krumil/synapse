@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 
 interface ChatInputProps {
@@ -7,15 +8,14 @@ interface ChatInputProps {
 	onSend: () => void;
 }
 
-export function ChatInput({ onInputChange, onSend }: ChatInputProps) {
+export const ChatInput = memo(function ChatInput({ input, isLoading, onInputChange, onSend }: ChatInputProps) {
 	const placeholders = [
-		"Swap 0.1 ETH to USDC",
+		"Swap 0.01 ETH to USDC",
 		"Check my Nostra LP positions",
 		"What's the price of ETH on Starknet?",
 		"Show my Nostra pool rewards",
 		"Add liquidity to ETH/USDC pool",
-		"Remove liquidity from USDC/USDT pool",
-		"Show Starknet gas fees",
+		"Remove liquidity from ETH/USDC pool",
 		"Check my token balances",
 	];
 
@@ -31,4 +31,4 @@ export function ChatInput({ onInputChange, onSend }: ChatInputProps) {
 			/>
 		</div>
 	);
-}
+});
