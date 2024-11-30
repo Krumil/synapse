@@ -1,0 +1,5230 @@
+diff --git a/node_modules/@unruggable_starknet/core/dist/index.js b/node_modules/@unruggable_starknet/core/dist/index.js
+index c5a63ab..688d2bd 100644
+--- a/node_modules/@unruggable_starknet/core/dist/index.js
++++ b/node_modules/@unruggable_starknet/core/dist/index.js
+@@ -6,99 +6,99 @@ var __getOwnPropNames = Object.getOwnPropertyNames;
+ var __getProtoOf = Object.getPrototypeOf;
+ var __hasOwnProp = Object.prototype.hasOwnProperty;
+ var __export = (target, all) => {
+-  for (var name in all)
+-    __defProp(target, name, { get: all[name], enumerable: true });
++	for (var name in all)
++		__defProp(target, name, { get: all[name], enumerable: true });
+ };
+ var __copyProps = (to, from, except, desc) => {
+-  if (from && typeof from === "object" || typeof from === "function") {
+-    for (let key of __getOwnPropNames(from))
+-      if (!__hasOwnProp.call(to, key) && key !== except)
+-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+-  }
+-  return to;
++	if (from && typeof from === "object" || typeof from === "function") {
++		for (let key of __getOwnPropNames(from))
++			if (!__hasOwnProp.call(to, key) && key !== except)
++				__defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
++	}
++	return to;
+ };
+ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+-  // If the importer is in node compatibility mode or this is not an ESM
+-  // file that has been converted to a CommonJS file using a Babel-
+-  // compatible transform (i.e. "__esModule" has not been set), then set
+-  // "default" to the CommonJS "module.exports" for node compatibility.
+-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+-  mod
++	// If the importer is in node compatibility mode or this is not an ESM
++	// file that has been converted to a CommonJS file using a Babel-
++	// compatible transform (i.e. "__esModule" has not been set), then set
++	// "default" to the CommonJS "module.exports" for node compatibility.
++	isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
++	mod
+ ));
+ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+ 
+ // src/index.ts
+ var src_exports = {};
+ __export(src_exports, {
+-  Factory: () => Factory,
+-  FactoryInterface: () => FactoryInterface,
+-  constants: () => constants_exports,
+-  getInitialPrice: () => getInitialPrice,
+-  getLiquidityLockSafety: () => getLiquidityLockSafety,
+-  getPairPrice: () => getPairPrice,
+-  getQuoteTokenSafety: () => getQuoteTokenSafety,
+-  getStartingMarketCap: () => getStartingMarketCap,
+-  getStartingMcapSafety: () => getStartingMcapSafety,
+-  getStartingTick: () => getStartingTick,
+-  getTeamAllocationSafety: () => getTeamAllocationSafety
++	Factory: () => Factory,
++	FactoryInterface: () => FactoryInterface,
++	constants: () => constants_exports,
++	getInitialPrice: () => getInitialPrice,
++	getLiquidityLockSafety: () => getLiquidityLockSafety,
++	getPairPrice: () => getPairPrice,
++	getQuoteTokenSafety: () => getQuoteTokenSafety,
++	getStartingMarketCap: () => getStartingMarketCap,
++	getStartingMcapSafety: () => getStartingMcapSafety,
++	getStartingTick: () => getStartingTick,
++	getTeamAllocationSafety: () => getTeamAllocationSafety
+ });
+ module.exports = __toCommonJS(src_exports);
+ 
+ // src/constants/index.ts
+ var constants_exports = {};
+ __export(constants_exports, {
+-  AMM: () => AMM,
+-  AMMS: () => AMMS,
+-  DECIMALS: () => DECIMALS,
+-  DEFAULT_QUOTE_TOKEN_ADDRESSES: () => DEFAULT_QUOTE_TOKEN_ADDRESSES,
+-  EKUBO_BOUND: () => EKUBO_BOUND,
+-  EKUBO_FEES_MULTIPLICATOR: () => EKUBO_FEES_MULTIPLICATOR,
+-  EKUBO_POSITIONS_ADDRESSES: () => EKUBO_POSITIONS_ADDRESSES,
+-  EKUBO_TICK_SIZE: () => EKUBO_TICK_SIZE,
+-  EKUBO_TICK_SIZE_LOG: () => EKUBO_TICK_SIZE_LOG,
+-  EKUBO_TICK_SPACING: () => EKUBO_TICK_SPACING,
+-  ETH_ADDRESSES: () => ETH_ADDRESSES,
+-  Entrypoint: () => Entrypoint,
+-  Ether: () => Ether,
+-  FACTORY_ADDRESSES: () => FACTORY_ADDRESSES,
+-  JEDISWAP_ETH_USDC: () => JEDISWAP_ETH_USDC,
+-  JEDISWAP_STRK_USDC: () => JEDISWAP_STRK_USDC,
+-  LIQUIDITY_LOCK_FOREVER_TIMESTAMP: () => LIQUIDITY_LOCK_FOREVER_TIMESTAMP,
+-  LIQUIDITY_LOCK_INCREASE_STEP: () => LIQUIDITY_LOCK_INCREASE_STEP,
+-  LIQUIDITY_LOCK_PERIOD_STEP: () => LIQUIDITY_LOCK_PERIOD_STEP,
+-  LIQUIDITY_LOCK_SAFETY_BOUNDS: () => LIQUIDITY_LOCK_SAFETY_BOUNDS,
+-  LiquidityType: () => LiquidityType,
+-  MAX_EKUBO_FEES: () => MAX_EKUBO_FEES,
+-  MAX_HODL_LIMIT: () => MAX_HODL_LIMIT,
+-  MAX_LIQUIDITY_LOCK_INCREASE: () => MAX_LIQUIDITY_LOCK_INCREASE,
+-  MAX_LIQUIDITY_LOCK_PERIOD: () => MAX_LIQUIDITY_LOCK_PERIOD,
+-  MAX_TEAM_ALLOCATION_HOLDERS_COUNT: () => MAX_TEAM_ALLOCATION_HOLDERS_COUNT,
+-  MAX_TEAM_ALLOCATION_TOTAL_SUPPLY_PERCENTAGE: () => MAX_TEAM_ALLOCATION_TOTAL_SUPPLY_PERCENTAGE,
+-  MAX_TRANSFER_RESTRICTION_DELAY: () => MAX_TRANSFER_RESTRICTION_DELAY,
+-  MIN_EKUBO_FEES: () => MIN_EKUBO_FEES,
+-  MIN_HODL_LIMIT: () => MIN_HODL_LIMIT,
+-  MIN_LIQUIDITY_LOCK_INCREASE: () => MIN_LIQUIDITY_LOCK_INCREASE,
+-  MIN_LIQUIDITY_LOCK_PERIOD: () => MIN_LIQUIDITY_LOCK_PERIOD,
+-  MIN_STARTING_MCAP: () => MIN_STARTING_MCAP,
+-  MIN_TRANSFER_RESTRICTION_DELAY: () => MIN_TRANSFER_RESTRICTION_DELAY,
+-  MULTICALL_ADDRESSES: () => MULTICALL_ADDRESSES,
+-  QUOTE_TOKENS: () => QUOTE_TOKENS,
+-  QUOTE_TOKEN_SYMBOL: () => QUOTE_TOKEN_SYMBOL,
+-  RECOMMENDED_EKUBO_FEES: () => RECOMMENDED_EKUBO_FEES,
+-  RECOMMENDED_HODL_LIMIT: () => RECOMMENDED_HODL_LIMIT,
+-  RECOMMENDED_STARTING_MCAP: () => RECOMMENDED_STARTING_MCAP,
+-  STARTING_MCAP_SAFETY_BOUNDS: () => STARTING_MCAP_SAFETY_BOUNDS,
+-  STRK_ADDRESSES: () => STRK_ADDRESSES,
+-  Safety: () => Safety,
+-  Stark: () => Stark,
+-  TEAM_ALLOCATION_SAFETY_BOUNDS: () => TEAM_ALLOCATION_SAFETY_BOUNDS,
+-  TOKEN_CLASS_HASH: () => TOKEN_CLASS_HASH,
+-  TRANSFER_RESTRICTION_DELAY_STEP: () => TRANSFER_RESTRICTION_DELAY_STEP,
+-  USDC_ADDRESSES: () => USDC_ADDRESSES,
+-  USDCoin: () => USDCoin,
+-  compiledEkuboPositions: () => compiledEkuboPositions,
+-  compiledJediswapPair: () => compiledJediswapPair,
+-  compiledMulticall: () => compiledMulticall
++	AMM: () => AMM,
++	AMMS: () => AMMS,
++	DECIMALS: () => DECIMALS,
++	DEFAULT_QUOTE_TOKEN_ADDRESSES: () => DEFAULT_QUOTE_TOKEN_ADDRESSES,
++	EKUBO_BOUND: () => EKUBO_BOUND,
++	EKUBO_FEES_MULTIPLICATOR: () => EKUBO_FEES_MULTIPLICATOR,
++	EKUBO_POSITIONS_ADDRESSES: () => EKUBO_POSITIONS_ADDRESSES,
++	EKUBO_TICK_SIZE: () => EKUBO_TICK_SIZE,
++	EKUBO_TICK_SIZE_LOG: () => EKUBO_TICK_SIZE_LOG,
++	EKUBO_TICK_SPACING: () => EKUBO_TICK_SPACING,
++	ETH_ADDRESSES: () => ETH_ADDRESSES,
++	Entrypoint: () => Entrypoint,
++	Ether: () => Ether,
++	FACTORY_ADDRESSES: () => FACTORY_ADDRESSES,
++	JEDISWAP_ETH_USDC: () => JEDISWAP_ETH_USDC,
++	JEDISWAP_STRK_USDC: () => JEDISWAP_STRK_USDC,
++	LIQUIDITY_LOCK_FOREVER_TIMESTAMP: () => LIQUIDITY_LOCK_FOREVER_TIMESTAMP,
++	LIQUIDITY_LOCK_INCREASE_STEP: () => LIQUIDITY_LOCK_INCREASE_STEP,
++	LIQUIDITY_LOCK_PERIOD_STEP: () => LIQUIDITY_LOCK_PERIOD_STEP,
++	LIQUIDITY_LOCK_SAFETY_BOUNDS: () => LIQUIDITY_LOCK_SAFETY_BOUNDS,
++	LiquidityType: () => LiquidityType,
++	MAX_EKUBO_FEES: () => MAX_EKUBO_FEES,
++	MAX_HODL_LIMIT: () => MAX_HODL_LIMIT,
++	MAX_LIQUIDITY_LOCK_INCREASE: () => MAX_LIQUIDITY_LOCK_INCREASE,
++	MAX_LIQUIDITY_LOCK_PERIOD: () => MAX_LIQUIDITY_LOCK_PERIOD,
++	MAX_TEAM_ALLOCATION_HOLDERS_COUNT: () => MAX_TEAM_ALLOCATION_HOLDERS_COUNT,
++	MAX_TEAM_ALLOCATION_TOTAL_SUPPLY_PERCENTAGE: () => MAX_TEAM_ALLOCATION_TOTAL_SUPPLY_PERCENTAGE,
++	MAX_TRANSFER_RESTRICTION_DELAY: () => MAX_TRANSFER_RESTRICTION_DELAY,
++	MIN_EKUBO_FEES: () => MIN_EKUBO_FEES,
++	MIN_HODL_LIMIT: () => MIN_HODL_LIMIT,
++	MIN_LIQUIDITY_LOCK_INCREASE: () => MIN_LIQUIDITY_LOCK_INCREASE,
++	MIN_LIQUIDITY_LOCK_PERIOD: () => MIN_LIQUIDITY_LOCK_PERIOD,
++	MIN_STARTING_MCAP: () => MIN_STARTING_MCAP,
++	MIN_TRANSFER_RESTRICTION_DELAY: () => MIN_TRANSFER_RESTRICTION_DELAY,
++	MULTICALL_ADDRESSES: () => MULTICALL_ADDRESSES,
++	QUOTE_TOKENS: () => QUOTE_TOKENS,
++	QUOTE_TOKEN_SYMBOL: () => QUOTE_TOKEN_SYMBOL,
++	RECOMMENDED_EKUBO_FEES: () => RECOMMENDED_EKUBO_FEES,
++	RECOMMENDED_HODL_LIMIT: () => RECOMMENDED_HODL_LIMIT,
++	RECOMMENDED_STARTING_MCAP: () => RECOMMENDED_STARTING_MCAP,
++	STARTING_MCAP_SAFETY_BOUNDS: () => STARTING_MCAP_SAFETY_BOUNDS,
++	STRK_ADDRESSES: () => STRK_ADDRESSES,
++	Safety: () => Safety,
++	Stark: () => Stark,
++	TEAM_ALLOCATION_SAFETY_BOUNDS: () => TEAM_ALLOCATION_SAFETY_BOUNDS,
++	TOKEN_CLASS_HASH: () => TOKEN_CLASS_HASH,
++	TRANSFER_RESTRICTION_DELAY_STEP: () => TRANSFER_RESTRICTION_DELAY_STEP,
++	USDC_ADDRESSES: () => USDC_ADDRESSES,
++	USDCoin: () => USDCoin,
++	compiledEkuboPositions: () => compiledEkuboPositions,
++	compiledJediswapPair: () => compiledJediswapPair,
++	compiledMulticall: () => compiledMulticall
+ });
+ 
+ // src/constants/misc.ts
+@@ -113,39 +113,39 @@ var MAX_TEAM_ALLOCATION_HOLDERS_COUNT = 10;
+ var MAX_TEAM_ALLOCATION_TOTAL_SUPPLY_PERCENTAGE = new import_sdk_core.Percent(10, 100);
+ var DECIMALS = 18;
+ var Entrypoint = /* @__PURE__ */ ((Entrypoint2) => {
+-  Entrypoint2["CREATE_MEMECOIN"] = "create_memecoin";
+-  Entrypoint2["IS_MEMECOIN"] = "is_memecoin";
+-  Entrypoint2["AGGREGATE"] = "aggregate";
+-  Entrypoint2["NAME"] = "name";
+-  Entrypoint2["SYMBOL"] = "symbol";
+-  Entrypoint2["IS_LAUNCHED"] = "is_launched";
+-  Entrypoint2["GET_TEAM_ALLOCATION"] = "get_team_allocation";
+-  Entrypoint2["TOTAL_SUPPLY"] = "total_supply";
+-  Entrypoint2["OWNER"] = "owner";
+-  Entrypoint2["LOCKED_LIQUIDITY"] = "locked_liquidity";
+-  Entrypoint2["LAUNCH_ON_JEDISWAP"] = "launch_on_jediswap";
+-  Entrypoint2["LAUNCH_ON_EKUBO"] = "launch_on_ekubo";
+-  Entrypoint2["LAUNCH_ON_STARKDEFI"] = "launch_on_starkdefi";
+-  Entrypoint2["APPROVE"] = "approve";
+-  Entrypoint2["GET_REMAINING_TIME"] = "get_remaining_time";
+-  Entrypoint2["LAUNCHED_WITH_LIQUIDITY_PARAMETERS"] = "launched_with_liquidity_parameters";
+-  Entrypoint2["GET_LOCK_DETAILS"] = "get_lock_details";
+-  Entrypoint2["LAUNCHED_AT_BLOCK_NUMBER"] = "launched_at_block_number";
+-  Entrypoint2["GET_RESERVES"] = "get_reserves";
+-  Entrypoint2["LIQUIDITY_POSITION_DETAILS"] = "liquidity_position_details";
+-  Entrypoint2["WITHDRAW_FEES"] = "withdraw_fees";
+-  Entrypoint2["EXTEND_LOCK"] = "extend_lock";
+-  Entrypoint2["BALANCE_OF_CAMEL"] = "balanceOf";
+-  Entrypoint2["BALANCE_OF"] = "balance_of";
+-  Entrypoint2["TRANSFER"] = "transfer";
+-  Entrypoint2["GET_TOKEN_INFOS"] = "get_token_info";
+-  return Entrypoint2;
++	Entrypoint2["CREATE_MEMECOIN"] = "create_memecoin";
++	Entrypoint2["IS_MEMECOIN"] = "is_memecoin";
++	Entrypoint2["AGGREGATE"] = "aggregate";
++	Entrypoint2["NAME"] = "name";
++	Entrypoint2["SYMBOL"] = "symbol";
++	Entrypoint2["IS_LAUNCHED"] = "is_launched";
++	Entrypoint2["GET_TEAM_ALLOCATION"] = "get_team_allocation";
++	Entrypoint2["TOTAL_SUPPLY"] = "total_supply";
++	Entrypoint2["OWNER"] = "owner";
++	Entrypoint2["LOCKED_LIQUIDITY"] = "locked_liquidity";
++	Entrypoint2["LAUNCH_ON_JEDISWAP"] = "launch_on_jediswap";
++	Entrypoint2["LAUNCH_ON_EKUBO"] = "launch_on_ekubo";
++	Entrypoint2["LAUNCH_ON_STARKDEFI"] = "launch_on_starkdefi";
++	Entrypoint2["APPROVE"] = "approve";
++	Entrypoint2["GET_REMAINING_TIME"] = "get_remaining_time";
++	Entrypoint2["LAUNCHED_WITH_LIQUIDITY_PARAMETERS"] = "launched_with_liquidity_parameters";
++	Entrypoint2["GET_LOCK_DETAILS"] = "get_lock_details";
++	Entrypoint2["LAUNCHED_AT_BLOCK_NUMBER"] = "launched_at_block_number";
++	Entrypoint2["GET_RESERVES"] = "get_reserves";
++	Entrypoint2["LIQUIDITY_POSITION_DETAILS"] = "liquidity_position_details";
++	Entrypoint2["WITHDRAW_FEES"] = "withdraw_fees";
++	Entrypoint2["EXTEND_LOCK"] = "extend_lock";
++	Entrypoint2["BALANCE_OF_CAMEL"] = "balanceOf";
++	Entrypoint2["BALANCE_OF"] = "balance_of";
++	Entrypoint2["TRANSFER"] = "transfer";
++	Entrypoint2["GET_TOKEN_INFOS"] = "get_token_info";
++	return Entrypoint2;
+ })(Entrypoint || {});
+ var LiquidityType = /* @__PURE__ */ ((LiquidityType2) => {
+-  LiquidityType2["JEDISWAP_ERC20"] = "JEDISWAP_ERC20";
+-  LiquidityType2["STARKDEFI_ERC20"] = "STARKDEFI_ERC20";
+-  LiquidityType2["EKUBO_NFT"] = "EKUBO_NFT";
+-  return LiquidityType2;
++	LiquidityType2["JEDISWAP_ERC20"] = "JEDISWAP_ERC20";
++	LiquidityType2["STARKDEFI_ERC20"] = "STARKDEFI_ERC20";
++	LiquidityType2["EKUBO_NFT"] = "EKUBO_NFT";
++	return LiquidityType2;
+ })(LiquidityType || {});
+ var MIN_STARTING_MCAP = 5e3;
+ var RECOMMENDED_STARTING_MCAP = 1e4;
+@@ -174,24 +174,24 @@ var EKUBO_BOUND = getStartingTick(+EKUBO_MAX_PRICE);
+ 
+ // src/constants/amms.ts
+ var AMM = /* @__PURE__ */ ((AMM2) => {
+-  AMM2["EKUBO"] = "Ekubo";
+-  AMM2["JEDISWAP"] = "Jediswap";
+-  AMM2["STARKDEFI"] = "StarkDeFi";
+-  return AMM2;
++	AMM2["EKUBO"] = "Ekubo";
++	AMM2["JEDISWAP"] = "Jediswap";
++	AMM2["STARKDEFI"] = "StarkDeFi";
++	return AMM2;
+ })(AMM || {});
+ var AMMS = {
+-  ["Ekubo" /* EKUBO */]: {
+-    description: "Most efficient AMM ever, you can launch your token without having to provide liquidity and can collect fees.",
+-    launchEntrypoint: "launch_on_ekubo" /* LAUNCH_ON_EKUBO */
+-  },
+-  ["Jediswap" /* JEDISWAP */]: {
+-    description: "Widely supported AMM, team allocation will be free but you have to provide liquidity and can't collect fees.",
+-    launchEntrypoint: "launch_on_jediswap" /* LAUNCH_ON_JEDISWAP */
+-  },
+-  ["StarkDeFi" /* STARKDEFI */]: {
+-    description: "Team allocation will be free but you have to provide liquidity and can't collect fees.",
+-    launchEntrypoint: "launch_on_starkdefi" /* LAUNCH_ON_STARKDEFI */
+-  }
++	["Ekubo" /* EKUBO */]: {
++		description: "Most efficient AMM ever, you can launch your token without having to provide liquidity and can collect fees.",
++		launchEntrypoint: "launch_on_ekubo" /* LAUNCH_ON_EKUBO */
++	},
++	["Jediswap" /* JEDISWAP */]: {
++		description: "Widely supported AMM, team allocation will be free but you have to provide liquidity and can't collect fees.",
++		launchEntrypoint: "launch_on_jediswap" /* LAUNCH_ON_JEDISWAP */
++	},
++	["StarkDeFi" /* STARKDEFI */]: {
++		description: "Team allocation will be free but you have to provide liquidity and can't collect fees.",
++		launchEntrypoint: "launch_on_starkdefi" /* LAUNCH_ON_STARKDEFI */
++	}
+ };
+ 
+ // src/constants/contracts.ts
+@@ -199,1902 +199,1902 @@ var import_starknet = require("starknet");
+ 
+ // src/abis/EkuboPositions.json
+ var EkuboPositions_default = [
+-  {
+-    name: "PositionsHasInterface",
+-    type: "impl",
+-    interface_name: "ekubo::components::upgradeable::IHasInterface"
+-  },
+-  {
+-    name: "ekubo::components::upgradeable::IHasInterface",
+-    type: "interface",
+-    items: [
+-      {
+-        name: "get_primary_interface_id",
+-        type: "function",
+-        inputs: [],
+-        outputs: [
+-          {
+-            type: "core::felt252"
+-          }
+-        ],
+-        state_mutability: "view"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ILockerImpl",
+-    type: "impl",
+-    interface_name: "ekubo::interfaces::core::ILocker"
+-  },
+-  {
+-    name: "core::array::Span::<core::felt252>",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "snapshot",
+-        type: "@core::array::Array::<core::felt252>"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::interfaces::core::ILocker",
+-    type: "interface",
+-    items: [
+-      {
+-        name: "locked",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u32"
+-          },
+-          {
+-            name: "data",
+-            type: "core::array::Span::<core::felt252>"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::array::Span::<core::felt252>"
+-          }
+-        ],
+-        state_mutability: "external"
+-      }
+-    ]
+-  },
+-  {
+-    name: "PositionsImpl",
+-    type: "impl",
+-    interface_name: "ekubo::interfaces::positions::IPositions"
+-  },
+-  {
+-    name: "ekubo::types::keys::PoolKey",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "token0",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      },
+-      {
+-        name: "token1",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      },
+-      {
+-        name: "fee",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "tick_spacing",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "extension",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      }
+-    ]
+-  },
+-  {
+-    name: "core::bool",
+-    type: "enum",
+-    variants: [
+-      {
+-        name: "False",
+-        type: "()"
+-      },
+-      {
+-        name: "True",
+-        type: "()"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::types::i129::i129",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "mag",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "sign",
+-        type: "core::bool"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::types::bounds::Bounds",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "lower",
+-        type: "ekubo::types::i129::i129"
+-      },
+-      {
+-        name: "upper",
+-        type: "ekubo::types::i129::i129"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::interfaces::positions::GetTokenInfoRequest",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "id",
+-        type: "core::integer::u64"
+-      },
+-      {
+-        name: "pool_key",
+-        type: "ekubo::types::keys::PoolKey"
+-      },
+-      {
+-        name: "bounds",
+-        type: "ekubo::types::bounds::Bounds"
+-      }
+-    ]
+-  },
+-  {
+-    name: "core::array::Span::<ekubo::interfaces::positions::GetTokenInfoRequest>",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "snapshot",
+-        type: "@core::array::Array::<ekubo::interfaces::positions::GetTokenInfoRequest>"
+-      }
+-    ]
+-  },
+-  {
+-    name: "core::integer::u256",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "low",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "high",
+-        type: "core::integer::u128"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::types::pool_price::PoolPrice",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "sqrt_ratio",
+-        type: "core::integer::u256"
+-      },
+-      {
+-        name: "tick",
+-        type: "ekubo::types::i129::i129"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::interfaces::positions::GetTokenInfoResult",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "pool_price",
+-        type: "ekubo::types::pool_price::PoolPrice"
+-      },
+-      {
+-        name: "liquidity",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "amount0",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "amount1",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "fees0",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "fees1",
+-        type: "core::integer::u128"
+-      }
+-    ]
+-  },
+-  {
+-    name: "core::array::Span::<ekubo::interfaces::positions::GetTokenInfoResult>",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "snapshot",
+-        type: "@core::array::Array::<ekubo::interfaces::positions::GetTokenInfoResult>"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::extensions::interfaces::twamm::OrderKey",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "sell_token",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      },
+-      {
+-        name: "buy_token",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      },
+-      {
+-        name: "fee",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "start_time",
+-        type: "core::integer::u64"
+-      },
+-      {
+-        name: "end_time",
+-        type: "core::integer::u64"
+-      }
+-    ]
+-  },
+-  {
+-    name: "core::array::Span::<(core::integer::u64, ekubo::extensions::interfaces::twamm::OrderKey)>",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "snapshot",
+-        type: "@core::array::Array::<(core::integer::u64, ekubo::extensions::interfaces::twamm::OrderKey)>"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::extensions::interfaces::twamm::OrderInfo",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "sale_rate",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "remaining_sell_amount",
+-        type: "core::integer::u128"
+-      },
+-      {
+-        name: "purchased_amount",
+-        type: "core::integer::u128"
+-      }
+-    ]
+-  },
+-  {
+-    name: "core::array::Span::<ekubo::extensions::interfaces::twamm::OrderInfo>",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "snapshot",
+-        type: "@core::array::Array::<ekubo::extensions::interfaces::twamm::OrderInfo>"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::interfaces::positions::IPositions",
+-    type: "interface",
+-    items: [
+-      {
+-        name: "get_nft_address",
+-        type: "function",
+-        inputs: [],
+-        outputs: [
+-          {
+-            type: "core::starknet::contract_address::ContractAddress"
+-          }
+-        ],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "upgrade_nft",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "class_hash",
+-            type: "core::starknet::class_hash::ClassHash"
+-          }
+-        ],
+-        outputs: [],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "set_twamm",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "twamm_address",
+-            type: "core::starknet::contract_address::ContractAddress"
+-          }
+-        ],
+-        outputs: [],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "get_twamm_address",
+-        type: "function",
+-        inputs: [],
+-        outputs: [
+-          {
+-            type: "core::starknet::contract_address::ContractAddress"
+-          }
+-        ],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "get_tokens_info",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "params",
+-            type: "core::array::Span::<ekubo::interfaces::positions::GetTokenInfoRequest>"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::array::Span::<ekubo::interfaces::positions::GetTokenInfoResult>"
+-          }
+-        ],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "get_token_info",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "ekubo::interfaces::positions::GetTokenInfoResult"
+-          }
+-        ],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "get_orders_info",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "params",
+-            type: "core::array::Span::<(core::integer::u64, ekubo::extensions::interfaces::twamm::OrderKey)>"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::array::Span::<ekubo::extensions::interfaces::twamm::OrderInfo>"
+-          }
+-        ],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "get_order_info",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "order_key",
+-            type: "ekubo::extensions::interfaces::twamm::OrderKey"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "ekubo::extensions::interfaces::twamm::OrderInfo"
+-          }
+-        ],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "mint",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u64"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "mint_with_referrer",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          },
+-          {
+-            name: "referrer",
+-            type: "core::starknet::contract_address::ContractAddress"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u64"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "mint_v2",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "referrer",
+-            type: "core::starknet::contract_address::ContractAddress"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u64"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "check_liquidity_is_zero",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          }
+-        ],
+-        outputs: [],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "unsafe_burn",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          }
+-        ],
+-        outputs: [],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "deposit_last",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          },
+-          {
+-            name: "min_liquidity",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "deposit_amounts_last",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          },
+-          {
+-            name: "amount0",
+-            type: "core::integer::u128"
+-          },
+-          {
+-            name: "amount1",
+-            type: "core::integer::u128"
+-          },
+-          {
+-            name: "min_liquidity",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "deposit",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          },
+-          {
+-            name: "min_liquidity",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "deposit_amounts",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          },
+-          {
+-            name: "amount0",
+-            type: "core::integer::u128"
+-          },
+-          {
+-            name: "amount1",
+-            type: "core::integer::u128"
+-          },
+-          {
+-            name: "min_liquidity",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "mint_and_deposit",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          },
+-          {
+-            name: "min_liquidity",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "(core::integer::u64, core::integer::u128)"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "mint_and_deposit_with_referrer",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          },
+-          {
+-            name: "min_liquidity",
+-            type: "core::integer::u128"
+-          },
+-          {
+-            name: "referrer",
+-            type: "core::starknet::contract_address::ContractAddress"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "(core::integer::u64, core::integer::u128)"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "mint_and_deposit_and_clear_both",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          },
+-          {
+-            name: "min_liquidity",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "(core::integer::u64, core::integer::u128, core::integer::u256, core::integer::u256)"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "collect_fees",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "(core::integer::u128, core::integer::u128)"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "withdraw",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          },
+-          {
+-            name: "liquidity",
+-            type: "core::integer::u128"
+-          },
+-          {
+-            name: "min_token0",
+-            type: "core::integer::u128"
+-          },
+-          {
+-            name: "min_token1",
+-            type: "core::integer::u128"
+-          },
+-          {
+-            name: "collect_fees",
+-            type: "core::bool"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "(core::integer::u128, core::integer::u128)"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "withdraw_v2",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          },
+-          {
+-            name: "bounds",
+-            type: "ekubo::types::bounds::Bounds"
+-          },
+-          {
+-            name: "liquidity",
+-            type: "core::integer::u128"
+-          },
+-          {
+-            name: "min_token0",
+-            type: "core::integer::u128"
+-          },
+-          {
+-            name: "min_token1",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "(core::integer::u128, core::integer::u128)"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "get_pool_price",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "pool_key",
+-            type: "ekubo::types::keys::PoolKey"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "ekubo::types::pool_price::PoolPrice"
+-          }
+-        ],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "mint_and_increase_sell_amount",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "order_key",
+-            type: "ekubo::extensions::interfaces::twamm::OrderKey"
+-          },
+-          {
+-            name: "amount",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "(core::integer::u64, core::integer::u128)"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "increase_sell_amount_last",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "order_key",
+-            type: "ekubo::extensions::interfaces::twamm::OrderKey"
+-          },
+-          {
+-            name: "amount",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "increase_sell_amount",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "order_key",
+-            type: "ekubo::extensions::interfaces::twamm::OrderKey"
+-          },
+-          {
+-            name: "amount",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "decrease_sale_rate",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "order_key",
+-            type: "ekubo::extensions::interfaces::twamm::OrderKey"
+-          },
+-          {
+-            name: "sale_rate_delta",
+-            type: "core::integer::u128"
+-          }
+-        ],
+-        outputs: [],
+-        state_mutability: "external"
+-      },
+-      {
+-        name: "withdraw_proceeds_from_sale",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "id",
+-            type: "core::integer::u64"
+-          },
+-          {
+-            name: "order_key",
+-            type: "ekubo::extensions::interfaces::twamm::OrderKey"
+-          }
+-        ],
+-        outputs: [],
+-        state_mutability: "external"
+-      }
+-    ]
+-  },
+-  {
+-    name: "Owned",
+-    type: "impl",
+-    interface_name: "ekubo::components::owned::IOwned"
+-  },
+-  {
+-    name: "ekubo::components::owned::IOwned",
+-    type: "interface",
+-    items: [
+-      {
+-        name: "get_owner",
+-        type: "function",
+-        inputs: [],
+-        outputs: [
+-          {
+-            type: "core::starknet::contract_address::ContractAddress"
+-          }
+-        ],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "transfer_ownership",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "new_owner",
+-            type: "core::starknet::contract_address::ContractAddress"
+-          }
+-        ],
+-        outputs: [],
+-        state_mutability: "external"
+-      }
+-    ]
+-  },
+-  {
+-    name: "Upgradeable",
+-    type: "impl",
+-    interface_name: "ekubo::interfaces::upgradeable::IUpgradeable"
+-  },
+-  {
+-    name: "ekubo::interfaces::upgradeable::IUpgradeable",
+-    type: "interface",
+-    items: [
+-      {
+-        name: "replace_class_hash",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "class_hash",
+-            type: "core::starknet::class_hash::ClassHash"
+-          }
+-        ],
+-        outputs: [],
+-        state_mutability: "external"
+-      }
+-    ]
+-  },
+-  {
+-    name: "Clear",
+-    type: "impl",
+-    interface_name: "ekubo::components::clear::IClear"
+-  },
+-  {
+-    name: "ekubo::interfaces::erc20::IERC20Dispatcher",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "contract_address",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::components::clear::IClear",
+-    type: "interface",
+-    items: [
+-      {
+-        name: "clear",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "token",
+-            type: "ekubo::interfaces::erc20::IERC20Dispatcher"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u256"
+-          }
+-        ],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "clear_minimum",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "token",
+-            type: "ekubo::interfaces::erc20::IERC20Dispatcher"
+-          },
+-          {
+-            name: "minimum",
+-            type: "core::integer::u256"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u256"
+-          }
+-        ],
+-        state_mutability: "view"
+-      },
+-      {
+-        name: "clear_minimum_to_recipient",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "token",
+-            type: "ekubo::interfaces::erc20::IERC20Dispatcher"
+-          },
+-          {
+-            name: "minimum",
+-            type: "core::integer::u256"
+-          },
+-          {
+-            name: "recipient",
+-            type: "core::starknet::contract_address::ContractAddress"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "core::integer::u256"
+-          }
+-        ],
+-        state_mutability: "view"
+-      }
+-    ]
+-  },
+-  {
+-    name: "Expires",
+-    type: "impl",
+-    interface_name: "ekubo::components::expires::IExpires"
+-  },
+-  {
+-    name: "ekubo::components::expires::IExpires",
+-    type: "interface",
+-    items: [
+-      {
+-        name: "expires",
+-        type: "function",
+-        inputs: [
+-          {
+-            name: "at",
+-            type: "core::integer::u64"
+-          }
+-        ],
+-        outputs: [],
+-        state_mutability: "view"
+-      }
+-    ]
+-  },
+-  {
+-    name: "ekubo::interfaces::core::ICoreDispatcher",
+-    type: "struct",
+-    members: [
+-      {
+-        name: "contract_address",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      }
+-    ]
+-  },
+-  {
+-    name: "constructor",
+-    type: "constructor",
+-    inputs: [
+-      {
+-        name: "owner",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      },
+-      {
+-        name: "core",
+-        type: "ekubo::interfaces::core::ICoreDispatcher"
+-      },
+-      {
+-        name: "nft_class_hash",
+-        type: "core::starknet::class_hash::ClassHash"
+-      },
+-      {
+-        name: "token_uri_base",
+-        type: "core::felt252"
+-      }
+-    ]
+-  },
+-  {
+-    kind: "struct",
+-    name: "ekubo::components::upgradeable::Upgradeable::ClassHashReplaced",
+-    type: "event",
+-    members: [
+-      {
+-        kind: "data",
+-        name: "new_class_hash",
+-        type: "core::starknet::class_hash::ClassHash"
+-      }
+-    ]
+-  },
+-  {
+-    kind: "enum",
+-    name: "ekubo::components::upgradeable::Upgradeable::Event",
+-    type: "event",
+-    variants: [
+-      {
+-        kind: "nested",
+-        name: "ClassHashReplaced",
+-        type: "ekubo::components::upgradeable::Upgradeable::ClassHashReplaced"
+-      }
+-    ]
+-  },
+-  {
+-    kind: "struct",
+-    name: "ekubo::components::owned::Owned::OwnershipTransferred",
+-    type: "event",
+-    members: [
+-      {
+-        kind: "data",
+-        name: "old_owner",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      },
+-      {
+-        kind: "data",
+-        name: "new_owner",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      }
+-    ]
+-  },
+-  {
+-    kind: "enum",
+-    name: "ekubo::components::owned::Owned::Event",
+-    type: "event",
+-    variants: [
+-      {
+-        kind: "nested",
+-        name: "OwnershipTransferred",
+-        type: "ekubo::components::owned::Owned::OwnershipTransferred"
+-      }
+-    ]
+-  },
+-  {
+-    kind: "struct",
+-    name: "ekubo::positions::Positions::PositionMintedWithReferrer",
+-    type: "event",
+-    members: [
+-      {
+-        kind: "data",
+-        name: "id",
+-        type: "core::integer::u64"
+-      },
+-      {
+-        kind: "data",
+-        name: "referrer",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      }
+-    ]
+-  },
+-  {
+-    kind: "enum",
+-    name: "ekubo::positions::Positions::Event",
+-    type: "event",
+-    variants: [
+-      {
+-        kind: "flat",
+-        name: "UpgradeableEvent",
+-        type: "ekubo::components::upgradeable::Upgradeable::Event"
+-      },
+-      {
+-        kind: "nested",
+-        name: "OwnedEvent",
+-        type: "ekubo::components::owned::Owned::Event"
+-      },
+-      {
+-        kind: "nested",
+-        name: "PositionMintedWithReferrer",
+-        type: "ekubo::positions::Positions::PositionMintedWithReferrer"
+-      }
+-    ]
+-  }
++	{
++		name: "PositionsHasInterface",
++		type: "impl",
++		interface_name: "ekubo::components::upgradeable::IHasInterface"
++	},
++	{
++		name: "ekubo::components::upgradeable::IHasInterface",
++		type: "interface",
++		items: [
++			{
++				name: "get_primary_interface_id",
++				type: "function",
++				inputs: [],
++				outputs: [
++					{
++						type: "core::felt252"
++					}
++				],
++				state_mutability: "view"
++			}
++		]
++	},
++	{
++		name: "ILockerImpl",
++		type: "impl",
++		interface_name: "ekubo::interfaces::core::ILocker"
++	},
++	{
++		name: "core::array::Span::<core::felt252>",
++		type: "struct",
++		members: [
++			{
++				name: "snapshot",
++				type: "@core::array::Array::<core::felt252>"
++			}
++		]
++	},
++	{
++		name: "ekubo::interfaces::core::ILocker",
++		type: "interface",
++		items: [
++			{
++				name: "locked",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u32"
++					},
++					{
++						name: "data",
++						type: "core::array::Span::<core::felt252>"
++					}
++				],
++				outputs: [
++					{
++						type: "core::array::Span::<core::felt252>"
++					}
++				],
++				state_mutability: "external"
++			}
++		]
++	},
++	{
++		name: "PositionsImpl",
++		type: "impl",
++		interface_name: "ekubo::interfaces::positions::IPositions"
++	},
++	{
++		name: "ekubo::types::keys::PoolKey",
++		type: "struct",
++		members: [
++			{
++				name: "token0",
++				type: "core::starknet::contract_address::ContractAddress"
++			},
++			{
++				name: "token1",
++				type: "core::starknet::contract_address::ContractAddress"
++			},
++			{
++				name: "fee",
++				type: "core::integer::u128"
++			},
++			{
++				name: "tick_spacing",
++				type: "core::integer::u128"
++			},
++			{
++				name: "extension",
++				type: "core::starknet::contract_address::ContractAddress"
++			}
++		]
++	},
++	{
++		name: "core::bool",
++		type: "enum",
++		variants: [
++			{
++				name: "False",
++				type: "()"
++			},
++			{
++				name: "True",
++				type: "()"
++			}
++		]
++	},
++	{
++		name: "ekubo::types::i129::i129",
++		type: "struct",
++		members: [
++			{
++				name: "mag",
++				type: "core::integer::u128"
++			},
++			{
++				name: "sign",
++				type: "core::bool"
++			}
++		]
++	},
++	{
++		name: "ekubo::types::bounds::Bounds",
++		type: "struct",
++		members: [
++			{
++				name: "lower",
++				type: "ekubo::types::i129::i129"
++			},
++			{
++				name: "upper",
++				type: "ekubo::types::i129::i129"
++			}
++		]
++	},
++	{
++		name: "ekubo::interfaces::positions::GetTokenInfoRequest",
++		type: "struct",
++		members: [
++			{
++				name: "id",
++				type: "core::integer::u64"
++			},
++			{
++				name: "pool_key",
++				type: "ekubo::types::keys::PoolKey"
++			},
++			{
++				name: "bounds",
++				type: "ekubo::types::bounds::Bounds"
++			}
++		]
++	},
++	{
++		name: "core::array::Span::<ekubo::interfaces::positions::GetTokenInfoRequest>",
++		type: "struct",
++		members: [
++			{
++				name: "snapshot",
++				type: "@core::array::Array::<ekubo::interfaces::positions::GetTokenInfoRequest>"
++			}
++		]
++	},
++	{
++		name: "core::integer::u256",
++		type: "struct",
++		members: [
++			{
++				name: "low",
++				type: "core::integer::u128"
++			},
++			{
++				name: "high",
++				type: "core::integer::u128"
++			}
++		]
++	},
++	{
++		name: "ekubo::types::pool_price::PoolPrice",
++		type: "struct",
++		members: [
++			{
++				name: "sqrt_ratio",
++				type: "core::integer::u256"
++			},
++			{
++				name: "tick",
++				type: "ekubo::types::i129::i129"
++			}
++		]
++	},
++	{
++		name: "ekubo::interfaces::positions::GetTokenInfoResult",
++		type: "struct",
++		members: [
++			{
++				name: "pool_price",
++				type: "ekubo::types::pool_price::PoolPrice"
++			},
++			{
++				name: "liquidity",
++				type: "core::integer::u128"
++			},
++			{
++				name: "amount0",
++				type: "core::integer::u128"
++			},
++			{
++				name: "amount1",
++				type: "core::integer::u128"
++			},
++			{
++				name: "fees0",
++				type: "core::integer::u128"
++			},
++			{
++				name: "fees1",
++				type: "core::integer::u128"
++			}
++		]
++	},
++	{
++		name: "core::array::Span::<ekubo::interfaces::positions::GetTokenInfoResult>",
++		type: "struct",
++		members: [
++			{
++				name: "snapshot",
++				type: "@core::array::Array::<ekubo::interfaces::positions::GetTokenInfoResult>"
++			}
++		]
++	},
++	{
++		name: "ekubo::extensions::interfaces::twamm::OrderKey",
++		type: "struct",
++		members: [
++			{
++				name: "sell_token",
++				type: "core::starknet::contract_address::ContractAddress"
++			},
++			{
++				name: "buy_token",
++				type: "core::starknet::contract_address::ContractAddress"
++			},
++			{
++				name: "fee",
++				type: "core::integer::u128"
++			},
++			{
++				name: "start_time",
++				type: "core::integer::u64"
++			},
++			{
++				name: "end_time",
++				type: "core::integer::u64"
++			}
++		]
++	},
++	{
++		name: "core::array::Span::<(core::integer::u64, ekubo::extensions::interfaces::twamm::OrderKey)>",
++		type: "struct",
++		members: [
++			{
++				name: "snapshot",
++				type: "@core::array::Array::<(core::integer::u64, ekubo::extensions::interfaces::twamm::OrderKey)>"
++			}
++		]
++	},
++	{
++		name: "ekubo::extensions::interfaces::twamm::OrderInfo",
++		type: "struct",
++		members: [
++			{
++				name: "sale_rate",
++				type: "core::integer::u128"
++			},
++			{
++				name: "remaining_sell_amount",
++				type: "core::integer::u128"
++			},
++			{
++				name: "purchased_amount",
++				type: "core::integer::u128"
++			}
++		]
++	},
++	{
++		name: "core::array::Span::<ekubo::extensions::interfaces::twamm::OrderInfo>",
++		type: "struct",
++		members: [
++			{
++				name: "snapshot",
++				type: "@core::array::Array::<ekubo::extensions::interfaces::twamm::OrderInfo>"
++			}
++		]
++	},
++	{
++		name: "ekubo::interfaces::positions::IPositions",
++		type: "interface",
++		items: [
++			{
++				name: "get_nft_address",
++				type: "function",
++				inputs: [],
++				outputs: [
++					{
++						type: "core::starknet::contract_address::ContractAddress"
++					}
++				],
++				state_mutability: "view"
++			},
++			{
++				name: "upgrade_nft",
++				type: "function",
++				inputs: [
++					{
++						name: "class_hash",
++						type: "core::starknet::class_hash::ClassHash"
++					}
++				],
++				outputs: [],
++				state_mutability: "external"
++			},
++			{
++				name: "set_twamm",
++				type: "function",
++				inputs: [
++					{
++						name: "twamm_address",
++						type: "core::starknet::contract_address::ContractAddress"
++					}
++				],
++				outputs: [],
++				state_mutability: "external"
++			},
++			{
++				name: "get_twamm_address",
++				type: "function",
++				inputs: [],
++				outputs: [
++					{
++						type: "core::starknet::contract_address::ContractAddress"
++					}
++				],
++				state_mutability: "view"
++			},
++			{
++				name: "get_tokens_info",
++				type: "function",
++				inputs: [
++					{
++						name: "params",
++						type: "core::array::Span::<ekubo::interfaces::positions::GetTokenInfoRequest>"
++					}
++				],
++				outputs: [
++					{
++						type: "core::array::Span::<ekubo::interfaces::positions::GetTokenInfoResult>"
++					}
++				],
++				state_mutability: "view"
++			},
++			{
++				name: "get_token_info",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					}
++				],
++				outputs: [
++					{
++						type: "ekubo::interfaces::positions::GetTokenInfoResult"
++					}
++				],
++				state_mutability: "view"
++			},
++			{
++				name: "get_orders_info",
++				type: "function",
++				inputs: [
++					{
++						name: "params",
++						type: "core::array::Span::<(core::integer::u64, ekubo::extensions::interfaces::twamm::OrderKey)>"
++					}
++				],
++				outputs: [
++					{
++						type: "core::array::Span::<ekubo::extensions::interfaces::twamm::OrderInfo>"
++					}
++				],
++				state_mutability: "view"
++			},
++			{
++				name: "get_order_info",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "order_key",
++						type: "ekubo::extensions::interfaces::twamm::OrderKey"
++					}
++				],
++				outputs: [
++					{
++						type: "ekubo::extensions::interfaces::twamm::OrderInfo"
++					}
++				],
++				state_mutability: "view"
++			},
++			{
++				name: "mint",
++				type: "function",
++				inputs: [
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u64"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "mint_with_referrer",
++				type: "function",
++				inputs: [
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					},
++					{
++						name: "referrer",
++						type: "core::starknet::contract_address::ContractAddress"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u64"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "mint_v2",
++				type: "function",
++				inputs: [
++					{
++						name: "referrer",
++						type: "core::starknet::contract_address::ContractAddress"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u64"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "check_liquidity_is_zero",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					}
++				],
++				outputs: [],
++				state_mutability: "view"
++			},
++			{
++				name: "unsafe_burn",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					}
++				],
++				outputs: [],
++				state_mutability: "external"
++			},
++			{
++				name: "deposit_last",
++				type: "function",
++				inputs: [
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					},
++					{
++						name: "min_liquidity",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u128"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "deposit_amounts_last",
++				type: "function",
++				inputs: [
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					},
++					{
++						name: "amount0",
++						type: "core::integer::u128"
++					},
++					{
++						name: "amount1",
++						type: "core::integer::u128"
++					},
++					{
++						name: "min_liquidity",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u128"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "deposit",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					},
++					{
++						name: "min_liquidity",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u128"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "deposit_amounts",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					},
++					{
++						name: "amount0",
++						type: "core::integer::u128"
++					},
++					{
++						name: "amount1",
++						type: "core::integer::u128"
++					},
++					{
++						name: "min_liquidity",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u128"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "mint_and_deposit",
++				type: "function",
++				inputs: [
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					},
++					{
++						name: "min_liquidity",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [
++					{
++						type: "(core::integer::u64, core::integer::u128)"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "mint_and_deposit_with_referrer",
++				type: "function",
++				inputs: [
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					},
++					{
++						name: "min_liquidity",
++						type: "core::integer::u128"
++					},
++					{
++						name: "referrer",
++						type: "core::starknet::contract_address::ContractAddress"
++					}
++				],
++				outputs: [
++					{
++						type: "(core::integer::u64, core::integer::u128)"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "mint_and_deposit_and_clear_both",
++				type: "function",
++				inputs: [
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					},
++					{
++						name: "min_liquidity",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [
++					{
++						type: "(core::integer::u64, core::integer::u128, core::integer::u256, core::integer::u256)"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "collect_fees",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					}
++				],
++				outputs: [
++					{
++						type: "(core::integer::u128, core::integer::u128)"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "withdraw",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					},
++					{
++						name: "liquidity",
++						type: "core::integer::u128"
++					},
++					{
++						name: "min_token0",
++						type: "core::integer::u128"
++					},
++					{
++						name: "min_token1",
++						type: "core::integer::u128"
++					},
++					{
++						name: "collect_fees",
++						type: "core::bool"
++					}
++				],
++				outputs: [
++					{
++						type: "(core::integer::u128, core::integer::u128)"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "withdraw_v2",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					},
++					{
++						name: "bounds",
++						type: "ekubo::types::bounds::Bounds"
++					},
++					{
++						name: "liquidity",
++						type: "core::integer::u128"
++					},
++					{
++						name: "min_token0",
++						type: "core::integer::u128"
++					},
++					{
++						name: "min_token1",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [
++					{
++						type: "(core::integer::u128, core::integer::u128)"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "get_pool_price",
++				type: "function",
++				inputs: [
++					{
++						name: "pool_key",
++						type: "ekubo::types::keys::PoolKey"
++					}
++				],
++				outputs: [
++					{
++						type: "ekubo::types::pool_price::PoolPrice"
++					}
++				],
++				state_mutability: "view"
++			},
++			{
++				name: "mint_and_increase_sell_amount",
++				type: "function",
++				inputs: [
++					{
++						name: "order_key",
++						type: "ekubo::extensions::interfaces::twamm::OrderKey"
++					},
++					{
++						name: "amount",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [
++					{
++						type: "(core::integer::u64, core::integer::u128)"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "increase_sell_amount_last",
++				type: "function",
++				inputs: [
++					{
++						name: "order_key",
++						type: "ekubo::extensions::interfaces::twamm::OrderKey"
++					},
++					{
++						name: "amount",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u128"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "increase_sell_amount",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "order_key",
++						type: "ekubo::extensions::interfaces::twamm::OrderKey"
++					},
++					{
++						name: "amount",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u128"
++					}
++				],
++				state_mutability: "external"
++			},
++			{
++				name: "decrease_sale_rate",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "order_key",
++						type: "ekubo::extensions::interfaces::twamm::OrderKey"
++					},
++					{
++						name: "sale_rate_delta",
++						type: "core::integer::u128"
++					}
++				],
++				outputs: [],
++				state_mutability: "external"
++			},
++			{
++				name: "withdraw_proceeds_from_sale",
++				type: "function",
++				inputs: [
++					{
++						name: "id",
++						type: "core::integer::u64"
++					},
++					{
++						name: "order_key",
++						type: "ekubo::extensions::interfaces::twamm::OrderKey"
++					}
++				],
++				outputs: [],
++				state_mutability: "external"
++			}
++		]
++	},
++	{
++		name: "Owned",
++		type: "impl",
++		interface_name: "ekubo::components::owned::IOwned"
++	},
++	{
++		name: "ekubo::components::owned::IOwned",
++		type: "interface",
++		items: [
++			{
++				name: "get_owner",
++				type: "function",
++				inputs: [],
++				outputs: [
++					{
++						type: "core::starknet::contract_address::ContractAddress"
++					}
++				],
++				state_mutability: "view"
++			},
++			{
++				name: "transfer_ownership",
++				type: "function",
++				inputs: [
++					{
++						name: "new_owner",
++						type: "core::starknet::contract_address::ContractAddress"
++					}
++				],
++				outputs: [],
++				state_mutability: "external"
++			}
++		]
++	},
++	{
++		name: "Upgradeable",
++		type: "impl",
++		interface_name: "ekubo::interfaces::upgradeable::IUpgradeable"
++	},
++	{
++		name: "ekubo::interfaces::upgradeable::IUpgradeable",
++		type: "interface",
++		items: [
++			{
++				name: "replace_class_hash",
++				type: "function",
++				inputs: [
++					{
++						name: "class_hash",
++						type: "core::starknet::class_hash::ClassHash"
++					}
++				],
++				outputs: [],
++				state_mutability: "external"
++			}
++		]
++	},
++	{
++		name: "Clear",
++		type: "impl",
++		interface_name: "ekubo::components::clear::IClear"
++	},
++	{
++		name: "ekubo::interfaces::erc20::IERC20Dispatcher",
++		type: "struct",
++		members: [
++			{
++				name: "contract_address",
++				type: "core::starknet::contract_address::ContractAddress"
++			}
++		]
++	},
++	{
++		name: "ekubo::components::clear::IClear",
++		type: "interface",
++		items: [
++			{
++				name: "clear",
++				type: "function",
++				inputs: [
++					{
++						name: "token",
++						type: "ekubo::interfaces::erc20::IERC20Dispatcher"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u256"
++					}
++				],
++				state_mutability: "view"
++			},
++			{
++				name: "clear_minimum",
++				type: "function",
++				inputs: [
++					{
++						name: "token",
++						type: "ekubo::interfaces::erc20::IERC20Dispatcher"
++					},
++					{
++						name: "minimum",
++						type: "core::integer::u256"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u256"
++					}
++				],
++				state_mutability: "view"
++			},
++			{
++				name: "clear_minimum_to_recipient",
++				type: "function",
++				inputs: [
++					{
++						name: "token",
++						type: "ekubo::interfaces::erc20::IERC20Dispatcher"
++					},
++					{
++						name: "minimum",
++						type: "core::integer::u256"
++					},
++					{
++						name: "recipient",
++						type: "core::starknet::contract_address::ContractAddress"
++					}
++				],
++				outputs: [
++					{
++						type: "core::integer::u256"
++					}
++				],
++				state_mutability: "view"
++			}
++		]
++	},
++	{
++		name: "Expires",
++		type: "impl",
++		interface_name: "ekubo::components::expires::IExpires"
++	},
++	{
++		name: "ekubo::components::expires::IExpires",
++		type: "interface",
++		items: [
++			{
++				name: "expires",
++				type: "function",
++				inputs: [
++					{
++						name: "at",
++						type: "core::integer::u64"
++					}
++				],
++				outputs: [],
++				state_mutability: "view"
++			}
++		]
++	},
++	{
++		name: "ekubo::interfaces::core::ICoreDispatcher",
++		type: "struct",
++		members: [
++			{
++				name: "contract_address",
++				type: "core::starknet::contract_address::ContractAddress"
++			}
++		]
++	},
++	{
++		name: "constructor",
++		type: "constructor",
++		inputs: [
++			{
++				name: "owner",
++				type: "core::starknet::contract_address::ContractAddress"
++			},
++			{
++				name: "core",
++				type: "ekubo::interfaces::core::ICoreDispatcher"
++			},
++			{
++				name: "nft_class_hash",
++				type: "core::starknet::class_hash::ClassHash"
++			},
++			{
++				name: "token_uri_base",
++				type: "core::felt252"
++			}
++		]
++	},
++	{
++		kind: "struct",
++		name: "ekubo::components::upgradeable::Upgradeable::ClassHashReplaced",
++		type: "event",
++		members: [
++			{
++				kind: "data",
++				name: "new_class_hash",
++				type: "core::starknet::class_hash::ClassHash"
++			}
++		]
++	},
++	{
++		kind: "enum",
++		name: "ekubo::components::upgradeable::Upgradeable::Event",
++		type: "event",
++		variants: [
++			{
++				kind: "nested",
++				name: "ClassHashReplaced",
++				type: "ekubo::components::upgradeable::Upgradeable::ClassHashReplaced"
++			}
++		]
++	},
++	{
++		kind: "struct",
++		name: "ekubo::components::owned::Owned::OwnershipTransferred",
++		type: "event",
++		members: [
++			{
++				kind: "data",
++				name: "old_owner",
++				type: "core::starknet::contract_address::ContractAddress"
++			},
++			{
++				kind: "data",
++				name: "new_owner",
++				type: "core::starknet::contract_address::ContractAddress"
++			}
++		]
++	},
++	{
++		kind: "enum",
++		name: "ekubo::components::owned::Owned::Event",
++		type: "event",
++		variants: [
++			{
++				kind: "nested",
++				name: "OwnershipTransferred",
++				type: "ekubo::components::owned::Owned::OwnershipTransferred"
++			}
++		]
++	},
++	{
++		kind: "struct",
++		name: "ekubo::positions::Positions::PositionMintedWithReferrer",
++		type: "event",
++		members: [
++			{
++				kind: "data",
++				name: "id",
++				type: "core::integer::u64"
++			},
++			{
++				kind: "data",
++				name: "referrer",
++				type: "core::starknet::contract_address::ContractAddress"
++			}
++		]
++	},
++	{
++		kind: "enum",
++		name: "ekubo::positions::Positions::Event",
++		type: "event",
++		variants: [
++			{
++				kind: "flat",
++				name: "UpgradeableEvent",
++				type: "ekubo::components::upgradeable::Upgradeable::Event"
++			},
++			{
++				kind: "nested",
++				name: "OwnedEvent",
++				type: "ekubo::components::owned::Owned::Event"
++			},
++			{
++				kind: "nested",
++				name: "PositionMintedWithReferrer",
++				type: "ekubo::positions::Positions::PositionMintedWithReferrer"
++			}
++		]
++	}
+ ];
+ 
+ // src/abis/JediswapPair.json
+ var JediswapPair_default = [
+-  {
+-    members: [
+-      {
+-        name: "low",
+-        offset: 0,
+-        type: "felt"
+-      },
+-      {
+-        name: "high",
+-        offset: 1,
+-        type: "felt"
+-      }
+-    ],
+-    name: "Uint256",
+-    size: 2,
+-    type: "struct"
+-  },
+-  {
+-    data: [
+-      {
+-        name: "from_",
+-        type: "felt"
+-      },
+-      {
+-        name: "to",
+-        type: "felt"
+-      },
+-      {
+-        name: "value",
+-        type: "Uint256"
+-      }
+-    ],
+-    keys: [],
+-    name: "Transfer",
+-    type: "event"
+-  },
+-  {
+-    data: [
+-      {
+-        name: "owner",
+-        type: "felt"
+-      },
+-      {
+-        name: "spender",
+-        type: "felt"
+-      },
+-      {
+-        name: "value",
+-        type: "Uint256"
+-      }
+-    ],
+-    keys: [],
+-    name: "Approval",
+-    type: "event"
+-  },
+-  {
+-    data: [
+-      {
+-        name: "implementation",
+-        type: "felt"
+-      }
+-    ],
+-    keys: [],
+-    name: "Upgraded",
+-    type: "event"
+-  },
+-  {
+-    data: [
+-      {
+-        name: "previousAdmin",
+-        type: "felt"
+-      },
+-      {
+-        name: "newAdmin",
+-        type: "felt"
+-      }
+-    ],
+-    keys: [],
+-    name: "AdminChanged",
+-    type: "event"
+-  },
+-  {
+-    data: [
+-      {
+-        name: "from_address",
+-        type: "felt"
+-      },
+-      {
+-        name: "to_address",
+-        type: "felt"
+-      },
+-      {
+-        name: "amount",
+-        type: "Uint256"
+-      }
+-    ],
+-    keys: [],
+-    name: "Transfer",
+-    type: "event"
+-  },
+-  {
+-    data: [
+-      {
+-        name: "owner",
+-        type: "felt"
+-      },
+-      {
+-        name: "spender",
+-        type: "felt"
+-      },
+-      {
+-        name: "amount",
+-        type: "Uint256"
+-      }
+-    ],
+-    keys: [],
+-    name: "Approval",
+-    type: "event"
+-  },
+-  {
+-    data: [
+-      {
+-        name: "sender",
+-        type: "felt"
+-      },
+-      {
+-        name: "amount0",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "amount1",
+-        type: "Uint256"
+-      }
+-    ],
+-    keys: [],
+-    name: "Mint",
+-    type: "event"
+-  },
+-  {
+-    data: [
+-      {
+-        name: "sender",
+-        type: "felt"
+-      },
+-      {
+-        name: "amount0",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "amount1",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "to",
+-        type: "felt"
+-      }
+-    ],
+-    keys: [],
+-    name: "Burn",
+-    type: "event"
+-  },
+-  {
+-    data: [
+-      {
+-        name: "sender",
+-        type: "felt"
+-      },
+-      {
+-        name: "amount0In",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "amount1In",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "amount0Out",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "amount1Out",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "to",
+-        type: "felt"
+-      }
+-    ],
+-    keys: [],
+-    name: "Swap",
+-    type: "event"
+-  },
+-  {
+-    data: [
+-      {
+-        name: "reserve0",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "reserve1",
+-        type: "Uint256"
+-      }
+-    ],
+-    keys: [],
+-    name: "Sync",
+-    type: "event"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "token0",
+-        type: "felt"
+-      },
+-      {
+-        name: "token1",
+-        type: "felt"
+-      },
+-      {
+-        name: "proxy_admin",
+-        type: "felt"
+-      }
+-    ],
+-    name: "initializer",
+-    outputs: [],
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "name",
+-    outputs: [
+-      {
+-        name: "name",
+-        type: "felt"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "symbol",
+-    outputs: [
+-      {
+-        name: "symbol",
+-        type: "felt"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "totalSupply",
+-    outputs: [
+-      {
+-        name: "totalSupply",
+-        type: "Uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "decimals",
+-    outputs: [
+-      {
+-        name: "decimals",
+-        type: "felt"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "account",
+-        type: "felt"
+-      }
+-    ],
+-    name: "balanceOf",
+-    outputs: [
+-      {
+-        name: "balance",
+-        type: "Uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "owner",
+-        type: "felt"
+-      },
+-      {
+-        name: "spender",
+-        type: "felt"
+-      }
+-    ],
+-    name: "allowance",
+-    outputs: [
+-      {
+-        name: "remaining",
+-        type: "Uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "token0",
+-    outputs: [
+-      {
+-        name: "address",
+-        type: "felt"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "token1",
+-    outputs: [
+-      {
+-        name: "address",
+-        type: "felt"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "get_reserves",
+-    outputs: [
+-      {
+-        name: "reserve0",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "reserve1",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "block_timestamp_last",
+-        type: "felt"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "price_0_cumulative_last",
+-    outputs: [
+-      {
+-        name: "res",
+-        type: "Uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "price_1_cumulative_last",
+-    outputs: [
+-      {
+-        name: "res",
+-        type: "Uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "klast",
+-    outputs: [
+-      {
+-        name: "res",
+-        type: "Uint256"
+-      }
+-    ],
+-    stateMutability: "view",
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "recipient",
+-        type: "felt"
+-      },
+-      {
+-        name: "amount",
+-        type: "Uint256"
+-      }
+-    ],
+-    name: "transfer",
+-    outputs: [
+-      {
+-        name: "success",
+-        type: "felt"
+-      }
+-    ],
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "sender",
+-        type: "felt"
+-      },
+-      {
+-        name: "recipient",
+-        type: "felt"
+-      },
+-      {
+-        name: "amount",
+-        type: "Uint256"
+-      }
+-    ],
+-    name: "transferFrom",
+-    outputs: [
+-      {
+-        name: "success",
+-        type: "felt"
+-      }
+-    ],
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "spender",
+-        type: "felt"
+-      },
+-      {
+-        name: "amount",
+-        type: "Uint256"
+-      }
+-    ],
+-    name: "approve",
+-    outputs: [
+-      {
+-        name: "success",
+-        type: "felt"
+-      }
+-    ],
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "spender",
+-        type: "felt"
+-      },
+-      {
+-        name: "added_value",
+-        type: "Uint256"
+-      }
+-    ],
+-    name: "increaseAllowance",
+-    outputs: [
+-      {
+-        name: "success",
+-        type: "felt"
+-      }
+-    ],
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "spender",
+-        type: "felt"
+-      },
+-      {
+-        name: "subtracted_value",
+-        type: "Uint256"
+-      }
+-    ],
+-    name: "decreaseAllowance",
+-    outputs: [
+-      {
+-        name: "success",
+-        type: "felt"
+-      }
+-    ],
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "to",
+-        type: "felt"
+-      }
+-    ],
+-    name: "mint",
+-    outputs: [
+-      {
+-        name: "liquidity",
+-        type: "Uint256"
+-      }
+-    ],
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "to",
+-        type: "felt"
+-      }
+-    ],
+-    name: "burn",
+-    outputs: [
+-      {
+-        name: "amount0",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "amount1",
+-        type: "Uint256"
+-      }
+-    ],
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "amount0Out",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "amount1Out",
+-        type: "Uint256"
+-      },
+-      {
+-        name: "to",
+-        type: "felt"
+-      },
+-      {
+-        name: "data_len",
+-        type: "felt"
+-      },
+-      {
+-        name: "data",
+-        type: "felt*"
+-      }
+-    ],
+-    name: "swap",
+-    outputs: [],
+-    type: "function"
+-  },
+-  {
+-    inputs: [
+-      {
+-        name: "to",
+-        type: "felt"
+-      }
+-    ],
+-    name: "skim",
+-    outputs: [],
+-    type: "function"
+-  },
+-  {
+-    inputs: [],
+-    name: "sync",
+-    outputs: [],
+-    type: "function"
+-  }
++	{
++		members: [
++			{
++				name: "low",
++				offset: 0,
++				type: "felt"
++			},
++			{
++				name: "high",
++				offset: 1,
++				type: "felt"
++			}
++		],
++		name: "Uint256",
++		size: 2,
++		type: "struct"
++	},
++	{
++		data: [
++			{
++				name: "from_",
++				type: "felt"
++			},
++			{
++				name: "to",
++				type: "felt"
++			},
++			{
++				name: "value",
++				type: "Uint256"
++			}
++		],
++		keys: [],
++		name: "Transfer",
++		type: "event"
++	},
++	{
++		data: [
++			{
++				name: "owner",
++				type: "felt"
++			},
++			{
++				name: "spender",
++				type: "felt"
++			},
++			{
++				name: "value",
++				type: "Uint256"
++			}
++		],
++		keys: [],
++		name: "Approval",
++		type: "event"
++	},
++	{
++		data: [
++			{
++				name: "implementation",
++				type: "felt"
++			}
++		],
++		keys: [],
++		name: "Upgraded",
++		type: "event"
++	},
++	{
++		data: [
++			{
++				name: "previousAdmin",
++				type: "felt"
++			},
++			{
++				name: "newAdmin",
++				type: "felt"
++			}
++		],
++		keys: [],
++		name: "AdminChanged",
++		type: "event"
++	},
++	{
++		data: [
++			{
++				name: "from_address",
++				type: "felt"
++			},
++			{
++				name: "to_address",
++				type: "felt"
++			},
++			{
++				name: "amount",
++				type: "Uint256"
++			}
++		],
++		keys: [],
++		name: "Transfer",
++		type: "event"
++	},
++	{
++		data: [
++			{
++				name: "owner",
++				type: "felt"
++			},
++			{
++				name: "spender",
++				type: "felt"
++			},
++			{
++				name: "amount",
++				type: "Uint256"
++			}
++		],
++		keys: [],
++		name: "Approval",
++		type: "event"
++	},
++	{
++		data: [
++			{
++				name: "sender",
++				type: "felt"
++			},
++			{
++				name: "amount0",
++				type: "Uint256"
++			},
++			{
++				name: "amount1",
++				type: "Uint256"
++			}
++		],
++		keys: [],
++		name: "Mint",
++		type: "event"
++	},
++	{
++		data: [
++			{
++				name: "sender",
++				type: "felt"
++			},
++			{
++				name: "amount0",
++				type: "Uint256"
++			},
++			{
++				name: "amount1",
++				type: "Uint256"
++			},
++			{
++				name: "to",
++				type: "felt"
++			}
++		],
++		keys: [],
++		name: "Burn",
++		type: "event"
++	},
++	{
++		data: [
++			{
++				name: "sender",
++				type: "felt"
++			},
++			{
++				name: "amount0In",
++				type: "Uint256"
++			},
++			{
++				name: "amount1In",
++				type: "Uint256"
++			},
++			{
++				name: "amount0Out",
++				type: "Uint256"
++			},
++			{
++				name: "amount1Out",
++				type: "Uint256"
++			},
++			{
++				name: "to",
++				type: "felt"
++			}
++		],
++		keys: [],
++		name: "Swap",
++		type: "event"
++	},
++	{
++		data: [
++			{
++				name: "reserve0",
++				type: "Uint256"
++			},
++			{
++				name: "reserve1",
++				type: "Uint256"
++			}
++		],
++		keys: [],
++		name: "Sync",
++		type: "event"
++	},
++	{
++		inputs: [
++			{
++				name: "token0",
++				type: "felt"
++			},
++			{
++				name: "token1",
++				type: "felt"
++			},
++			{
++				name: "proxy_admin",
++				type: "felt"
++			}
++		],
++		name: "initializer",
++		outputs: [],
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "name",
++		outputs: [
++			{
++				name: "name",
++				type: "felt"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "symbol",
++		outputs: [
++			{
++				name: "symbol",
++				type: "felt"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "totalSupply",
++		outputs: [
++			{
++				name: "totalSupply",
++				type: "Uint256"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "decimals",
++		outputs: [
++			{
++				name: "decimals",
++				type: "felt"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "account",
++				type: "felt"
++			}
++		],
++		name: "balanceOf",
++		outputs: [
++			{
++				name: "balance",
++				type: "Uint256"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "owner",
++				type: "felt"
++			},
++			{
++				name: "spender",
++				type: "felt"
++			}
++		],
++		name: "allowance",
++		outputs: [
++			{
++				name: "remaining",
++				type: "Uint256"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "token0",
++		outputs: [
++			{
++				name: "address",
++				type: "felt"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "token1",
++		outputs: [
++			{
++				name: "address",
++				type: "felt"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "get_reserves",
++		outputs: [
++			{
++				name: "reserve0",
++				type: "Uint256"
++			},
++			{
++				name: "reserve1",
++				type: "Uint256"
++			},
++			{
++				name: "block_timestamp_last",
++				type: "felt"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "price_0_cumulative_last",
++		outputs: [
++			{
++				name: "res",
++				type: "Uint256"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "price_1_cumulative_last",
++		outputs: [
++			{
++				name: "res",
++				type: "Uint256"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "klast",
++		outputs: [
++			{
++				name: "res",
++				type: "Uint256"
++			}
++		],
++		stateMutability: "view",
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "recipient",
++				type: "felt"
++			},
++			{
++				name: "amount",
++				type: "Uint256"
++			}
++		],
++		name: "transfer",
++		outputs: [
++			{
++				name: "success",
++				type: "felt"
++			}
++		],
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "sender",
++				type: "felt"
++			},
++			{
++				name: "recipient",
++				type: "felt"
++			},
++			{
++				name: "amount",
++				type: "Uint256"
++			}
++		],
++		name: "transferFrom",
++		outputs: [
++			{
++				name: "success",
++				type: "felt"
++			}
++		],
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "spender",
++				type: "felt"
++			},
++			{
++				name: "amount",
++				type: "Uint256"
++			}
++		],
++		name: "approve",
++		outputs: [
++			{
++				name: "success",
++				type: "felt"
++			}
++		],
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "spender",
++				type: "felt"
++			},
++			{
++				name: "added_value",
++				type: "Uint256"
++			}
++		],
++		name: "increaseAllowance",
++		outputs: [
++			{
++				name: "success",
++				type: "felt"
++			}
++		],
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "spender",
++				type: "felt"
++			},
++			{
++				name: "subtracted_value",
++				type: "Uint256"
++			}
++		],
++		name: "decreaseAllowance",
++		outputs: [
++			{
++				name: "success",
++				type: "felt"
++			}
++		],
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "to",
++				type: "felt"
++			}
++		],
++		name: "mint",
++		outputs: [
++			{
++				name: "liquidity",
++				type: "Uint256"
++			}
++		],
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "to",
++				type: "felt"
++			}
++		],
++		name: "burn",
++		outputs: [
++			{
++				name: "amount0",
++				type: "Uint256"
++			},
++			{
++				name: "amount1",
++				type: "Uint256"
++			}
++		],
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "amount0Out",
++				type: "Uint256"
++			},
++			{
++				name: "amount1Out",
++				type: "Uint256"
++			},
++			{
++				name: "to",
++				type: "felt"
++			},
++			{
++				name: "data_len",
++				type: "felt"
++			},
++			{
++				name: "data",
++				type: "felt*"
++			}
++		],
++		name: "swap",
++		outputs: [],
++		type: "function"
++	},
++	{
++		inputs: [
++			{
++				name: "to",
++				type: "felt"
++			}
++		],
++		name: "skim",
++		outputs: [],
++		type: "function"
++	},
++	{
++		inputs: [],
++		name: "sync",
++		outputs: [],
++		type: "function"
++	}
+ ];
+ 
+ // src/abis/Multicall.json
+ var Multicall_default = [
+-  {
+-    type: "impl",
+-    name: "MulticallImpl",
+-    interface_name: "multicall::IMulticall"
+-  },
+-  {
+-    type: "struct",
+-    name: "core::starknet::account::Call",
+-    members: [
+-      {
+-        name: "to",
+-        type: "core::starknet::contract_address::ContractAddress"
+-      },
+-      {
+-        name: "selector",
+-        type: "core::felt252"
+-      },
+-      {
+-        name: "calldata",
+-        type: "core::array::Array::<core::felt252>"
+-      }
+-    ]
+-  },
+-  {
+-    type: "struct",
+-    name: "core::array::Span::<core::felt252>",
+-    members: [
+-      {
+-        name: "snapshot",
+-        type: "@core::array::Array::<core::felt252>"
+-      }
+-    ]
+-  },
+-  {
+-    type: "interface",
+-    name: "multicall::IMulticall",
+-    items: [
+-      {
+-        type: "function",
+-        name: "aggregate",
+-        inputs: [
+-          {
+-            name: "calls",
+-            type: "core::array::Array::<core::starknet::account::Call>"
+-          }
+-        ],
+-        outputs: [
+-          {
+-            type: "(core::integer::u64, core::array::Array::<core::array::Span::<core::felt252>>)"
+-          }
+-        ],
+-        state_mutability: "view"
+-      }
+-    ]
+-  },
+-  {
+-    type: "event",
+-    name: "multicall::Multicall::Event",
+-    kind: "enum",
+-    variants: []
+-  }
++	{
++		type: "impl",
++		name: "MulticallImpl",
++		interface_name: "multicall::IMulticall"
++	},
++	{
++		type: "struct",
++		name: "core::starknet::account::Call",
++		members: [
++			{
++				name: "to",
++				type: "core::starknet::contract_address::ContractAddress"
++			},
++			{
++				name: "selector",
++				type: "core::felt252"
++			},
++			{
++				name: "calldata",
++				type: "core::array::Array::<core::felt252>"
++			}
++		]
++	},
++	{
++		type: "struct",
++		name: "core::array::Span::<core::felt252>",
++		members: [
++			{
++				name: "snapshot",
++				type: "@core::array::Array::<core::felt252>"
++			}
++		]
++	},
++	{
++		type: "interface",
++		name: "multicall::IMulticall",
++		items: [
++			{
++				type: "function",
++				name: "aggregate",
++				inputs: [
++					{
++						name: "calls",
++						type: "core::array::Array::<core::starknet::account::Call>"
++					}
++				],
++				outputs: [
++					{
++						type: "(core::integer::u64, core::array::Array::<core::array::Span::<core::felt252>>)"
++					}
++				],
++				state_mutability: "view"
++			}
++		]
++	},
++	{
++		type: "event",
++		name: "multicall::Multicall::Event",
++		kind: "enum",
++		variants: []
++	}
+ ];
+ 
+ // src/constants/contracts.ts
+ var TOKEN_CLASS_HASH = {
+-  [import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x05ba9aea47a8dd7073ab82b9e91721bdb3a2c1b259cffd68669da1454faa80ac",
+-  [import_starknet.constants.StarknetChainId.SN_MAIN]: "0x063ee878d3559583ceae80372c6088140e1180d9893aa65fbefc81f45ddaaa17"
++	[import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x05ba9aea47a8dd7073ab82b9e91721bdb3a2c1b259cffd68669da1454faa80ac",
++	[import_starknet.constants.StarknetChainId.SN_MAIN]: "0x063ee878d3559583ceae80372c6088140e1180d9893aa65fbefc81f45ddaaa17"
+ };
+ var FACTORY_ADDRESSES = {
+-  [import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x076c3112e95994507c44c72b8dfb7f8d568a370d2f7c2d918ed9f55327671385",
+-  [import_starknet.constants.StarknetChainId.SN_MAIN]: "0x01a46467a9246f45c8c340f1f155266a26a71c07bd55d36e8d1c7d0d438a2dbc"
++	[import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x076c3112e95994507c44c72b8dfb7f8d568a370d2f7c2d918ed9f55327671385",
++	[import_starknet.constants.StarknetChainId.SN_MAIN]: "0x01a46467a9246f45c8c340f1f155266a26a71c07bd55d36e8d1c7d0d438a2dbc"
+ };
+ var EKUBO_POSITIONS_ADDRESSES = {
+-  [import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x073fa8432bf59f8ed535f29acfd89a7020758bda7be509e00dfed8a9fde12ddc",
+-  [import_starknet.constants.StarknetChainId.SN_MAIN]: "0x02e0af29598b407c8716b17f6d2795eca1b471413fa03fb145a5e33722184067"
++	[import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x073fa8432bf59f8ed535f29acfd89a7020758bda7be509e00dfed8a9fde12ddc",
++	[import_starknet.constants.StarknetChainId.SN_MAIN]: "0x02e0af29598b407c8716b17f6d2795eca1b471413fa03fb145a5e33722184067"
+ };
+ var ETH_ADDRESSES = {
+-  [import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
+-  [import_starknet.constants.StarknetChainId.SN_MAIN]: "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7"
++	[import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
++	[import_starknet.constants.StarknetChainId.SN_MAIN]: "0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7"
+ };
+ var STRK_ADDRESSES = {
+-  [import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x4718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d",
+-  [import_starknet.constants.StarknetChainId.SN_MAIN]: "0x4718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d"
++	[import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x4718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d",
++	[import_starknet.constants.StarknetChainId.SN_MAIN]: "0x4718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d"
+ };
+ var USDC_ADDRESSES = {
+-  [import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x5a643907b9a4bc6a55e9069c4fd5fd1f5c79a22470690f75556c4736e34426",
+-  [import_starknet.constants.StarknetChainId.SN_MAIN]: "0x53c91253bc9682c04929ca02ed00b3e423f6710d2ee7e0d5ebb06f3ecf368a8"
++	[import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x5a643907b9a4bc6a55e9069c4fd5fd1f5c79a22470690f75556c4736e34426",
++	[import_starknet.constants.StarknetChainId.SN_MAIN]: "0x53c91253bc9682c04929ca02ed00b3e423f6710d2ee7e0d5ebb06f3ecf368a8"
+ };
+ var MULTICALL_ADDRESSES = {
+-  [import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x01a33330996310a1e3fa1df5b16c1e07f0491fdd20c441126e02613b948f0225",
+-  [import_starknet.constants.StarknetChainId.SN_MAIN]: "0x01a33330996310a1e3fa1df5b16c1e07f0491fdd20c441126e02613b948f0225"
++	[import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x01a33330996310a1e3fa1df5b16c1e07f0491fdd20c441126e02613b948f0225",
++	[import_starknet.constants.StarknetChainId.SN_MAIN]: "0x01a33330996310a1e3fa1df5b16c1e07f0491fdd20c441126e02613b948f0225"
+ };
+ var JEDISWAP_ETH_USDC = {
+-  [import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x05a2b2b37f66157f767ea711cb4e034c40d41f2f5acf9ff4a19049fa11c1a884",
+-  [import_starknet.constants.StarknetChainId.SN_MAIN]: "0x04d0390b777b424e43839cd1e744799f3de6c176c7e32c1812a41dbd9c19db6a"
++	[import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x05a2b2b37f66157f767ea711cb4e034c40d41f2f5acf9ff4a19049fa11c1a884",
++	[import_starknet.constants.StarknetChainId.SN_MAIN]: "0x04d0390b777b424e43839cd1e744799f3de6c176c7e32c1812a41dbd9c19db6a"
+ };
+ var JEDISWAP_STRK_USDC = {
+-  [import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x018b129b1a372b3288077521ad8749f5a2b2ddfb67ef5a37e2d02190fa11c40f",
+-  [import_starknet.constants.StarknetChainId.SN_MAIN]: "0x5726725e9507c3586cc0516449e2c74d9b201ab2747752bb0251aaa263c9a26"
++	[import_starknet.constants.StarknetChainId.SN_GOERLI]: "0x018b129b1a372b3288077521ad8749f5a2b2ddfb67ef5a37e2d02190fa11c40f",
++	[import_starknet.constants.StarknetChainId.SN_MAIN]: "0x5726725e9507c3586cc0516449e2c74d9b201ab2747752bb0251aaa263c9a26"
+ };
+ var compiledMulticall = import_starknet.json.parse(JSON.stringify(Multicall_default));
+ var compiledJediswapPair = import_starknet.json.parse(JSON.stringify(JediswapPair_default));
+@@ -2104,120 +2104,120 @@ var compiledEkuboPositions = import_starknet.json.parse(JSON.stringify(EkuboPosi
+ var import_sdk_core2 = require("@uniswap/sdk-core");
+ var import_moment = __toESM(require("moment"));
+ var Safety = /* @__PURE__ */ ((Safety2) => {
+-  Safety2[Safety2["SAFE"] = 0] = "SAFE";
+-  Safety2[Safety2["CORRECT"] = 1] = "CORRECT";
+-  Safety2[Safety2["DANGEROUS"] = 2] = "DANGEROUS";
+-  Safety2[Safety2["UNKNOWN"] = 3] = "UNKNOWN";
+-  return Safety2;
++	Safety2[Safety2["SAFE"] = 0] = "SAFE";
++	Safety2[Safety2["CORRECT"] = 1] = "CORRECT";
++	Safety2[Safety2["DANGEROUS"] = 2] = "DANGEROUS";
++	Safety2[Safety2["UNKNOWN"] = 3] = "UNKNOWN";
++	return Safety2;
+ })(Safety || {});
+ var TEAM_ALLOCATION_SAFETY_BOUNDS = {
+-  [0 /* SAFE */]: new import_sdk_core2.Percent(1, 100),
+-  // 1%
+-  [1 /* CORRECT */]: new import_sdk_core2.Percent(10, 100)
+-  // 10%
++	[0 /* SAFE */]: new import_sdk_core2.Percent(1, 100),
++	// 1%
++	[1 /* CORRECT */]: new import_sdk_core2.Percent(10, 100)
++	// 10%
+ };
+ var LIQUIDITY_LOCK_SAFETY_BOUNDS = {
+-  [0 /* SAFE */]: import_moment.default.duration(100, "years"),
+-  [1 /* CORRECT */]: import_moment.default.duration(3, "months")
++	[0 /* SAFE */]: import_moment.default.duration(100, "years"),
++	[1 /* CORRECT */]: import_moment.default.duration(3, "months")
+ };
+ var STARTING_MCAP_SAFETY_BOUNDS = {
+-  [0 /* SAFE */]: {
+-    mcap: new import_sdk_core2.Fraction(9e3),
+-    teamAllocatoion: new import_sdk_core2.Fraction(3e3)
+-  },
+-  [1 /* CORRECT */]: {
+-    mcap: new import_sdk_core2.Fraction(4500),
+-    teamAllocatoion: new import_sdk_core2.Fraction(5e3)
+-  }
++	[0 /* SAFE */]: {
++		mcap: new import_sdk_core2.Fraction(9e3),
++		teamAllocatoion: new import_sdk_core2.Fraction(3e3)
++	},
++	[1 /* CORRECT */]: {
++		mcap: new import_sdk_core2.Fraction(4500),
++		teamAllocatoion: new import_sdk_core2.Fraction(5e3)
++	}
+ };
+ 
+ // src/constants/tokens.ts
+ var import_starknet2 = require("starknet");
+ var QUOTE_TOKEN_SYMBOL = /* @__PURE__ */ ((QUOTE_TOKEN_SYMBOL2) => {
+-  QUOTE_TOKEN_SYMBOL2["ETH"] = "ETH";
+-  QUOTE_TOKEN_SYMBOL2["STRK"] = "STRK";
+-  QUOTE_TOKEN_SYMBOL2["USDC"] = "USDC";
+-  return QUOTE_TOKEN_SYMBOL2;
++	QUOTE_TOKEN_SYMBOL2["ETH"] = "ETH";
++	QUOTE_TOKEN_SYMBOL2["STRK"] = "STRK";
++	QUOTE_TOKEN_SYMBOL2["USDC"] = "USDC";
++	return QUOTE_TOKEN_SYMBOL2;
+ })(QUOTE_TOKEN_SYMBOL || {});
+ var Ether = {
+-  [import_starknet2.constants.StarknetChainId.SN_GOERLI]: {
+-    address: ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI],
+-    symbol: "ETH" /* ETH */,
+-    name: "Ether",
+-    decimals: 18,
+-    camelCased: true,
+-    usdcPair: {
+-      address: JEDISWAP_ETH_USDC[import_starknet2.constants.StarknetChainId.SN_GOERLI],
+-      reversed: true
+-    }
+-  },
+-  [import_starknet2.constants.StarknetChainId.SN_MAIN]: {
+-    address: ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN],
+-    symbol: "ETH" /* ETH */,
+-    name: "Ether",
+-    decimals: 18,
+-    camelCased: true,
+-    usdcPair: {
+-      address: JEDISWAP_ETH_USDC[import_starknet2.constants.StarknetChainId.SN_MAIN],
+-      reversed: false
+-    }
+-  }
++	[import_starknet2.constants.StarknetChainId.SN_GOERLI]: {
++		address: ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI],
++		symbol: "ETH" /* ETH */,
++		name: "Ether",
++		decimals: 18,
++		camelCased: true,
++		usdcPair: {
++			address: JEDISWAP_ETH_USDC[import_starknet2.constants.StarknetChainId.SN_GOERLI],
++			reversed: true
++		}
++	},
++	[import_starknet2.constants.StarknetChainId.SN_MAIN]: {
++		address: ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN],
++		symbol: "ETH" /* ETH */,
++		name: "Ether",
++		decimals: 18,
++		camelCased: true,
++		usdcPair: {
++			address: JEDISWAP_ETH_USDC[import_starknet2.constants.StarknetChainId.SN_MAIN],
++			reversed: false
++		}
++	}
+ };
+ var Stark = {
+-  [import_starknet2.constants.StarknetChainId.SN_GOERLI]: {
+-    address: STRK_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI],
+-    symbol: "STRK" /* STRK */,
+-    name: "Stark",
+-    decimals: 18,
+-    camelCased: true,
+-    usdcPair: {
+-      address: JEDISWAP_STRK_USDC[import_starknet2.constants.StarknetChainId.SN_GOERLI],
+-      reversed: true
+-    }
+-  },
+-  [import_starknet2.constants.StarknetChainId.SN_MAIN]: {
+-    address: STRK_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN],
+-    symbol: "STRK" /* STRK */,
+-    name: "Stark",
+-    decimals: 18,
+-    camelCased: true,
+-    usdcPair: {
+-      address: JEDISWAP_STRK_USDC[import_starknet2.constants.StarknetChainId.SN_MAIN],
+-      reversed: false
+-    }
+-  }
++	[import_starknet2.constants.StarknetChainId.SN_GOERLI]: {
++		address: STRK_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI],
++		symbol: "STRK" /* STRK */,
++		name: "Stark",
++		decimals: 18,
++		camelCased: true,
++		usdcPair: {
++			address: JEDISWAP_STRK_USDC[import_starknet2.constants.StarknetChainId.SN_GOERLI],
++			reversed: true
++		}
++	},
++	[import_starknet2.constants.StarknetChainId.SN_MAIN]: {
++		address: STRK_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN],
++		symbol: "STRK" /* STRK */,
++		name: "Stark",
++		decimals: 18,
++		camelCased: true,
++		usdcPair: {
++			address: JEDISWAP_STRK_USDC[import_starknet2.constants.StarknetChainId.SN_MAIN],
++			reversed: false
++		}
++	}
+ };
+ var USDCoin = {
+-  [import_starknet2.constants.StarknetChainId.SN_GOERLI]: {
+-    address: USDC_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI],
+-    symbol: "USDC" /* USDC */,
+-    name: "USD Coin",
+-    decimals: 6,
+-    camelCased: true
+-  },
+-  [import_starknet2.constants.StarknetChainId.SN_MAIN]: {
+-    address: USDC_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN],
+-    symbol: "USDC" /* USDC */,
+-    name: "USD Coin",
+-    decimals: 6,
+-    camelCased: true
+-  }
++	[import_starknet2.constants.StarknetChainId.SN_GOERLI]: {
++		address: USDC_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI],
++		symbol: "USDC" /* USDC */,
++		name: "USD Coin",
++		decimals: 6,
++		camelCased: true
++	},
++	[import_starknet2.constants.StarknetChainId.SN_MAIN]: {
++		address: USDC_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN],
++		symbol: "USDC" /* USDC */,
++		name: "USD Coin",
++		decimals: 6,
++		camelCased: true
++	}
+ };
+ var QUOTE_TOKENS = {
+-  [import_starknet2.constants.StarknetChainId.SN_GOERLI]: {
+-    [(0, import_starknet2.getChecksumAddress)(ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI])]: Ether[import_starknet2.constants.StarknetChainId.SN_GOERLI],
+-    [(0, import_starknet2.getChecksumAddress)(STRK_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI])]: Stark[import_starknet2.constants.StarknetChainId.SN_GOERLI],
+-    [(0, import_starknet2.getChecksumAddress)(USDC_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI])]: USDCoin[import_starknet2.constants.StarknetChainId.SN_GOERLI]
+-  },
+-  [import_starknet2.constants.StarknetChainId.SN_MAIN]: {
+-    [(0, import_starknet2.getChecksumAddress)(ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN])]: Ether[import_starknet2.constants.StarknetChainId.SN_MAIN],
+-    [(0, import_starknet2.getChecksumAddress)(STRK_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN])]: Stark[import_starknet2.constants.StarknetChainId.SN_MAIN],
+-    [(0, import_starknet2.getChecksumAddress)(USDC_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN])]: USDCoin[import_starknet2.constants.StarknetChainId.SN_MAIN]
+-  }
++	[import_starknet2.constants.StarknetChainId.SN_GOERLI]: {
++		[(0, import_starknet2.getChecksumAddress)(ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI])]: Ether[import_starknet2.constants.StarknetChainId.SN_GOERLI],
++		[(0, import_starknet2.getChecksumAddress)(STRK_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI])]: Stark[import_starknet2.constants.StarknetChainId.SN_GOERLI],
++		[(0, import_starknet2.getChecksumAddress)(USDC_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI])]: USDCoin[import_starknet2.constants.StarknetChainId.SN_GOERLI]
++	},
++	[import_starknet2.constants.StarknetChainId.SN_MAIN]: {
++		[(0, import_starknet2.getChecksumAddress)(ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN])]: Ether[import_starknet2.constants.StarknetChainId.SN_MAIN],
++		[(0, import_starknet2.getChecksumAddress)(STRK_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN])]: Stark[import_starknet2.constants.StarknetChainId.SN_MAIN],
++		[(0, import_starknet2.getChecksumAddress)(USDC_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN])]: USDCoin[import_starknet2.constants.StarknetChainId.SN_MAIN]
++	}
+ };
+ var DEFAULT_QUOTE_TOKEN_ADDRESSES = {
+-  [import_starknet2.constants.StarknetChainId.SN_GOERLI]: (0, import_starknet2.getChecksumAddress)(ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI]),
+-  [import_starknet2.constants.StarknetChainId.SN_MAIN]: (0, import_starknet2.getChecksumAddress)(ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN])
++	[import_starknet2.constants.StarknetChainId.SN_GOERLI]: (0, import_starknet2.getChecksumAddress)(ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_GOERLI]),
++	[import_starknet2.constants.StarknetChainId.SN_MAIN]: (0, import_starknet2.getChecksumAddress)(ETH_ADDRESSES[import_starknet2.constants.StarknetChainId.SN_MAIN])
+ };
+ 
+ // src/factory/default.ts
+@@ -2227,26 +2227,26 @@ var import_starknet5 = require("starknet");
+ // src/utils/contract.ts
+ var import_starknet3 = require("starknet");
+ async function multiCallContract(provider, chainId, calls) {
+-  const calldata = calls.map((call) => {
+-    return import_starknet3.CallData.compile({
+-      to: call.contractAddress,
+-      selector: import_starknet3.hash.getSelector(call.entrypoint),
+-      calldata: call.calldata ?? []
+-    });
+-  });
+-  const rawResult = await provider.callContract({
+-    contractAddress: MULTICALL_ADDRESSES[chainId],
+-    entrypoint: "aggregate" /* AGGREGATE */,
+-    calldata: [calldata.length, ...calldata.flat()]
+-  });
+-  const raw = rawResult.result.slice(2);
+-  const result = [];
+-  let idx = 0;
+-  for (let i = 0; i < raw.length; i += idx + 1) {
+-    idx = parseInt(raw[i], 16);
+-    result.push(raw.slice(i + 1, i + 1 + idx));
+-  }
+-  return result;
++	const calldata = calls.map((call) => {
++		return import_starknet3.CallData.compile({
++			to: call.contractAddress,
++			selector: import_starknet3.hash.getSelector(call.entrypoint),
++			calldata: call.calldata ?? []
++		});
++	});
++	const rawResult = await provider.callContract({
++		contractAddress: MULTICALL_ADDRESSES[chainId],
++		entrypoint: "aggregate" /* AGGREGATE */,
++		calldata: [calldata.length, ...calldata.flat()]
++	});
++	const raw = rawResult.slice(2);
++	const result = [];
++	let idx = 0;
++	for (let i = 0; i < raw.length; i += idx + 1) {
++		idx = parseInt(raw[i], 16);
++		result.push(raw.slice(i + 1, i + 1 + idx));
++	}
++	return result;
+ }
+ 
+ // src/utils/helpers.ts
+@@ -2255,406 +2255,406 @@ var decimalsScale = (decimals) => `1${Array(decimals).fill("0").join("")}`;
+ // src/utils/price.ts
+ var import_sdk_core3 = require("@uniswap/sdk-core");
+ var import_starknet4 = require("starknet");
+-async function getPairPrice(provider, pair, blockNumber = import_starknet4.BlockTag.latest) {
+-  if (!pair) return new import_sdk_core3.Fraction(1, 1);
+-  const { result } = await provider.callContract(
+-    {
+-      contractAddress: pair.address,
+-      entrypoint: "get_reserves" /* GET_RESERVES */
+-    },
+-    blockNumber
+-  );
+-  const [reserve0Low, reserve0High, reserve1Low, reserve1High] = result;
+-  const pairPrice = new import_sdk_core3.Fraction(
+-    import_starknet4.uint256.uint256ToBN({ low: reserve1Low, high: reserve1High }).toString(),
+-    import_starknet4.uint256.uint256ToBN({ low: reserve0Low, high: reserve0High }).toString()
+-  );
+-  return (pair.reversed ? pairPrice.invert() : pairPrice).multiply(decimalsScale(12));
++async function getPairPrice(provider, pair, blockNumber = import_starknet4.BlockTag.LATEST) {
++	if (!pair) return new import_sdk_core3.Fraction(1, 1);
++	const result = await provider.callContract(
++		{
++			contractAddress: pair.address,
++			entrypoint: "get_reserves" /* GET_RESERVES */
++		},
++		blockNumber
++	);
++	const [reserve0Low, reserve0High, reserve1Low, reserve1High] = result;
++	const pairPrice = new import_sdk_core3.Fraction(
++		import_starknet4.uint256.uint256ToBN({ low: reserve1Low, high: reserve1High }).toString(),
++		import_starknet4.uint256.uint256ToBN({ low: reserve0Low, high: reserve0High }).toString()
++	);
++	return (pair.reversed ? pairPrice.invert() : pairPrice).multiply(decimalsScale(12));
+ }
+ 
+ // src/factory/default.ts
+ var Factory = class {
+-  config;
+-  constructor(config) {
+-    this.config = config;
+-  }
+-  async getMemecoin(address) {
+-    const [baseMemecoin, launchData] = await Promise.all([
+-      this.getBaseMemecoin(address),
+-      this.getMemecoinLaunchData(address)
+-    ]);
+-    if (!baseMemecoin) return void 0;
+-    return { ...baseMemecoin, ...launchData };
+-  }
+-  //
+-  // GET MEMECOIN
+-  //
+-  async getBaseMemecoin(address) {
+-    const result = await multiCallContract(this.config.provider, this.config.chainId, [
+-      {
+-        contractAddress: FACTORY_ADDRESSES[this.config.chainId],
+-        entrypoint: "is_memecoin" /* IS_MEMECOIN */,
+-        calldata: [address]
+-      },
+-      {
+-        contractAddress: address,
+-        entrypoint: "name" /* NAME */
+-      },
+-      {
+-        contractAddress: address,
+-        entrypoint: "symbol" /* SYMBOL */
+-      },
+-      {
+-        contractAddress: address,
+-        entrypoint: "owner" /* OWNER */
+-      },
+-      {
+-        contractAddress: address,
+-        entrypoint: "total_supply" /* TOTAL_SUPPLY */
+-      }
+-    ]);
+-    const [[isMemecoin], [name], [symbol], [owner], totalSupply] = result;
+-    if (!+isMemecoin) return void 0;
+-    return {
+-      address,
+-      name: import_starknet5.shortString.decodeShortString(name),
+-      symbol: import_starknet5.shortString.decodeShortString(symbol),
+-      owner: (0, import_starknet5.getChecksumAddress)(owner),
+-      decimals: DECIMALS,
+-      totalSupply: import_starknet5.uint256.uint256ToBN({ low: totalSupply[0], high: totalSupply[1] }).toString()
+-    };
+-  }
+-  //
+-  // GET LAUNCH
+-  //
+-  async getMemecoinLaunchData(address) {
+-    const result = await multiCallContract(this.config.provider, this.config.chainId, [
+-      {
+-        contractAddress: address,
+-        entrypoint: "get_team_allocation" /* GET_TEAM_ALLOCATION */
+-      },
+-      {
+-        contractAddress: address,
+-        entrypoint: "launched_at_block_number" /* LAUNCHED_AT_BLOCK_NUMBER */
+-      },
+-      {
+-        contractAddress: address,
+-        entrypoint: "is_launched" /* IS_LAUNCHED */
+-      },
+-      {
+-        contractAddress: FACTORY_ADDRESSES[this.config.chainId],
+-        entrypoint: "locked_liquidity" /* LOCKED_LIQUIDITY */,
+-        calldata: [address]
+-      },
+-      {
+-        contractAddress: address,
+-        entrypoint: "launched_with_liquidity_parameters" /* LAUNCHED_WITH_LIQUIDITY_PARAMETERS */
+-      }
+-    ]);
+-    const [
+-      teamAllocation,
+-      [launchBlockNumber],
+-      [launched],
+-      [dontHaveLiq, lockManager, liqTypeIndex, ekuboId],
+-      launchParams
+-    ] = result;
+-    const liquidityType = Object.values(LiquidityType)[+liqTypeIndex];
+-    const isLaunched = !!+launched && !+dontHaveLiq && !+launchParams[0] && liquidityType;
+-    if (!isLaunched) {
+-      return {
+-        isLaunched: false
+-      };
+-    }
+-    let liquidity;
+-    switch (liquidityType) {
+-      case "STARKDEFI_ERC20" /* STARKDEFI_ERC20 */:
+-      case "JEDISWAP_ERC20" /* JEDISWAP_ERC20 */: {
+-        const baseLiquidity = {
+-          type: liquidityType,
+-          lockManager,
+-          lockPosition: launchParams[5],
+-          quoteToken: (0, import_starknet5.getChecksumAddress)(launchParams[2]),
+-          quoteAmount: import_starknet5.uint256.uint256ToBN({ low: launchParams[3], high: launchParams[4] }).toString()
+-        };
+-        liquidity = {
+-          ...baseLiquidity,
+-          ...await this.getJediswapLiquidityLockPosition(baseLiquidity)
+-        };
+-        break;
+-      }
+-      case "EKUBO_NFT" /* EKUBO_NFT */: {
+-        const baseLiquidity = {
+-          type: liquidityType,
+-          lockManager,
+-          ekuboId,
+-          quoteToken: (0, import_starknet5.getChecksumAddress)(launchParams[7]),
+-          startingTick: +launchParams[4] * (+launchParams[5] ? -1 : 1)
+-          // mag * sign
+-        };
+-        liquidity = {
+-          ...baseLiquidity,
+-          ...await this.getEkuboLiquidityLockPosition(baseLiquidity)
+-        };
+-      }
+-    }
+-    return {
+-      isLaunched: true,
+-      quoteToken: QUOTE_TOKENS[this.config.chainId][liquidity.quoteToken],
+-      launch: {
+-        teamAllocation: import_starknet5.uint256.uint256ToBN({ low: teamAllocation[0], high: teamAllocation[1] }).toString(),
+-        blockNumber: Number(launchBlockNumber)
+-      },
+-      liquidity
+-    };
+-  }
+-  //
+-  // GET LIQUIDITY
+-  //
+-  async getJediswapLiquidityLockPosition(liquidity) {
+-    const { result } = await this.config.provider.callContract({
+-      contractAddress: liquidity.lockManager,
+-      entrypoint: "get_lock_details" /* GET_LOCK_DETAILS */,
+-      calldata: [liquidity.lockPosition]
+-    });
+-    return {
+-      unlockTime: +result[4],
+-      owner: (0, import_starknet5.getChecksumAddress)(result[3])
+-    };
+-  }
+-  async getEkuboLiquidityLockPosition(liquidity) {
+-    const { result } = await this.config.provider.callContract({
+-      contractAddress: liquidity.lockManager,
+-      entrypoint: "liquidity_position_details" /* LIQUIDITY_POSITION_DETAILS */,
+-      calldata: [liquidity.ekuboId]
+-    });
+-    return {
+-      unlockTime: LIQUIDITY_LOCK_FOREVER_TIMESTAMP,
+-      owner: (0, import_starknet5.getChecksumAddress)(result[0]),
+-      poolKey: {
+-        token0: (0, import_starknet5.getChecksumAddress)(result[2]),
+-        token1: (0, import_starknet5.getChecksumAddress)(result[3]),
+-        fee: result[4],
+-        tickSpacing: result[5],
+-        extension: result[6]
+-      },
+-      bounds: {
+-        lower: {
+-          mag: result[7],
+-          sign: result[8]
+-        },
+-        upper: {
+-          mag: result[9],
+-          sign: result[10]
+-        }
+-      }
+-    };
+-  }
+-  //
+-  // GET FEES
+-  //
+-  async getEkuboFees(memecoin) {
+-    if (!memecoin.isLaunched || memecoin.liquidity.type !== "EKUBO_NFT" /* EKUBO_NFT */ || !memecoin.quoteToken) return;
+-    const calldata = import_starknet5.CallData.compile([
+-      memecoin.liquidity.ekuboId,
+-      memecoin.liquidity.poolKey,
+-      memecoin.liquidity.bounds
+-    ]);
+-    const { result } = await this.config.provider.callContract({
+-      contractAddress: EKUBO_POSITIONS_ADDRESSES[this.config.chainId],
+-      entrypoint: "get_token_info" /* GET_TOKEN_INFOS */,
+-      calldata
+-    });
+-    const [, , , , , , , fees0, fees1] = result;
+-    return new import_sdk_core4.Fraction(
+-      (new import_sdk_core4.Fraction(memecoin.address).lessThan(memecoin.quoteToken.address) ? fees1 : fees0).toString(),
+-      decimalsScale(memecoin.quoteToken.decimals)
+-    );
+-  }
+-  //
+-  // GET COLLECT EKUBO FEES CALLDATA
+-  //
+-  getCollectEkuboFeesCalldata(memecoin) {
+-    if (!memecoin.isLaunched || memecoin.liquidity.type !== "EKUBO_NFT" /* EKUBO_NFT */) return;
+-    const collectFeesCalldata = import_starknet5.CallData.compile([
+-      memecoin.liquidity.ekuboId,
+-      // ekubo pool id
+-      memecoin.liquidity.owner
+-    ]);
+-    const calls = [
+-      {
+-        contractAddress: memecoin.liquidity.lockManager,
+-        entrypoint: "withdraw_fees" /* WITHDRAW_FEES */,
+-        calldata: collectFeesCalldata
+-      }
+-    ];
+-    return { calls };
+-  }
+-  //
+-  // GET EXTEND LIQUIDITY LOCK CALLDATA
+-  //
+-  getExtendLiquidityLockCalldata(memecoin, seconds) {
+-    if (!memecoin?.isLaunched || memecoin.liquidity.type === "EKUBO_NFT" /* EKUBO_NFT */) return;
+-    const extendCalldata = import_starknet5.CallData.compile([
+-      memecoin.liquidity.lockPosition,
+-      // liquidity position
+-      seconds
+-    ]);
+-    const calls = [
+-      {
+-        contractAddress: memecoin.liquidity.lockManager,
+-        entrypoint: "extend_lock" /* EXTEND_LOCK */,
+-        calldata: extendCalldata
+-      }
+-    ];
+-    return { calls };
+-  }
+-  //
+-  // GET DEPLOY CALLDATA
+-  //
+-  getDeployCalldata(data) {
+-    const salt = import_starknet5.stark.randomAddress();
+-    const constructorCalldata = import_starknet5.CallData.compile([
+-      data.owner,
+-      data.name,
+-      data.symbol,
+-      import_starknet5.uint256.bnToUint256(BigInt(data.initialSupply) * BigInt(decimalsScale(DECIMALS))),
+-      salt
+-    ]);
+-    const tokenAddress = import_starknet5.hash.calculateContractAddressFromHash(
+-      salt,
+-      TOKEN_CLASS_HASH[this.config.chainId],
+-      constructorCalldata.slice(0, -1),
+-      FACTORY_ADDRESSES[this.config.chainId]
+-    );
+-    const calls = [
+-      {
+-        contractAddress: FACTORY_ADDRESSES[this.config.chainId],
+-        entrypoint: "create_memecoin" /* CREATE_MEMECOIN */,
+-        calldata: constructorCalldata
+-      }
+-    ];
+-    return { tokenAddress, calls };
+-  }
+-  //
+-  // GET LAUNCH CALLDATA
+-  //
+-  async getEkuboLaunchCalldata(memecoin, data) {
+-    const quoteTokenPrice = await getPairPrice(this.config.provider, data.quoteToken.usdcPair);
+-    const teamAllocationFraction = data.teamAllocations.reduce((acc, { amount }) => acc.add(amount), new import_sdk_core4.Fraction(0));
+-    const teamAllocationPercentage = new import_sdk_core4.Percent(
+-      teamAllocationFraction.quotient,
+-      new import_sdk_core4.Fraction(memecoin.totalSupply, decimalsScale(DECIMALS)).quotient
+-    );
+-    const teamAllocationQuoteAmount = new import_sdk_core4.Fraction(data.startingMarketCap).divide(quoteTokenPrice).multiply(teamAllocationPercentage.multiply(data.fees.add(1)));
+-    const uin256TeamAllocationQuoteAmount = import_starknet5.uint256.bnToUint256(
+-      BigInt(teamAllocationQuoteAmount.multiply(decimalsScale(data.quoteToken.decimals)).quotient.toString())
+-    );
+-    const initialPrice = +new import_sdk_core4.Fraction(data.startingMarketCap).divide(quoteTokenPrice).multiply(decimalsScale(DECIMALS)).divide(new import_sdk_core4.Fraction(memecoin.totalSupply)).toFixed(DECIMALS);
+-    const startingTickMag = getStartingTick(initialPrice);
+-    const i129StartingTick = {
+-      mag: Math.abs(startingTickMag),
+-      sign: startingTickMag < 0
+-    };
+-    const fees = data.fees.multiply(EKUBO_FEES_MULTIPLICATOR).quotient.toString();
+-    const transferCalldata = import_starknet5.CallData.compile([
+-      FACTORY_ADDRESSES[this.config.chainId],
+-      // recipient
+-      uin256TeamAllocationQuoteAmount
+-      // amount
+-    ]);
+-    const initialHolders = data.teamAllocations.map(({ address }) => address);
+-    const initialHoldersAmounts = data.teamAllocations.map(
+-      ({ amount }) => import_starknet5.uint256.bnToUint256(BigInt(amount) * BigInt(decimalsScale(DECIMALS)))
+-    );
+-    const launchCalldata = import_starknet5.CallData.compile([
+-      memecoin.address,
+-      // memecoin address
+-      data.antiBotPeriod,
+-      // anti bot period in seconds
+-      +data.holdLimit.toFixed(1) * 100,
+-      // hold limit
+-      data.quoteToken.address,
+-      // quote token address
+-      initialHolders,
+-      // initial holders
+-      initialHoldersAmounts,
+-      // initial holders amounts
+-      fees,
+-      // ekubo fees
+-      EKUBO_TICK_SPACING,
+-      // tick spacing
+-      i129StartingTick,
+-      // starting tick
+-      EKUBO_BOUND
+-      // bound
+-    ]);
+-    const calls = [
+-      {
+-        contractAddress: data.quoteToken.address,
+-        entrypoint: "transfer" /* TRANSFER */,
+-        calldata: transferCalldata
+-      },
+-      {
+-        contractAddress: FACTORY_ADDRESSES[this.config.chainId],
+-        entrypoint: "launch_on_ekubo" /* LAUNCH_ON_EKUBO */,
+-        calldata: launchCalldata
+-      }
+-    ];
+-    return {
+-      calls
+-    };
+-  }
+-  async getStandardAMMLaunchCalldata(memecoin, data) {
+-    const quoteTokenPrice = await getPairPrice(this.config.provider, data.quoteToken.usdcPair);
+-    const teamAllocationFraction = data.teamAllocations.reduce((acc, { amount }) => acc.add(amount), new import_sdk_core4.Fraction(0));
+-    const teamAllocationPercentage = new import_sdk_core4.Percent(
+-      teamAllocationFraction.quotient,
+-      new import_sdk_core4.Fraction(memecoin.totalSupply, decimalsScale(DECIMALS)).quotient
+-    );
+-    const quoteAmount = new import_sdk_core4.Fraction(data.startingMarketCap).divide(quoteTokenPrice).multiply(new import_sdk_core4.Fraction(1).subtract(teamAllocationPercentage));
+-    const uin256QuoteAmount = import_starknet5.uint256.bnToUint256(BigInt(quoteAmount.multiply(decimalsScale(18)).quotient.toString()));
+-    const initialHolders = data.teamAllocations.map(({ address }) => address);
+-    const initialHoldersAmounts = data.teamAllocations.map(
+-      ({ amount }) => import_starknet5.uint256.bnToUint256(BigInt(amount) * BigInt(decimalsScale(DECIMALS)))
+-    );
+-    const approveCalldata = import_starknet5.CallData.compile([
+-      FACTORY_ADDRESSES[this.config.chainId],
+-      // spender
+-      uin256QuoteAmount
+-    ]);
+-    const launchCalldata = import_starknet5.CallData.compile([
+-      memecoin.address,
+-      // memecoin address
+-      data.antiBotPeriod,
+-      // anti bot period in seconds
+-      +data.holdLimit.toFixed(1) * 100,
+-      // hold limit
+-      data.quoteToken.address,
+-      // quote token
+-      initialHolders,
+-      // initial holders
+-      initialHoldersAmounts,
+-      // initial holders amounts
+-      uin256QuoteAmount,
+-      // quote amount
+-      data.liquidityLockPeriod
+-    ]);
+-    const calls = [
+-      {
+-        contractAddress: data.quoteToken.address,
+-        entrypoint: "approve" /* APPROVE */,
+-        calldata: approveCalldata
+-      },
+-      {
+-        contractAddress: FACTORY_ADDRESSES[this.config.chainId],
+-        entrypoint: AMMS[data.amm].launchEntrypoint,
+-        calldata: launchCalldata
+-      }
+-    ];
+-    return {
+-      calls
+-    };
+-  }
++	config;
++	constructor(config) {
++		this.config = config;
++	}
++	async getMemecoin(address) {
++		const [baseMemecoin, launchData] = await Promise.all([
++			this.getBaseMemecoin(address),
++			this.getMemecoinLaunchData(address)
++		]);
++		if (!baseMemecoin) return void 0;
++		return { ...baseMemecoin, ...launchData };
++	}
++	//
++	// GET MEMECOIN
++	//
++	async getBaseMemecoin(address) {
++		const result = await multiCallContract(this.config.provider, this.config.chainId, [
++			{
++				contractAddress: FACTORY_ADDRESSES[this.config.chainId],
++				entrypoint: "is_memecoin" /* IS_MEMECOIN */,
++				calldata: [address]
++			},
++			{
++				contractAddress: address,
++				entrypoint: "name" /* NAME */
++			},
++			{
++				contractAddress: address,
++				entrypoint: "symbol" /* SYMBOL */
++			},
++			{
++				contractAddress: address,
++				entrypoint: "owner" /* OWNER */
++			},
++			{
++				contractAddress: address,
++				entrypoint: "total_supply" /* TOTAL_SUPPLY */
++			}
++		]);
++		const [[isMemecoin], [name], [symbol], [owner], totalSupply] = result;
++		if (!+isMemecoin) return void 0;
++		return {
++			address,
++			name: import_starknet5.shortString.decodeShortString(name),
++			symbol: import_starknet5.shortString.decodeShortString(symbol),
++			owner: (0, import_starknet5.getChecksumAddress)(owner),
++			decimals: DECIMALS,
++			totalSupply: import_starknet5.uint256.uint256ToBN({ low: totalSupply[0], high: totalSupply[1] }).toString()
++		};
++	}
++	//
++	// GET LAUNCH
++	//
++	async getMemecoinLaunchData(address) {
++		const result = await multiCallContract(this.config.provider, this.config.chainId, [
++			{
++				contractAddress: address,
++				entrypoint: "get_team_allocation" /* GET_TEAM_ALLOCATION */
++			},
++			{
++				contractAddress: address,
++				entrypoint: "launched_at_block_number" /* LAUNCHED_AT_BLOCK_NUMBER */
++			},
++			{
++				contractAddress: address,
++				entrypoint: "is_launched" /* IS_LAUNCHED */
++			},
++			{
++				contractAddress: FACTORY_ADDRESSES[this.config.chainId],
++				entrypoint: "locked_liquidity" /* LOCKED_LIQUIDITY */,
++				calldata: [address]
++			},
++			{
++				contractAddress: address,
++				entrypoint: "launched_with_liquidity_parameters" /* LAUNCHED_WITH_LIQUIDITY_PARAMETERS */
++			}
++		]);
++		const [
++			teamAllocation,
++			[launchBlockNumber],
++			[launched],
++			[dontHaveLiq, lockManager, liqTypeIndex, ekuboId],
++			launchParams
++		] = result;
++		const liquidityType = Object.values(LiquidityType)[+liqTypeIndex];
++		const isLaunched = !!+launched && !+dontHaveLiq && !+launchParams[0] && liquidityType;
++		if (!isLaunched) {
++			return {
++				isLaunched: false
++			};
++		}
++		let liquidity;
++		switch (liquidityType) {
++			case "STARKDEFI_ERC20" /* STARKDEFI_ERC20 */:
++			case "JEDISWAP_ERC20" /* JEDISWAP_ERC20 */: {
++				const baseLiquidity = {
++					type: liquidityType,
++					lockManager,
++					lockPosition: launchParams[5],
++					quoteToken: (0, import_starknet5.getChecksumAddress)(launchParams[2]),
++					quoteAmount: import_starknet5.uint256.uint256ToBN({ low: launchParams[3], high: launchParams[4] }).toString()
++				};
++				liquidity = {
++					...baseLiquidity,
++					...await this.getJediswapLiquidityLockPosition(baseLiquidity)
++				};
++				break;
++			}
++			case "EKUBO_NFT" /* EKUBO_NFT */: {
++				const baseLiquidity = {
++					type: liquidityType,
++					lockManager,
++					ekuboId,
++					quoteToken: (0, import_starknet5.getChecksumAddress)(launchParams[7]),
++					startingTick: +launchParams[4] * (+launchParams[5] ? -1 : 1)
++					// mag * sign
++				};
++				liquidity = {
++					...baseLiquidity,
++					...await this.getEkuboLiquidityLockPosition(baseLiquidity)
++				};
++			}
++		}
++		return {
++			isLaunched: true,
++			quoteToken: QUOTE_TOKENS[this.config.chainId][liquidity.quoteToken],
++			launch: {
++				teamAllocation: import_starknet5.uint256.uint256ToBN({ low: teamAllocation[0], high: teamAllocation[1] }).toString(),
++				blockNumber: Number(launchBlockNumber)
++			},
++			liquidity
++		};
++	}
++	//
++	// GET LIQUIDITY
++	//
++	async getJediswapLiquidityLockPosition(liquidity) {
++		const result = await this.config.provider.callContract({
++			contractAddress: liquidity.lockManager,
++			entrypoint: "get_lock_details" /* GET_LOCK_DETAILS */,
++			calldata: [liquidity.lockPosition]
++		});
++		return {
++			unlockTime: +result[4],
++			owner: (0, import_starknet5.getChecksumAddress)(result[3])
++		};
++	}
++	async getEkuboLiquidityLockPosition(liquidity) {
++		const result = await this.config.provider.callContract({
++			contractAddress: liquidity.lockManager,
++			entrypoint: "liquidity_position_details" /* LIQUIDITY_POSITION_DETAILS */,
++			calldata: [liquidity.ekuboId]
++		});
++		return {
++			unlockTime: LIQUIDITY_LOCK_FOREVER_TIMESTAMP,
++			owner: (0, import_starknet5.getChecksumAddress)(result[0]),
++			poolKey: {
++				token0: (0, import_starknet5.getChecksumAddress)(result[2]),
++				token1: (0, import_starknet5.getChecksumAddress)(result[3]),
++				fee: result[4],
++				tickSpacing: result[5],
++				extension: result[6]
++			},
++			bounds: {
++				lower: {
++					mag: result[7],
++					sign: result[8]
++				},
++				upper: {
++					mag: result[9],
++					sign: result[10]
++				}
++			}
++		};
++	}
++	//
++	// GET FEES
++	//
++	async getEkuboFees(memecoin) {
++		if (!memecoin.isLaunched || memecoin.liquidity.type !== "EKUBO_NFT" /* EKUBO_NFT */ || !memecoin.quoteToken) return;
++		const calldata = import_starknet5.CallData.compile([
++			memecoin.liquidity.ekuboId,
++			memecoin.liquidity.poolKey,
++			memecoin.liquidity.bounds
++		]);
++		const { result } = await this.config.provider.callContract({
++			contractAddress: EKUBO_POSITIONS_ADDRESSES[this.config.chainId],
++			entrypoint: "get_token_info" /* GET_TOKEN_INFOS */,
++			calldata
++		});
++		const [, , , , , , , fees0, fees1] = result;
++		return new import_sdk_core4.Fraction(
++			(new import_sdk_core4.Fraction(memecoin.address).lessThan(memecoin.quoteToken.address) ? fees1 : fees0).toString(),
++			decimalsScale(memecoin.quoteToken.decimals)
++		);
++	}
++	//
++	// GET COLLECT EKUBO FEES CALLDATA
++	//
++	getCollectEkuboFeesCalldata(memecoin) {
++		if (!memecoin.isLaunched || memecoin.liquidity.type !== "EKUBO_NFT" /* EKUBO_NFT */) return;
++		const collectFeesCalldata = import_starknet5.CallData.compile([
++			memecoin.liquidity.ekuboId,
++			// ekubo pool id
++			memecoin.liquidity.owner
++		]);
++		const calls = [
++			{
++				contractAddress: memecoin.liquidity.lockManager,
++				entrypoint: "withdraw_fees" /* WITHDRAW_FEES */,
++				calldata: collectFeesCalldata
++			}
++		];
++		return { calls };
++	}
++	//
++	// GET EXTEND LIQUIDITY LOCK CALLDATA
++	//
++	getExtendLiquidityLockCalldata(memecoin, seconds) {
++		if (!memecoin?.isLaunched || memecoin.liquidity.type === "EKUBO_NFT" /* EKUBO_NFT */) return;
++		const extendCalldata = import_starknet5.CallData.compile([
++			memecoin.liquidity.lockPosition,
++			// liquidity position
++			seconds
++		]);
++		const calls = [
++			{
++				contractAddress: memecoin.liquidity.lockManager,
++				entrypoint: "extend_lock" /* EXTEND_LOCK */,
++				calldata: extendCalldata
++			}
++		];
++		return { calls };
++	}
++	//
++	// GET DEPLOY CALLDATA
++	//
++	getDeployCalldata(data) {
++		const salt = import_starknet5.stark.randomAddress();
++		const constructorCalldata = import_starknet5.CallData.compile([
++			data.owner,
++			data.name,
++			data.symbol,
++			import_starknet5.uint256.bnToUint256(BigInt(data.initialSupply) * BigInt(decimalsScale(DECIMALS))),
++			salt
++		]);
++		const tokenAddress = import_starknet5.hash.calculateContractAddressFromHash(
++			salt,
++			TOKEN_CLASS_HASH[this.config.chainId],
++			constructorCalldata.slice(0, -1),
++			FACTORY_ADDRESSES[this.config.chainId]
++		);
++		const calls = [
++			{
++				contractAddress: FACTORY_ADDRESSES[this.config.chainId],
++				entrypoint: "create_memecoin" /* CREATE_MEMECOIN */,
++				calldata: constructorCalldata
++			}
++		];
++		return { tokenAddress, calls };
++	}
++	//
++	// GET LAUNCH CALLDATA
++	//
++	async getEkuboLaunchCalldata(memecoin, data) {
++		const quoteTokenPrice = await getPairPrice(this.config.provider, data.quoteToken.usdcPair);
++		const teamAllocationFraction = data.teamAllocations.reduce((acc, { amount }) => acc.add(amount), new import_sdk_core4.Fraction(0));
++		const teamAllocationPercentage = new import_sdk_core4.Percent(
++			teamAllocationFraction.quotient,
++			new import_sdk_core4.Fraction(memecoin.totalSupply, decimalsScale(DECIMALS)).quotient
++		);
++		const teamAllocationQuoteAmount = new import_sdk_core4.Fraction(data.startingMarketCap).divide(quoteTokenPrice).multiply(teamAllocationPercentage.multiply(data.fees.add(1)));
++		const uin256TeamAllocationQuoteAmount = import_starknet5.uint256.bnToUint256(
++			BigInt(teamAllocationQuoteAmount.multiply(decimalsScale(data.quoteToken.decimals)).quotient.toString())
++		);
++		const initialPrice = +new import_sdk_core4.Fraction(data.startingMarketCap).divide(quoteTokenPrice).multiply(decimalsScale(DECIMALS)).divide(new import_sdk_core4.Fraction(memecoin.totalSupply)).toFixed(DECIMALS);
++		const startingTickMag = getStartingTick(initialPrice);
++		const i129StartingTick = {
++			mag: Math.abs(startingTickMag),
++			sign: startingTickMag < 0
++		};
++		const fees = data.fees.multiply(EKUBO_FEES_MULTIPLICATOR).quotient.toString();
++		const transferCalldata = import_starknet5.CallData.compile([
++			FACTORY_ADDRESSES[this.config.chainId],
++			// recipient
++			uin256TeamAllocationQuoteAmount
++			// amount
++		]);
++		const initialHolders = data.teamAllocations.map(({ address }) => address);
++		const initialHoldersAmounts = data.teamAllocations.map(
++			({ amount }) => import_starknet5.uint256.bnToUint256(BigInt(amount) * BigInt(decimalsScale(DECIMALS)))
++		);
++		const launchCalldata = import_starknet5.CallData.compile([
++			memecoin.address,
++			// memecoin address
++			data.antiBotPeriod,
++			// anti bot period in seconds
++			+data.holdLimit.toFixed(1) * 100,
++			// hold limit
++			data.quoteToken.address,
++			// quote token address
++			initialHolders,
++			// initial holders
++			initialHoldersAmounts,
++			// initial holders amounts
++			fees,
++			// ekubo fees
++			EKUBO_TICK_SPACING,
++			// tick spacing
++			i129StartingTick,
++			// starting tick
++			EKUBO_BOUND
++			// bound
++		]);
++		const calls = [
++			{
++				contractAddress: data.quoteToken.address,
++				entrypoint: "transfer" /* TRANSFER */,
++				calldata: transferCalldata
++			},
++			{
++				contractAddress: FACTORY_ADDRESSES[this.config.chainId],
++				entrypoint: "launch_on_ekubo" /* LAUNCH_ON_EKUBO */,
++				calldata: launchCalldata
++			}
++		];
++		return {
++			calls
++		};
++	}
++	async getStandardAMMLaunchCalldata(memecoin, data) {
++		const quoteTokenPrice = await getPairPrice(this.config.provider, data.quoteToken.usdcPair);
++		const teamAllocationFraction = data.teamAllocations.reduce((acc, { amount }) => acc.add(amount), new import_sdk_core4.Fraction(0));
++		const teamAllocationPercentage = new import_sdk_core4.Percent(
++			teamAllocationFraction.quotient,
++			new import_sdk_core4.Fraction(memecoin.totalSupply, decimalsScale(DECIMALS)).quotient
++		);
++		const quoteAmount = new import_sdk_core4.Fraction(data.startingMarketCap).divide(quoteTokenPrice).multiply(new import_sdk_core4.Fraction(1).subtract(teamAllocationPercentage));
++		const uin256QuoteAmount = import_starknet5.uint256.bnToUint256(BigInt(quoteAmount.multiply(decimalsScale(18)).quotient.toString()));
++		const initialHolders = data.teamAllocations.map(({ address }) => address);
++		const initialHoldersAmounts = data.teamAllocations.map(
++			({ amount }) => import_starknet5.uint256.bnToUint256(BigInt(amount) * BigInt(decimalsScale(DECIMALS)))
++		);
++		const approveCalldata = import_starknet5.CallData.compile([
++			FACTORY_ADDRESSES[this.config.chainId],
++			// spender
++			uin256QuoteAmount
++		]);
++		const launchCalldata = import_starknet5.CallData.compile([
++			memecoin.address,
++			// memecoin address
++			data.antiBotPeriod,
++			// anti bot period in seconds
++			+data.holdLimit.toFixed(1) * 100,
++			// hold limit
++			data.quoteToken.address,
++			// quote token
++			initialHolders,
++			// initial holders
++			initialHoldersAmounts,
++			// initial holders amounts
++			uin256QuoteAmount,
++			// quote amount
++			data.liquidityLockPeriod
++		]);
++		const calls = [
++			{
++				contractAddress: data.quoteToken.address,
++				entrypoint: "approve" /* APPROVE */,
++				calldata: approveCalldata
++			},
++			{
++				contractAddress: FACTORY_ADDRESSES[this.config.chainId],
++				entrypoint: AMMS[data.amm].launchEntrypoint,
++				calldata: launchCalldata
++			}
++		];
++		return {
++			calls
++		};
++	}
+ };
+ 
+ // src/factory/interface.ts
+@@ -2664,59 +2664,59 @@ var FactoryInterface = class {
+ // src/utils/marketCap.ts
+ var import_sdk_core5 = require("@uniswap/sdk-core");
+ function getStartingMarketCap(memecoin, quoteTokenPriceAtLaunch) {
+-  if (!memecoin.isLaunched || !quoteTokenPriceAtLaunch || !memecoin.quoteToken) return void 0;
+-  switch (memecoin.liquidity.type) {
+-    case "STARKDEFI_ERC20" /* STARKDEFI_ERC20 */:
+-    case "JEDISWAP_ERC20" /* JEDISWAP_ERC20 */: {
+-      return new import_sdk_core5.Fraction(memecoin.liquidity.quoteAmount).multiply(new import_sdk_core5.Fraction(memecoin.launch.teamAllocation, memecoin.totalSupply).add(1)).divide(decimalsScale(memecoin.quoteToken.decimals)).multiply(quoteTokenPriceAtLaunch);
+-    }
+-    case "EKUBO_NFT" /* EKUBO_NFT */: {
+-      const initialPrice = getInitialPrice(memecoin.liquidity.startingTick);
+-      return new import_sdk_core5.Fraction(
+-        initialPrice.toFixed(DECIMALS).replace(/\./, "").replace(/^0+/, ""),
+-        // from 0.000[...]0001 to "1"
+-        decimalsScale(DECIMALS)
+-      ).multiply(quoteTokenPriceAtLaunch).multiply(memecoin.totalSupply).divide(decimalsScale(DECIMALS));
+-    }
+-  }
++	if (!memecoin.isLaunched || !quoteTokenPriceAtLaunch || !memecoin.quoteToken) return void 0;
++	switch (memecoin.liquidity.type) {
++		case "STARKDEFI_ERC20" /* STARKDEFI_ERC20 */:
++		case "JEDISWAP_ERC20" /* JEDISWAP_ERC20 */: {
++			return new import_sdk_core5.Fraction(memecoin.liquidity.quoteAmount).multiply(new import_sdk_core5.Fraction(memecoin.launch.teamAllocation, memecoin.totalSupply).add(1)).divide(decimalsScale(memecoin.quoteToken.decimals)).multiply(quoteTokenPriceAtLaunch);
++		}
++		case "EKUBO_NFT" /* EKUBO_NFT */: {
++			const initialPrice = getInitialPrice(memecoin.liquidity.startingTick);
++			return new import_sdk_core5.Fraction(
++				initialPrice.toFixed(DECIMALS).replace(/\./, "").replace(/^0+/, ""),
++				// from 0.000[...]0001 to "1"
++				decimalsScale(DECIMALS)
++			).multiply(quoteTokenPriceAtLaunch).multiply(memecoin.totalSupply).divide(decimalsScale(DECIMALS));
++		}
++	}
+ }
+ 
+ // src/utils/safety.ts
+ function getTeamAllocationSafety(teamAllocation) {
+-  if (teamAllocation.greaterThan(TEAM_ALLOCATION_SAFETY_BOUNDS[1 /* CORRECT */])) return 2 /* DANGEROUS */;
+-  if (teamAllocation.greaterThan(TEAM_ALLOCATION_SAFETY_BOUNDS[0 /* SAFE */])) return 1 /* CORRECT */;
+-  return 0 /* SAFE */;
++	if (teamAllocation.greaterThan(TEAM_ALLOCATION_SAFETY_BOUNDS[1 /* CORRECT */])) return 2 /* DANGEROUS */;
++	if (teamAllocation.greaterThan(TEAM_ALLOCATION_SAFETY_BOUNDS[0 /* SAFE */])) return 1 /* CORRECT */;
++	return 0 /* SAFE */;
+ }
+ function getLiquidityLockSafety(liquidityLock) {
+-  if (liquidityLock.asMonths() >= LIQUIDITY_LOCK_SAFETY_BOUNDS[0 /* SAFE */].asMonths()) return 0 /* SAFE */;
+-  if (liquidityLock.asMonths() >= LIQUIDITY_LOCK_SAFETY_BOUNDS[1 /* CORRECT */].asMonths()) return 1 /* CORRECT */;
+-  return 2 /* DANGEROUS */;
++	if (liquidityLock.asMonths() >= LIQUIDITY_LOCK_SAFETY_BOUNDS[0 /* SAFE */].asMonths()) return 0 /* SAFE */;
++	if (liquidityLock.asMonths() >= LIQUIDITY_LOCK_SAFETY_BOUNDS[1 /* CORRECT */].asMonths()) return 1 /* CORRECT */;
++	return 2 /* DANGEROUS */;
+ }
+ function getQuoteTokenSafety(isUnknown) {
+-  return isUnknown ? 2 /* DANGEROUS */ : 0 /* SAFE */;
++	return isUnknown ? 2 /* DANGEROUS */ : 0 /* SAFE */;
+ }
+ function getStartingMcapSafety(teamAllocation, startingMcap) {
+-  if (!startingMcap) return 2 /* DANGEROUS */;
+-  if (startingMcap?.lessThan(STARTING_MCAP_SAFETY_BOUNDS[1 /* CORRECT */].mcap) || startingMcap.multiply(teamAllocation).greaterThan(STARTING_MCAP_SAFETY_BOUNDS[1 /* CORRECT */].teamAllocatoion)) {
+-    return 2 /* DANGEROUS */;
+-  }
+-  if (startingMcap?.lessThan(STARTING_MCAP_SAFETY_BOUNDS[0 /* SAFE */].mcap) || startingMcap.multiply(teamAllocation).greaterThan(STARTING_MCAP_SAFETY_BOUNDS[0 /* SAFE */].teamAllocatoion)) {
+-    return 1 /* CORRECT */;
+-  }
+-  return 0 /* SAFE */;
++	if (!startingMcap) return 2 /* DANGEROUS */;
++	if (startingMcap?.lessThan(STARTING_MCAP_SAFETY_BOUNDS[1 /* CORRECT */].mcap) || startingMcap.multiply(teamAllocation).greaterThan(STARTING_MCAP_SAFETY_BOUNDS[1 /* CORRECT */].teamAllocatoion)) {
++		return 2 /* DANGEROUS */;
++	}
++	if (startingMcap?.lessThan(STARTING_MCAP_SAFETY_BOUNDS[0 /* SAFE */].mcap) || startingMcap.multiply(teamAllocation).greaterThan(STARTING_MCAP_SAFETY_BOUNDS[0 /* SAFE */].teamAllocatoion)) {
++		return 1 /* CORRECT */;
++	}
++	return 0 /* SAFE */;
+ }
+ // Annotate the CommonJS export names for ESM import in node:
+ 0 && (module.exports = {
+-  Factory,
+-  FactoryInterface,
+-  constants,
+-  getInitialPrice,
+-  getLiquidityLockSafety,
+-  getPairPrice,
+-  getQuoteTokenSafety,
+-  getStartingMarketCap,
+-  getStartingMcapSafety,
+-  getStartingTick,
+-  getTeamAllocationSafety
++	Factory,
++	FactoryInterface,
++	constants,
++	getInitialPrice,
++	getLiquidityLockSafety,
++	getPairPrice,
++	getQuoteTokenSafety,
++	getStartingMarketCap,
++	getStartingMcapSafety,
++	getStartingTick,
++	getTeamAllocationSafety
+ });
+ //# sourceMappingURL=index.js.map
+\ No newline at end of file

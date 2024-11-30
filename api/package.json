@@ -9,7 +9,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "npx tsc && cpx \"src/config/**/*\" dist/config",
-		"postinstall": "npm run build",
+		"postinstall": "npm run build && patch-package",
 		"start": "node ./dist/index.js",
 		"dev": "ts-node src/index.ts"
 	},
@@ -25,6 +25,8 @@
 		"@langchain/core": "^0.3.17",
 		"@langchain/langgraph": "^0.2.20",
 		"@langchain/openai": "^0.3.13",
+		"@uniswap/sdk-core": "^6.0.0",
+		"@unruggable_starknet/core": "^0.1.0",
 		"alchemy-sdk": "^3.4.8",
 		"aws-sdk": "^2.1692.0",
 		"axios": "^1.7.7",
@@ -34,6 +36,7 @@
 		"express": "^4.21.1",
 		"langchain": "^0.3.5",
 		"openai": "^4.72.0",
+		"patch-package": "^8.0.0",
 		"starknet": "^6.11.0",
 		"tsconfig-paths": "^4.2.0",
 		"zod": "^3.23.8"

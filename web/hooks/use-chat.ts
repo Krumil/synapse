@@ -47,7 +47,7 @@ export function useChat() {
 				if (currentStatus === 'success' || currentStatus === 'error') {
 					resolve();
 				} else {
-					setTimeout(checkStatus, 1000); // Check every second
+					setTimeout(checkStatus, 100); // Check every second
 				}
 			};
 			checkStatus();
@@ -253,6 +253,9 @@ export function useChat() {
 			// Update memory reading from local storage
 			const savedMemory = localStorage.getItem('chatMemory');
 			const existingMemory = savedMemory ? JSON.parse(savedMemory) : {};
+			const filteredMessages = messages.filter(msg =>
+				msg.role === 'user' || (msg.role === 'assistant' && msg.type === 'agent')
+			);
 
 			const response = await fetch('/api/chat', {
 				method: 'POST',
@@ -261,7 +264,7 @@ export function useChat() {
 				},
 				body: JSON.stringify({
 					message: userMessage,
-					messages: [...messages, { role: 'user', content: userMessage }],
+					messages: [...filteredMessages, { role: 'user', content: userMessage }],
 					address,
 					userId: address,
 					existingMemory,

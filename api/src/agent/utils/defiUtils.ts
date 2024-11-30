@@ -1,14 +1,16 @@
 import { S3Client, GetObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3';
-import { YieldData, Token, TokenMetadata, TokenBalance, ProtocolConfig, ChainData } from '../../types/defi';
+import { Token, TokenMetadata, TokenBalance, ProtocolConfig, ChainData } from '../../types/defi';
 import { RpcProvider, Contract } from 'starknet';
-import { LP_ABI, ERC20_ABI, PRICE_FEED_ABI, STAKING_ABI } from '../../constants/contracts';
+import { LP_ABI, ERC20_ABI, STAKING_ABI } from '../../constants/contracts';
 import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
+import { Fraction, Percent } from "@uniswap/sdk-core";
 
 // Load the configuration file
 const configFilePath = path.join(__dirname, '../../config/protocolConfig.json');
 const protocolConfig: ProtocolConfig = JSON.parse(fs.readFileSync(configFilePath, 'utf-8'));
+const PERCENTAGE_INPUT_PRECISION = 2;
 
 // Load provider 
 if (!process.env.ALCHEMY_API_ENDPOINT || !process.env.ALCHEMY_API_KEY) {
@@ -39,6 +41,15 @@ export function splitUint256(amount: string): { low: string; high: string } {
 		low: (amountBigInt % maxUint128).toString(),
 		high: (amountBigInt / maxUint128).toString()
 	};
+}
+
+export function stringToFelt252(str: string): string {
+	let hex = "0x";
+	for (let i = 0; i < str.length; i++) {
+		const charHex = str.charCodeAt(i).toString(16).padStart(2, "0");
+		hex += charHex;
+	}
+	return BigInt(hex).toString();
 }
 
 export function hexToDecimalString(hex: string): string {
@@ -239,8 +250,8 @@ export async function fetchTokenBalance(
 		const contract = new Contract(ERC20_ABI, token.address, provider);
 
 		const [balanceResult, decimalsResult] = await Promise.all([
-			contract.call("balanceOf", [walletAddress]),
-			contract.call("decimals", [])
+			contract.call("balanceOf", [walletAddress] as const),
+			contract.call("decimals", [] as const)
 		]) as [{ balance: bigint }, { decimals: bigint }];
 
 		const balance = balanceResult.balance;
@@ -266,7 +277,7 @@ export async function fetchTokenBalance(
 			// contract_address: token.address,
 			name: token.name,
 			symbol: token.symbol,
-			balance: balanceInSmallestUnit,
+			balance: balanceInTokens.toString(),
 			// decimals: decimals.toString(),
 			valueUSD
 		};
@@ -325,7 +336,7 @@ export async function getStakedAssetPrice(
 			provider
 		);
 
-		const indexResult = await stakingContract.call("token_index", []);
+		const indexResult = await stakingContract.call("token_index", [] as const);
 		const conversionIndex = Number(indexResult) / (10 ** decimals);
 
 		// Calculate the staked token price by multiplying underlying price with the conversion index
@@ -350,8 +361,8 @@ export async function getLPTokenPrice(
 
 		// Get pool data
 		const [reservesResult, totalSupplyResult] = await Promise.all([
-			poolContract.call("get_reserves", []),
-			poolContract.call("total_supply", [])
+			poolContract.call("get_reserves", [] as const),
+			poolContract.call("total_supply", [] as const)
 		]) as [{ reserve0: [string, string]; reserve1: [string, string] }, { supply: [string, string] }];
 
 		// Reconstruct reserves and total supply
@@ -391,3 +402,27 @@ export async function getLPTokenPrice(
 	}
 }
 
+export const parseFormatedAmount = (amount: string) => amount.replace(/,/g, '')
+
+export const parseFormatedPercentage = (percent: string) =>
+	new Percent(+percent * 10 ** PERCENTAGE_INPUT_PRECISION, 100 * 10 ** PERCENTAGE_INPUT_PRECISION)
+
+interface ParseCurrencyAmountOptions {
+	fixed: number
+	significant?: number
+}
+
+export const formatCurrenyAmount = (amount: Fraction, { fixed, significant = 1 }: ParseCurrencyAmountOptions) => {
+	const fixedAmount = amount.toFixed(fixed)
+	const significantAmount = amount.toSignificant(significant)
+
+	if (+significantAmount > +fixedAmount) return significantAmount
+	else return +fixedAmount.toString()
+}
+
+export const formatPercentage = (percentage: Percent) => {
+	const formatedPercentage = +percentage.toFixed(2)
+	const exact = percentage.equalTo(new Percent(Math.round(formatedPercentage * 100), 10000))
+
+	return `${exact ? '' : '~'}${formatedPercentage}%`
+}

@@ -24,6 +24,7 @@ export function useTransaction() {
 			});
 
 			// Send the transaction using sendAsync with the calls
+			console.log('Sending transaction with calls:', calls);
 			const response = await sendAsync(calls);
 
 			if (!response?.transaction_hash) {
