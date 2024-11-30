@@ -1,9 +1,7 @@
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import { Provider, RpcProvider, constants, getChecksumAddress } from "starknet";
+import { RpcProvider, constants } from "starknet";
 import { Factory, EkuboLaunchData, constants as unruggableConstants } from "@unruggable_starknet/core";
-import { Fraction, Percent } from "@uniswap/sdk-core";
-import { EKUBO_FEES_MULTIPLICATOR } from "../utils/ekubo";
 import { parseFormatedPercentage } from "../utils/defiUtils";
 
 if (!process.env.ALCHEMY_API_ENDPOINT || !process.env.ALCHEMY_API_KEY) {

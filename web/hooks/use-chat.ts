@@ -63,6 +63,16 @@ export function useChat() {
 
 			if (result.status === 'error') {
 				console.error('Transaction failed:', result.error);
+				setMessages((prev) => [
+					...prev,
+					{
+						content: "I'm sorry, but it seems like there was an error while processing the transaction. What do you want me to do?",
+						role: 'assistant',
+						type: 'agent',
+					},
+				]);
+				// Throw an error to stop the stream processing
+				throw new Error('Transaction failed');
 			} else {
 				console.log('Transaction successful:', result.hash);
 			}
@@ -103,65 +113,70 @@ export function useChat() {
 	};
 
 	const processStreamMessage = async (data: any) => {
-		switch (data.type) {
-			case 'tool': {
-				try {
-					JSON.parse(data.content);
-				} catch (e) {
-					return;
-				}
-				const toolResponse: ToolResponse = JSON.parse(data.content);
-				await handleToolResponse(toolResponse);
-				break;
-			}
-			case 'agent_reasoning': {
-				setMessages((prev) => {
-					const lastMessage = prev[prev.length - 1];
-					if (lastMessage?.role === 'assistant' && lastMessage?.type === 'agent_reasoning') {
-						const updatedMessages = [...prev];
-						updatedMessages[prev.length - 1] = {
-							...lastMessage,
-							content: lastMessage.content + '\n' + data.content,
-						};
-						return updatedMessages;
+		try {
+			switch (data.type) {
+				case 'tool': {
+					try {
+						JSON.parse(data.content);
+					} catch (e) {
+						return;
 					}
-					return [
-						...prev,
-						{
-							content: data.content,
-							role: 'assistant',
-							type: data.type,
-						},
-					];
-				});
-				break;
+					const toolResponse: ToolResponse = JSON.parse(data.content);
+					await handleToolResponse(toolResponse);
+					break;
+				}
+				case 'agent_reasoning': {
+					setMessages((prev) => {
+						const lastMessage = prev[prev.length - 1];
+						if (lastMessage?.role === 'assistant' && lastMessage?.type === 'agent_reasoning') {
+							const updatedMessages = [...prev];
+							updatedMessages[prev.length - 1] = {
+								...lastMessage,
+								content: lastMessage.content + '\n' + data.content,
+							};
+							return updatedMessages;
+						}
+						return [
+							...prev,
+							{
+								content: data.content,
+								role: 'assistant',
+								type: data.type,
+							},
+						];
+					});
+					break;
+				}
+				case 'agent': {
+					setMessages((prev) => {
+						return [
+							...prev,
+							{
+								content: data.content,
+								role: 'assistant',
+								type: data.type,
+							},
+						];
+					});
+					break;
+				}
+				default: {
+					setMessages((prev) => {
+						return [
+							...prev,
+							{
+								content: data.content,
+								role: 'assistant',
+								type: data.type,
+							},
+						];
+					});
+					break;
+				}
 			}
-			case 'agent': {
-				setMessages((prev) => {
-					return [
-						...prev,
-						{
-							content: data.content,
-							role: 'assistant',
-							type: data.type,
-						},
-					];
-				});
-				break;
-			}
-			default: {
-				setMessages((prev) => {
-					return [
-						...prev,
-						{
-							content: data.content,
-							role: 'assistant',
-							type: data.type,
-						},
-					];
-				});
-				break;
-			}
+		} catch (error) {
+			// Stop processing by re-throwing the error
+			throw error;
 		}
 	};
 
