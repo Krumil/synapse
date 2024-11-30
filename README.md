@@ -4,7 +4,8 @@
 
 Synapse is an intelligent DeFi assistant that provides personalized guidance and automated interactions with Starknet's DeFi ecosystem. It helps users navigate yield farming, liquidity provision, and portfolio management through natural language conversations.
 
-[Watch Demo Video: Experience Synapse in Action]
+
+https://github.com/user-attachments/assets/010e1533-2ebf-4d59-bf6d-ecfbef7b09b6
 
 ## Core Features
 
