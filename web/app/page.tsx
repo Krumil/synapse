@@ -99,7 +99,7 @@ export default function Home() {
 
 			<Header />
 
-			<main className="max-w-3xl mx-auto w-full pt-24">
+			<main className="max-w-3xl mx-auto w-full pt-0 md:pt-24">
 				<Card className="p-1  relative z-20 border-0 bg-transparent shadow-none backdrop-blur-sm h-[calc(100vh-12rem)]">
 					<ScrollArea className="h-full" ref={scrollAreaRef}>
 						<div className="flex flex-col gap-4 px-3">
