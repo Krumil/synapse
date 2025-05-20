@@ -1,23 +1,23 @@
-import { Router } from 'express';
-import { chatAgentHandler } from '../agent/agentController';
-import { fetchYields } from '../fetchYields';
-import { fetchTokens } from '../fetchTokens';
+import { Router } from "express";
+import { chatAgentHandler } from "../agent/agentController";
+import { fetchYields } from "../fetchYields";
+import { fetchTokens } from "../fetchTokens";
 const router = Router();
 
-router.post('/chat', chatAgentHandler);
+router.post("/chat", chatAgentHandler);
 
-router.get('/trigger-data-fetch', async (req, res) => {
-	try {
-		await fetchYields();
-		await fetchTokens();
-		res.json({ status: 'success' });
-	} catch (error) {
-		res.status(500).json({ error: (error as Error).message });
-	}
+router.get("/trigger-data-fetch", async (req, res) => {
+    try {
+        await fetchYields();
+        await fetchTokens();
+        res.json({ status: "success" });
+    } catch (error) {
+        res.status(500).json({ error: (error as Error).message });
+    }
 });
 
-router.get('/health', (req, res) => {
-	res.json({ status: 'ok' });
+router.get("/health", (req, res) => {
+    res.json({ status: "ok" });
 });
 
 export default router;

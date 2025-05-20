@@ -1,7 +1,5 @@
-// src/agent/chat.ts
-
 import { ChatOpenAI } from "@langchain/openai";
-import { HumanMessage, AIMessage, SystemMessage } from "@langchain/core/messages";
+import { HumanMessage, AIMessage } from "@langchain/core/messages";
 import { MemorySaver } from "@langchain/langgraph";
 import { Response } from "express";
 // import all the tools from index.ts
@@ -13,33 +11,21 @@ import {
     defiTransactionsTools,
     memeTools,
     suggestionTools,
-    getWalletBalancesTool,
 } from "./tools";
-import { ToolNode } from "@langchain/langgraph/prebuilt";
-import { StateGraph, MessagesAnnotation } from "@langchain/langgraph";
+import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import dotenv from "dotenv";
 import fs from "fs/promises";
 import path from "path";
 
 dotenv.config();
 
-const coreTools = [
-    ...brianTools,
-    ...defiLlamaTools,
-    ...defiTransactionsTools,
-    ...memeTools,
-    ...starknetTools,
-    memoryTool,
-];
-const allTools = [...coreTools, ...suggestionTools];
-
+const tools = [...brianTools, ...defiLlamaTools, ...defiTransactionsTools, ...memeTools, ...starknetTools, memoryTool];
 const llm = new ChatOpenAI({
     modelName: "gpt-4.1-mini",
     temperature: 0,
     streaming: false,
     apiKey: process.env.OPENAI_API_KEY,
 });
-const model = llm.bindTools(allTools);
 
 async function readPromptFromFile(filename: string): Promise<string> {
     const filePath = path.join(process.cwd(), filename);
@@ -72,7 +58,6 @@ export async function chat(
         lastUpdated: string;
     }
 ): Promise<void> {
-    console.log("Processing chat messages...");
     const systemMessage = await createSystemMessage(address);
     const memory = new MemorySaver();
 
@@ -94,38 +79,12 @@ export async function chat(
         )}</previous_context>`;
     }
 
-    /* ---------- GRAPH DEFINITION ---------- */
-    const coreToolNode = new ToolNode(coreTools);
-    const suggestionToolNode = new ToolNode(suggestionTools);
-    const balanceToolNode = new ToolNode([getWalletBalancesTool]);
-
-    async function callModel(state: typeof MessagesAnnotation.State) {
-        const response = await model.invoke([new SystemMessage(systemMessage), ...state.messages]);
-        return { messages: [response] };
-    }
-
-    function shouldContinue({ messages }: typeof MessagesAnnotation.State) {
-        const lastMessage = messages[messages.length - 1] as AIMessage;
-        if (lastMessage.tool_calls?.length) {
-            return "tools";
-        }
-        return "suggestion";
-    }
-
-    const graphBuilder = new StateGraph(MessagesAnnotation)
-        .addNode("init", (state) => state)
-        .addNode("balance", balanceToolNode)
-        .addNode("agent", callModel)
-        .addNode("tools", coreToolNode)
-        .addNode("suggestion", suggestionToolNode)
-        .addEdge("__start__", "init")
-        .addConditionalEdges("init", ({ messages }) => (messages.length === 1 ? "balance" : "agent"))
-        .addEdge("balance", "agent")
-        .addConditionalEdges("agent", shouldContinue)
-        .addEdge("tools", "agent")
-        .addEdge("suggestion", "__end__");
-
-    const app = graphBuilder.compile({ checkpointer: memory });
+    const app = createReactAgent({
+        llm,
+        tools,
+        messageModifier: systemMessage,
+        checkpointSaver: memory,
+    });
 
     const config = {
         configurable: {
@@ -150,25 +109,12 @@ export async function chat(
             { ...config, streamMode: "updates" }
         )) {
             try {
-                // BALANCE NODE OUTPUT
-                if (event.balance) {
-                    for (const balanceMessage of event.balance.messages) {
-                        if (typeof balanceMessage.content === "string") {
-                            res.write(
-                                `data: {"type": "balance", "content": ${JSON.stringify(balanceMessage.content)}}\n\n`
-                            );
-                        } else {
-                            const balanceOutput = JSON.parse(balanceMessage.content);
-                            res.write(`data: {"type": "balance", "content": ${JSON.stringify(balanceOutput)}}\n\n`);
-                        }
-                    }
-                }
-
-                // AGENT NODE OUTPUT
                 if (event.agent && event.agent.messages && event.agent.messages.length > 0) {
                     const messages = event.agent.messages;
                     const content = messages.find((message: any) => message.content);
                     if (content) {
+                        const stop_reason = content.additional_kwargs?.stop_reason;
+                        // const type = stop_reason === "end_turn" ? "agent" : "agent_reasoning";
                         const type = "agent";
                         const messagesContent = content.content;
                         if (typeof messagesContent === "string") {
@@ -180,8 +126,6 @@ export async function chat(
                         }
                     }
                 }
-
-                // TOOLS NODE OUTPUT
                 if (event.tools) {
                     for (const toolMessage of event.tools.messages) {
                         if (typeof toolMessage.content === "string") {
@@ -189,24 +133,6 @@ export async function chat(
                         } else {
                             const toolOutput = JSON.parse(toolMessage.content);
                             res.write(`data: {"type": "tool", "content": ${JSON.stringify(toolOutput)}}\n\n`);
-                        }
-                    }
-                }
-
-                // SUGGESTION NODE OUTPUT
-                if (event.suggestion) {
-                    for (const suggestionMessage of event.suggestion.messages) {
-                        if (typeof suggestionMessage.content === "string") {
-                            res.write(
-                                `data: {"type": "suggestion", "content": ${JSON.stringify(
-                                    suggestionMessage.content
-                                )}}\n\n`
-                            );
-                        } else {
-                            const suggestionOutput = JSON.parse(suggestionMessage.content);
-                            res.write(
-                                `data: {"type": "suggestion", "content": ${JSON.stringify(suggestionOutput)}}\n\n`
-                            );
                         }
                     }
                 }

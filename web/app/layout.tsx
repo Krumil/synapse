@@ -1,63 +1,56 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/theme-provider";
 import { Providers } from "./providers";
-import { SparklesCore } from '@/components/ui/sparkles';
-import { Opulento } from "uvcanvas"
-import { Space_Grotesk } from 'next/font/google';
-import { Syne } from 'next/font/google';
+import { SparklesCore } from "@/components/ui/sparkles";
+import { Opulento } from "uvcanvas";
+import { Space_Grotesk } from "next/font/google";
+import { Syne } from "next/font/google";
 
 const geistSans = localFont({
-	src: "./fonts/GeistVF.woff",
-	variable: "--font-geist-sans",
-	weight: "100 900",
+    src: "./fonts/GeistVF.woff",
+    variable: "--font-geist-sans",
+    weight: "100 900",
 });
 const geistMono = localFont({
-	src: "./fonts/GeistMonoVF.woff",
-	variable: "--font-geist-mono",
-	weight: "100 900",
+    src: "./fonts/GeistMonoVF.woff",
+    variable: "--font-geist-mono",
+    weight: "100 900",
 });
 
 const spaceGrotesk = Space_Grotesk({
-	subsets: ['latin'],
-	variable: '--font-space-grotesk',
+    subsets: ["latin"],
+    variable: "--font-space-grotesk",
 });
 
 const syne = Syne({
-	subsets: ['latin'],
-	variable: '--font-syne',
+    subsets: ["latin"],
+    variable: "--font-syne",
 });
 
-export const viewport: Viewport = { themeColor: "#0b0b0b" };
-
 export const metadata: Metadata = {
-	title: "Synapse",
-	description: "Your personal DeFi AI assistant for Starknet",
-	applicationName: "Synapse",
-	themeColor: "#0b0b0b",
-	appleWebApp: { capable: true, title: "Synapse", statusBarStyle: "default" },
+    title: "Synapse",
+    description: "Your personal DeFi AI assistant for Starknet",
+    applicationName: "Synapse",
+    appleWebApp: { capable: true, title: "Synapse", statusBarStyle: "default" },
 };
 
 export default function RootLayout({
-	children,
+    children,
 }: Readonly<{
-	children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-	return (
-		<html lang="en" suppressHydrationWarning>
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${syne.variable} font-sans antialiased`}
-			>
-				<script
-					type="module"
-					defer
-					src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/mirage.js"
-				></script>
-				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-					<Providers>
-						<div className="w-full absolute inset-0 h-screen">
-							{/* <SparklesCore
+    return (
+        <html lang="en" suppressHydrationWarning data-lt-installed="true">
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${syne.variable} font-sans antialiased`}
+            >
+                <script type="module" defer src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/mirage.js"></script>
+                <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                    <Providers>
+                        <div className="w-full absolute inset-0 h-screen">
+                            {/* <SparklesCore
 								id="tsparticlesfullpage"
 								background="transparent"
 								minSize={0.6}
@@ -66,13 +59,12 @@ export default function RootLayout({
 								className="w-full h-full"
 								particleColor="#FFFFFF"
 							/> */}
-							<Opulento />
-						</div>
-						{children}
-					</Providers>
-				</ThemeProvider>
-			</body>
-		</html>
-	);
+                            <Opulento />
+                        </div>
+                        <main className="max-w-3xl mx-auto w-full px-4">{children}</main>
+                    </Providers>
+                </ThemeProvider>
+            </body>
+        </html>
+    );
 }
-
