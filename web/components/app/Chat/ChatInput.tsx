@@ -1,3 +1,4 @@
+"use client";
 import { memo } from "react";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 

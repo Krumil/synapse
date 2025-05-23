@@ -1,14 +1,14 @@
 "use client";
 import { motion } from "framer-motion";
-import { TextGenerateEffect } from "../ui/text-generate-effect";
-import { ChatMessage as ChatMessageType } from "../../types/chat";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { ChatMessage as ChatMessageType } from "@/types/chat";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { Chart } from "@/components/WalletBalance/Chart";
 import { ProtocolsTable } from "@/components/ProtocolsTable/ProtocolsTable";
-import { X } from "lucide-react";
-import { useState, memo } from "react";
+import { useState, memo, ReactNode } from "react";
+import { ToolRenderer } from "./ToolComponents";
 
 type ButtonOption = {
     label: string;
@@ -17,17 +17,18 @@ type ButtonOption = {
     disabled?: boolean;
 };
 
+interface ChatMessageProps extends ChatMessageType {
+    onOptionClick?: (value: string) => void;
+    onAddToGrid?: (component: ReactNode, header?: ReactNode) => void;
+}
+
 export const ChatMessage = memo(function ChatMessage({
     content,
     role,
     type,
     onOptionClick,
-}: ChatMessageType & {
-    onOptionClick?: (value: string) => void;
-}) {
-    // console.log('content', content);
-    // console.log('role', role);
-    // console.log('type', type);
+    onAddToGrid,
+}: ChatMessageProps) {
     const [showButtons, setShowButtons] = useState(false);
 
     // Add this helper function to safely parse JSON content
@@ -63,10 +64,12 @@ export const ChatMessage = memo(function ChatMessage({
             .trim();
     };
 
-    if (!content) return null;
+    // Don't render tool messages in the chat at all - they'll be shown in the grid
+    if (type === "tool") {
+        return null;
+    }
 
-    // Get parsed content for tool responses
-    const toolContent = type === "tool" ? parseToolContent() : null;
+    if (!content) return null;
 
     return (
         <div className={`flex ${role === "user" ? "justify-end" : "justify-start"}`}>
@@ -75,11 +78,7 @@ export const ChatMessage = memo(function ChatMessage({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className={`rounded-lg relative ${type === "agent_reasoning" ? "px-3 py-1" : "p-3"} ${
-                    role === "user"
-                        ? "bg-[#696969] text-white ml-10"
-                        : type === "tool"
-                        ? "bg-transparent mr-10 p-0 w-[100%]"
-                        : "bg-muted mr-10"
+                    role === "user" ? "bg-[#696969] text-white ml-10" : "bg-muted mr-10"
                 }`}
             >
                 <div className="flex flex-col gap-2">
@@ -106,6 +105,8 @@ export const ChatMessage = memo(function ChatMessage({
                                             as="button"
                                             className="bg-white text-black flex items-center text-xs border-black border-[1px]"
                                             onClick={() => onOptionClick?.(option.value)}
+                                            onMouseDown={(e) => e.stopPropagation()}
+                                            onTouchStart={(e) => e.stopPropagation()}
                                         >
                                             {option.label.toUpperCase()}
                                         </HoverBorderGradient>
@@ -115,30 +116,14 @@ export const ChatMessage = memo(function ChatMessage({
                         </>
                     )}
 
-                    {role === "assistant" && type === "tool" && toolContent?.type === "wallet_balances" && (
-                        <div className="w-full">
-                            <Chart data={toolContent.balances} />
-                        </div>
-                    )}
-
-                    {role === "assistant" && type === "tool" && toolContent?.type === "top_protocols" && (
-                        <ProtocolsTable
-                            chain={toolContent.chain}
-                            totalProtocols={toolContent.totalProtocols}
-                            filteredProtocols={toolContent.filteredProtocols}
-                            protocols={toolContent.protocols}
-                        />
-                    )}
-
-                    {role === "assistant" &&
-                        type === "tool" &&
-                        toolContent?.type !== "wallet_balances" &&
-                        toolContent?.type !== "top_protocols" && <div className="whitespace-pre-line">{content}</div>}
-
                     {role === "assistant" && type === "agent_reasoning" && (
                         <Collapsible className="w-full">
                             <CollapsibleTrigger asChild>
-                                <Button className="flex items-center w-full justify-start gap-2 text-muted-foreground hover:text-primary transition-colors">
+                                <Button
+                                    className="flex items-center w-full justify-start gap-2 text-muted-foreground hover:text-primary transition-colors"
+                                    onMouseDown={(e) => e.stopPropagation()}
+                                    onTouchStart={(e) => e.stopPropagation()}
+                                >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="16"

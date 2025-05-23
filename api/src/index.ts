@@ -16,7 +16,7 @@ app.use("/api", routes);
 
 // Initial fetch
 fetchTokens();
-fetchYields();
+// fetchYields();
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

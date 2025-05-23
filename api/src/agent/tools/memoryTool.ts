@@ -47,6 +47,8 @@ export const memoryTool = tool(
                 userMemory.lastUpdated = new Date().toISOString();
                 userMemoryStore.set(userId, userMemory);
 
+                console.log("Memory updated:", userMemory);
+
                 return JSON.stringify({
                     type: "memory_update",
                     status: "success",

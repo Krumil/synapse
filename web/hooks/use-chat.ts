@@ -3,7 +3,7 @@ import { useAccount } from "@starknet-react/core";
 import type { ChatMessage, ToolResponse, Memory } from "@/types/chat";
 import { useTransaction } from "@/hooks/use-transaction";
 
-export function useChat() {
+export function useChat({ onToolReceived }: { onToolReceived?: (toolData: any) => void } = {}) {
     const [hasInitiatedConversation, setHasInitiatedConversation] = useState(false);
     const [input, setInput] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -76,33 +76,22 @@ export function useChat() {
             }
         } else if (toolResponse.type === "memory_update" && toolResponse.memory) {
             setMemory(toolResponse.memory);
-        } else if (toolResponse.type === "wallet_balances") {
-            setMessages((prev) => [
-                ...prev,
-                {
-                    content: JSON.stringify({
-                        type: toolResponse.type,
-                        balances: toolResponse.data,
-                    }),
-                    role: "assistant",
-                    type: "tool",
-                },
-            ]);
-        } else if (toolResponse.type === "top_protocols" && toolResponse.protocols) {
-            setMessages((prev) => [
-                ...prev,
-                {
-                    content: JSON.stringify({
-                        type: toolResponse.type,
-                        protocols: toolResponse.protocols,
-                        chain: toolResponse.chain,
-                        totalProtocols: toolResponse.totalProtocols,
-                        filteredProtocols: toolResponse.filteredProtocols,
-                    }),
-                    role: "assistant",
-                    type: "tool",
-                },
-            ]);
+        } else if (
+            toolResponse.type === "wallet_balances" ||
+            toolResponse.type === "top_protocols" ||
+            toolResponse.type === "starknet_feeds"
+        ) {
+            // Instead of adding tools to messages, notify via callback
+            if (onToolReceived) {
+                const toolData = {
+                    type: toolResponse.type,
+                    data: toolResponse,
+                    content: JSON.stringify(toolResponse),
+                };
+
+                // Call the callback with the tool data
+                onToolReceived(toolData);
+            }
         }
     };
 

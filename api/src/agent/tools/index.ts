@@ -5,3 +5,4 @@ export * from "./starknetTools";
 export * from "./memoryTool";
 export * from "./unruggable";
 export * from "./suggestionTool";
+export * from "./starknetFeedsTools";

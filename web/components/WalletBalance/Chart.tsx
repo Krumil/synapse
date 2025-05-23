@@ -51,84 +51,74 @@ export function Chart({ data }: ChartProps) {
     }, [chartData]);
 
     return (
-        <Card className="flex flex-col">
-            <div className="flex flex-row p-6 gap-6">
-                {/* Left side: Title and Legend */}
-                <div className="flex flex-col gap-6">
-                    <div>
-                        <CardTitle className="text-2xl">Portfolio Balance</CardTitle>
-                        <CardDescription>Current Holdings</CardDescription>
+        <div className="flex flex-col gap-6">
+            {/* Top: Legend */}
+            <div className="flex flex-col gap-2 justify-center">
+                {chartData.map((token) => (
+                    <div key={token.symbol} className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: token.fill }} />
+                        <span className="text-sm font-medium">{token.name}</span>
+                        <span className="text-sm text-muted-foreground ml-auto">
+                            $
+                            {parseFloat(token.value.toString()).toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}
+                        </span>
                     </div>
+                ))}
+            </div>
 
-                    {/* Legend */}
-                    <div className="flex flex-col gap-2">
-                        {chartData.map((token) => (
-                            <div key={token.symbol} className="flex items-center gap-2">
-                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: token.fill }} />
-                                <span className="text-sm font-medium">{token.name}</span>
-                                <span className="text-sm text-muted-foreground ml-auto">
-                                    $
-                                    {parseFloat(token.value.toString()).toLocaleString(undefined, {
-                                        minimumFractionDigits: 2,
-                                        maximumFractionDigits: 2,
-                                    })}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Right side: Chart */}
-                <div className="flex-1">
-                    <ChartContainer config={chartConfig} className="aspect-square w-full max-w-[350px] ml-auto">
-                        <PieChart>
-                            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                            <Pie
-                                data={chartData}
-                                dataKey="value"
-                                nameKey="symbol"
-                                innerRadius={80}
-                                outerRadius="100%"
-                                strokeWidth={5}
-                            >
-                                <Label
-                                    content={({ viewBox }) => {
-                                        if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                                            return (
-                                                <text
+            {/* Bottom: Chart (centered) */}
+            <div className="flex justify-center">
+                <ChartContainer config={chartConfig} className="aspect-square w-full max-w-[350px]">
+                    <PieChart>
+                        <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                        <Pie
+                            data={chartData}
+                            dataKey="value"
+                            nameKey="symbol"
+                            innerRadius={80}
+                            outerRadius="100%"
+                            strokeWidth={5}
+                        >
+                            <Label
+                                content={({ viewBox }) => {
+                                    if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                                        return (
+                                            <text
+                                                x={viewBox.cx}
+                                                y={viewBox.cy}
+                                                textAnchor="middle"
+                                                dominantBaseline="middle"
+                                            >
+                                                <tspan
                                                     x={viewBox.cx}
                                                     y={viewBox.cy}
-                                                    textAnchor="middle"
-                                                    dominantBaseline="middle"
+                                                    className="fill-foreground text-3xl font-bold"
                                                 >
-                                                    <tspan
-                                                        x={viewBox.cx}
-                                                        y={viewBox.cy}
-                                                        className="fill-foreground text-3xl font-bold"
-                                                    >
-                                                        $
-                                                        {totalValue.toLocaleString(undefined, {
-                                                            minimumFractionDigits: 2,
-                                                            maximumFractionDigits: 2,
-                                                        })}
-                                                    </tspan>
-                                                    <tspan
-                                                        x={viewBox.cx}
-                                                        y={(viewBox.cy || 0) + 24}
-                                                        className="fill-muted-foreground"
-                                                    >
-                                                        Total Value
-                                                    </tspan>
-                                                </text>
-                                            );
-                                        }
-                                    }}
-                                />
-                            </Pie>
-                        </PieChart>
-                    </ChartContainer>
-                </div>
+                                                    $
+                                                    {totalValue.toLocaleString(undefined, {
+                                                        minimumFractionDigits: 2,
+                                                        maximumFractionDigits: 2,
+                                                    })}
+                                                </tspan>
+                                                <tspan
+                                                    x={viewBox.cx}
+                                                    y={(viewBox.cy || 0) + 24}
+                                                    className="fill-muted-foreground"
+                                                >
+                                                    Total Value
+                                                </tspan>
+                                            </text>
+                                        );
+                                    }
+                                }}
+                            />
+                        </Pie>
+                    </PieChart>
+                </ChartContainer>
             </div>
-        </Card>
+        </div>
     );
 }

@@ -1,8 +1,28 @@
-export default function Dashboard() {
+"use client";
+import * as React from "react";
+import { Header } from "@/components/landing-page/Header";
+import { Footer } from "@/components/landing-page/Footer";
+import { HeroSection } from "@/components/landing-page/sections/HeroSection";
+import { FeaturesSection } from "@/components/landing-page/sections/FeaturesSection";
+import { RoadmapSection } from "@/components/landing-page/sections/RoadmapSection";
+
+// Main landing page component
+const SynapseLandingPage = () => {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center p-24">
-            <h1 className="text-4xl font-bold mb-4">Dashboard</h1>
-            <p className="text-lg">Welcome to your dashboard. Select an option to get started.</p>
-        </main>
+        <div className="relative min-h-screen">
+            <div className="relative z-0 flex min-h-screen flex-col">
+                <Header />
+                <main className="flex-grow">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                        <HeroSection />
+                        <FeaturesSection />
+                        <RoadmapSection />
+                    </div>
+                </main>
+                <Footer />
+            </div>
+        </div>
     );
-}
+};
+
+export default SynapseLandingPage;

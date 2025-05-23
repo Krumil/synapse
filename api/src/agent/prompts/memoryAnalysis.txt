@@ -1,0 +1,19 @@
+Analyze the conversation below and identify any important information about the user that should be stored for future interactions.
+Extract specific details about:
+- Investment history
+- Assets of interest
+- Financial constraints
+- Time horizons
+- Risk events
+- Any other important information that would help personalize future interactions
+
+For each piece of information, determine an appropriate key with the prefix "info_" and provide the value.
+Format your response as a valid JSON object with the structure:
+{
+  "items": [
+    {"key": "info_key_name", "value": "extracted information"},
+    {"key": "info_another_key", "value": "another piece of information"}
+  ]
+}
+
+If no important information is found, return {"items": []}. 

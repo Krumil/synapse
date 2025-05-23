@@ -48,6 +48,7 @@ body {
         --chart-19: 140 75% 50%;
         --chart-20: 260 70% 55%;
         --radius: 0.5rem;
+        --elegant-font: 'Great Vibes';
     }
     .dark {
         --background: 0 0% 3.9%;
