@@ -39,7 +39,7 @@ export function ChatComponent({
 
     const injectTestMessage = (messageType: string) => {
         let testData;
-        let header = messageType.charAt(0).toUpperCase() + messageType.slice(1).replace(/_/g, " ");
+        const header = messageType.charAt(0).toUpperCase() + messageType.slice(1).replace(/_/g, " ");
 
         // Set the appropriate test data based on message type
         switch (messageType) {

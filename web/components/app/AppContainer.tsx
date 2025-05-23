@@ -119,7 +119,7 @@ export function AppContainer() {
 
         addChatComponent(chat, <ChatHeader />);
         chatAddedRef.current = true;
-    }, [addChatComponent]);
+    }, [addChatComponent, messages, input, isLoading, handleInputChange, handleMessageSend, addComponentToGrid]);
 
     return (
         <Dialog
