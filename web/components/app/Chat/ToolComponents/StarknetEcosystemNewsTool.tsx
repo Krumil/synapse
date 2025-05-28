@@ -1,7 +1,7 @@
 import Carousel, { CarouselItem } from "@/components/ui/Carousel/Carousel";
 import { Button } from "@/components/ui/button";
 import { FiTwitter } from "react-icons/fi";
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { XCard } from "@/components/ui/x-gradient-card";
 
 interface StarknetEcosystemNewsToolProps {
@@ -109,46 +109,38 @@ export function StarknetEcosystemNewsTool({ data, contentString, onAddToGrid }: 
 
     const { mentions } = newsData;
 
-    // Convert mentions to carousel items for X posts - MEMOIZED for performance
-    const carouselItems: CarouselItem[] = useMemo(
-        () =>
-            mentions.map((mention, index) => ({
-                id: index,
-                title: `User ${mention.user?.username || mention.twitter_user_id}`,
-                description: mention.content,
-                icon: <FiTwitter className="h-[16px] w-[16px] text-white" />,
-                postData: {
-                    link: `https://x.com/${mention.user?.username || mention.twitter_user_id}/status/${
-                        mention.twitter_id
-                    }`,
-                    authorName: mention.user?.name || `User ${mention.twitter_user_id}`,
-                    authorHandle: mention.user?.username || mention.twitter_user_id,
-                    authorImage:
-                        mention.user?.profile_image_url ||
-                        `https://api.dicebear.com/7.x/avataaars/svg?seed=${
-                            mention.user?.username || mention.twitter_user_id
-                        }`,
-                    content: [mention.content],
-                    isVerified: mention.user?.verified || false,
-                    timestamp: mention.computed?.formattedDate || "",
-                    metrics: mention.metrics
-                        ? {
-                              likes: mention.metrics.like_count || 0,
-                              replies: mention.metrics.reply_count || 0,
-                              reposts: mention.metrics.repost_count || 0,
-                              views: mention.metrics.view_count || 0,
-                          }
-                        : undefined,
-                    userInfo: mention.user
-                        ? {
-                              followersCount: mention.user.followers_count,
-                              description: mention.user.description,
-                          }
-                        : undefined,
-                },
-            })),
-        [mentions]
-    );
+    // Convert mentions to carousel items for X posts
+    const carouselItems: CarouselItem[] = mentions.map((mention, index) => ({
+        id: index,
+        title: `User ${mention.user?.username || mention.twitter_user_id}`,
+        description: mention.content,
+        icon: <FiTwitter className="h-[16px] w-[16px] text-white" />,
+        postData: {
+            link: `https://x.com/${mention.user?.username || mention.twitter_user_id}/status/${mention.twitter_id}`,
+            authorName: mention.user?.name || `User ${mention.twitter_user_id}`,
+            authorHandle: mention.user?.username || mention.twitter_user_id,
+            authorImage:
+                mention.user?.profile_image_url ||
+                `https://api.dicebear.com/7.x/avataaars/svg?seed=${mention.user?.username || mention.twitter_user_id}`,
+            content: [mention.content],
+            isVerified: mention.user?.verified || false,
+            timestamp: mention.computed?.formattedDate || "",
+            metrics: mention.metrics
+                ? {
+                      likes: mention.metrics.like_count || 0,
+                      replies: mention.metrics.reply_count || 0,
+                      reposts: mention.metrics.repost_count || 0,
+                      views: mention.metrics.view_count || 0,
+                  }
+                : undefined,
+            userInfo: mention.user
+                ? {
+                      followersCount: mention.user.followers_count,
+                      description: mention.user.description,
+                  }
+                : undefined,
+        },
+    }));
 
     const renderXPost = (item: CarouselItem, index: number) => (
         <div className="w-full h-full p-2">
