@@ -85,7 +85,7 @@ export const Header = () => {
                                 </ul>
                             </div>
                             <div className="flex items-center gap-4">
-                                <ThemeToggle />
+                                {/* <ThemeToggle /> */}
                                 <WalletSection />
                                 {/* <Button asChild>
                                     <Link href="#">

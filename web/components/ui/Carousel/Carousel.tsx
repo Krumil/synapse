@@ -203,8 +203,8 @@ export default function Carousel({
                             key={index}
                             className={`relative shrink-0 flex flex-col ${
                                 round
-                                    ? "items-center justify-center text-center bg-[#060606] border-0"
-                                    : "items-start justify-between bg-[#222] border border-[#222] rounded-[12px]"
+                                    ? "items-center justify-center text-center bg-transparent"
+                                    : "items-start justify-between bg-transparent rounded-[12px]"
                             } overflow-hidden cursor-grab active:cursor-grabbing`}
                             style={{
                                 width: itemWidth,
@@ -223,7 +223,7 @@ export default function Carousel({
                             ) : (
                                 <>
                                     <div className={`${round ? "p-0 m-0" : "mb-4 p-5"}`}>
-                                        <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-[#060606]">
+                                        <span className="flex h-[28px] w-[28px] items-center justify-center rounded-full bg-transparent">
                                             {item.icon}
                                         </span>
                                     </div>

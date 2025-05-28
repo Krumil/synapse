@@ -53,7 +53,7 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} ${syne.variable} font-sans antialiased min-h-screen flex flex-col`}
             >
-                <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
                     <Providers>
                         <div className="fixed inset-0 -z-10">
                             <div className="absolute inset-0 bg-background/90"></div>

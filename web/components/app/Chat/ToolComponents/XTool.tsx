@@ -100,7 +100,7 @@ export function XTool({ data, contentString, onAddToGrid }: XToolProps) {
                     <Carousel
                         items={carouselItems}
                         autoplay={true}
-                        autoplayDelay={3000}
+                        autoplayDelay={6000}
                         pauseOnHover={true}
                         loop={true}
                         round={false}

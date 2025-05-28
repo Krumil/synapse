@@ -83,9 +83,6 @@ function XCard({
                     "w-full p-5 rounded-xl relative",
                     "bg-gradient-to-br from-black/[0.05] to-transparent dark:from-white/[0.08] dark:to-transparent",
                     "backdrop-blur-md backdrop-saturate-150",
-                    "border border-black/[0.05] dark:border-white/[0.08]",
-                    "text-black/90 dark:text-white",
-                    "shadow-sm",
                     "will-change-transform translate-z-0",
                     "before:absolute before:inset-0 before:bg-gradient-to-br before:from-black/[0.02] before:to-black/[0.01] dark:before:from-white/[0.03] dark:before:to-white/[0.01] before:opacity-0 before:transition-opacity before:pointer-events-none",
                     "hover:before:opacity-100"

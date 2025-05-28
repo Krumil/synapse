@@ -204,13 +204,19 @@ export function useChat({ onToolReceived }: { onToolReceived?: (toolData: any) =
 
                 const reader = response.body.getReader();
                 const decoder = new TextDecoder();
+                let buffer = ""; // Buffer for incomplete lines
 
                 while (true) {
                     const { value, done } = await reader.read();
                     if (done) break;
 
                     const chunk = decoder.decode(value);
-                    const lines = chunk.split("\n");
+                    buffer += chunk;
+
+                    // Split by newlines and process complete lines
+                    const lines = buffer.split("\n");
+                    // Keep the last line in buffer (might be incomplete)
+                    buffer = lines.pop() || "";
 
                     for (const line of lines) {
                         if (line.startsWith("data: ")) {
@@ -231,6 +237,17 @@ export function useChat({ onToolReceived }: { onToolReceived?: (toolData: any) =
                         }
                     }
                 }
+
+                // Process any remaining data in buffer
+                if (buffer.startsWith("data: ")) {
+                    try {
+                        const data = JSON.parse(buffer.slice(6));
+                        await processStreamMessage(data);
+                    } catch (error) {
+                        console.error("Error parsing final SSE message:", error);
+                    }
+                }
+
                 setHasInitiatedConversation(true);
             }
         } catch (error) {
@@ -295,13 +312,19 @@ export function useChat({ onToolReceived }: { onToolReceived?: (toolData: any) =
 
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
+            let buffer = ""; // Buffer for incomplete lines
 
             while (true) {
                 const { value, done } = await reader.read();
                 if (done) break;
 
                 const chunk = decoder.decode(value);
-                const lines = chunk.split("\n");
+                buffer += chunk;
+
+                // Split by newlines and process complete lines
+                const lines = buffer.split("\n");
+                // Keep the last line in buffer (might be incomplete)
+                buffer = lines.pop() || "";
 
                 for (const line of lines) {
                     if (line.startsWith("data: ")) {
@@ -320,6 +343,16 @@ export function useChat({ onToolReceived }: { onToolReceived?: (toolData: any) =
                             ]);
                         }
                     }
+                }
+            }
+
+            // Process any remaining data in buffer
+            if (buffer.startsWith("data: ")) {
+                try {
+                    const data = JSON.parse(buffer.slice(6));
+                    await processStreamMessage(data);
+                } catch (error) {
+                    console.error("Error parsing final SSE message:", error);
                 }
             }
         } catch (error) {

@@ -156,10 +156,10 @@ export function StarknetEcosystemNewsTool({ data, contentString, onAddToGrid }: 
                     <Carousel
                         items={carouselItems}
                         autoplay={true}
-                        autoplayDelay={4000}
+                        autoplayDelay={6000}
                         pauseOnHover={true}
                         loop={true}
-                        round={false}
+                        round={true}
                         renderCustomContent={renderXPost}
                     />
                 </div>
