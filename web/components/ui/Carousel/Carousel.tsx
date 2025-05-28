@@ -177,13 +177,27 @@ export default function Carousel({
                 onAnimationComplete={handleAnimationComplete}
             >
                 {carouselItems.map((item, index) => {
-                    const range = [
-                        -(index + 1) * trackItemOffset,
-                        -index * trackItemOffset,
-                        -(index - 1) * trackItemOffset,
-                    ];
-                    const outputRange = [90, 0, -90];
-                    const rotateY = useTransform(x, range, outputRange, { clamp: false });
+                    // Calculate rotation based on current position without useTransform
+                    const calculateRotation = (xValue: number) => {
+                        const range = [
+                            -(index + 1) * trackItemOffset,
+                            -index * trackItemOffset,
+                            -(index - 1) * trackItemOffset,
+                        ];
+                        const outputRange = [90, 0, -90];
+
+                        // Simple linear interpolation
+                        if (xValue <= range[0]) return outputRange[0];
+                        if (xValue >= range[2]) return outputRange[2];
+                        if (xValue <= range[1]) {
+                            const t = (xValue - range[0]) / (range[1] - range[0]);
+                            return outputRange[0] + t * (outputRange[1] - outputRange[0]);
+                        } else {
+                            const t = (xValue - range[1]) / (range[2] - range[1]);
+                            return outputRange[1] + t * (outputRange[2] - outputRange[1]);
+                        }
+                    };
+
                     return (
                         <motion.div
                             key={index}
@@ -195,8 +209,10 @@ export default function Carousel({
                             style={{
                                 width: itemWidth,
                                 height: round ? itemWidth : "100%",
-                                rotateY: rotateY,
                                 ...(round && { borderRadius: "50%" }),
+                            }}
+                            animate={{
+                                rotateY: calculateRotation(-(currentIndex * trackItemOffset)),
                             }}
                             transition={effectiveTransition}
                         >

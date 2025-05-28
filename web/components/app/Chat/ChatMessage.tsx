@@ -58,10 +58,12 @@ export const ChatMessage = memo(function ChatMessage({ content, role, type, onOp
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className={`rounded-lg relative ${type === "agent_reasoning" ? "px-3 py-1" : "p-3"} ${
+                className={`rounded-lg relative bg-transparent text-black dark:text-white ${
+                    type === "agent_reasoning" ? "px-3 py-1" : "p-3"
+                } ${
                     role === "user"
-                        ? "bg-gray-900/80 dark:bg-gray-100/80 backdrop-blur-sm text-white dark:text-black ml-10"
-                        : "bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-sm text-black dark:text-white mr-10"
+                        ? "bg-transparent text-white dark:text-black ml-10 italic"
+                        : "bg-[#111111] text-white dark:text-white mr-10"
                 }`}
             >
                 <div className="flex flex-col gap-2">
