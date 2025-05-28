@@ -73,6 +73,16 @@ export async function chat(
         lastUpdated: string;
     }
 ): Promise<void> {
+    // Log environment information for debugging
+    console.log("ENVIRONMENT:", {
+        nodeEnv: process.env.NODE_ENV,
+        hasOpenAIKey: !!process.env.OPENAI_API_KEY,
+        openAIKeyPrefix: process.env.OPENAI_API_KEY?.substring(0, 8) + "...",
+        messageCount: messages.length,
+        address: address.substring(0, 10) + "...",
+        hasExistingMemory: !!existingMemory,
+    });
+
     const systemMessage = await createSystemMessage(address);
     const memory = new MemorySaver();
 
