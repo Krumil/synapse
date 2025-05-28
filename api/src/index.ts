@@ -3,8 +3,8 @@ import routes from "./routes/index";
 import dotenv from "dotenv";
 import { fetchTokens } from "./fetchTokens";
 import { fetchYields } from "./fetchYields";
+import { startPriceUpdateScheduler } from "./agent/utils/defiUtils";
 
-dotenv.config();
 dotenv.config();
 
 const app = express();
@@ -16,7 +16,13 @@ app.use("/api", routes);
 
 // Initial fetch
 fetchTokens();
-// fetchYields();
+fetchYields();
+
+// Start price update scheduler (every 1 minute by default)
+if (process.env.NODE_ENV !== "test") {
+    startPriceUpdateScheduler(20);
+    console.log("Price update scheduler initialized");
+}
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

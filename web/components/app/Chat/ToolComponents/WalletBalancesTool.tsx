@@ -9,11 +9,6 @@ interface WalletBalancesToolProps {
 }
 
 export function WalletBalancesTool({ data, contentString, onAddToGrid }: WalletBalancesToolProps) {
-    useEffect(() => {
-        console.log("WalletBalancesTool received data:", data);
-    }, [data]);
-
-    // Handle different data structures
     const balancesData = data.balances || data.data;
 
     if (!balancesData) {

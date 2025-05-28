@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Label, Pie, PieChart } from "recharts";
 
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 interface TokenBalance {
@@ -52,8 +51,8 @@ export function Chart({ data }: ChartProps) {
 
     return (
         <div className="flex flex-col gap-6">
-            {/* Top: Legend */}
-            <div className="flex flex-col gap-2 justify-center">
+            {/* Top: Legend in two columns */}
+            <div className="grid grid-cols-1 gap-x-6 gap-y-2">
                 {chartData.map((token) => (
                     <div key={token.symbol} className="flex items-center gap-2">
                         <div className="w-3 h-3 rounded-full" style={{ backgroundColor: token.fill }} />
@@ -69,7 +68,7 @@ export function Chart({ data }: ChartProps) {
                 ))}
             </div>
 
-            {/* Bottom: Chart (centered) */}
+            {/* Bottom: Chart */}
             <div className="flex justify-center">
                 <ChartContainer config={chartConfig} className="aspect-square w-full max-w-[350px]">
                     <PieChart>

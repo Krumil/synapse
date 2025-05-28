@@ -18,6 +18,7 @@
 	"license": "ISC",
 	"description": "",
 	"dependencies": {
+		"@avnu/avnu-sdk": "^3.0.2",
 		"@aws-sdk/client-s3": "^3.697.0",
 		"@brian-ai/sdk": "^0.3.1",
 		"@langchain/anthropic": "^0.3.7",
@@ -25,6 +26,7 @@
 		"@langchain/core": "^0.3.17",
 		"@langchain/langgraph": "^0.2.20",
 		"@langchain/openai": "^0.3.13",
+		"@types/node-cron": "^3.0.11",
 		"@uniswap/sdk-core": "^6.0.0",
 		"@unruggable_starknet/core": "^0.1.0",
 		"alchemy-sdk": "^3.4.8",
@@ -35,6 +37,7 @@
 		"ethers": "^6.13.4",
 		"express": "^4.21.1",
 		"langchain": "^0.3.5",
+		"node-cron": "^4.0.7",
 		"openai": "^4.72.0",
 		"patch-package": "^8.0.0",
 		"rss-parser": "^3.13.0",

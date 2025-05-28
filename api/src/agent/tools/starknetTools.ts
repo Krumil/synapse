@@ -235,9 +235,43 @@ const getTokenPriceFeedTool = tool(
     }
 );
 
+const getTokenInfoBySymbolTool = tool(
+    async ({ symbol }: { symbol: string }) => {
+        try {
+            const tokens = await getTokensFromS3();
+            const token = tokens.find((token: Token) => token.symbol.toLowerCase() === symbol.toLowerCase());
+
+            if (!token) {
+                throw new Error(`Token with symbol "${symbol}" not found`);
+            }
+
+            return JSON.stringify(
+                {
+                    symbol: token.symbol,
+                    name: token.name,
+                    address: token.address,
+                    decimals: token.decimals,
+                },
+                null,
+                2
+            );
+        } catch (error) {
+            throw new Error(`Failed to get token address: ${error instanceof Error ? error.message : "Unknown error"}`);
+        }
+    },
+    {
+        name: "get_token_info_by_symbol",
+        description: "Get the token info (name, address, decimals) for a token given its symbol",
+        schema: z.object({
+            symbol: z.string().describe("The token's symbol (e.g., 'ETH', 'USDC')"),
+        }),
+    }
+);
+
 export const starknetTools = [
     getTopStarknetTokensTool,
     getTokenDetailsTool,
     getTokenExchangeDataTool,
     getTokenPriceFeedTool,
+    getTokenInfoBySymbolTool,
 ];

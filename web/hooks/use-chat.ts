@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAccount } from "@starknet-react/core";
 import type { ChatMessage, ToolResponse, Memory } from "@/types/chat";
 import { useTransaction } from "@/hooks/use-transaction";
+import { TOOL_COMPONENTS } from "@/components/app/Chat/ToolComponents/ToolComponentRegistry";
 
 export function useChat({ onToolReceived }: { onToolReceived?: (toolData: any) => void } = {}) {
     const [hasInitiatedConversation, setHasInitiatedConversation] = useState(false);
@@ -32,56 +33,41 @@ export function useChat({ onToolReceived }: { onToolReceived?: (toolData: any) =
     }, [memory]);
 
     useEffect(() => {
-        console.log("address", address);
         if (address && !hasInitiatedConversation) {
             handleInitialConversation();
         }
     }, [address]);
 
-    const waitForTransactionStatus = (): Promise<void> => {
-        return new Promise((resolve) => {
-            const checkStatus = () => {
-                const currentStatus = transactionStatusRef.current;
-                if (currentStatus === "success" || currentStatus === "error") {
-                    resolve();
-                } else {
-                    setTimeout(checkStatus, 100);
-                }
-            };
-            checkStatus();
-        });
-    };
+    // const waitForTransactionStatus = (): Promise<void> => {
+    //     return new Promise((resolve) => {
+    //         const checkStatus = () => {
+    //             const currentStatus = transactionStatusRef.current;
+    //             if (currentStatus === "success" || currentStatus === "error") {
+    //                 resolve();
+    //             } else {
+    //                 setTimeout(checkStatus, 100);
+    //             }
+    //         };
+    //         checkStatus();
+    //     });
+    // };
 
     const handleToolResponse = async (toolResponse: ToolResponse) => {
-        if (toolResponse.type === "transaction" && toolResponse.transactions) {
-            const result = await handleTransaction(toolResponse.transactions);
+        console.log("toolResponse", toolResponse);
+        if (toolResponse.type === "transaction") {
+            if (onToolReceived) {
+                const toolData = {
+                    type: toolResponse.type,
+                    data: toolResponse,
+                    content: JSON.stringify(toolResponse),
+                };
 
-            await waitForTransactionStatus();
-
-            if (result.status === "error") {
-                console.error("Transaction failed:", result.error);
-                setMessages((prev) => [
-                    ...prev,
-                    {
-                        content:
-                            "I'm sorry, but it seems like there was an error while processing the transaction. What do you want me to do?",
-                        role: "assistant",
-                        type: "agent",
-                    },
-                ]);
-
-                throw new Error("Transaction failed");
-            } else {
-                console.log("Transaction successful:", result.hash);
+                onToolReceived(toolData);
             }
         } else if (toolResponse.type === "memory_update" && toolResponse.memory) {
             setMemory(toolResponse.memory);
-        } else if (
-            toolResponse.type === "wallet_balances" ||
-            toolResponse.type === "top_protocols" ||
-            toolResponse.type === "starknet_feeds"
-        ) {
-            // Instead of adding tools to messages, notify via callback
+        } else if (toolResponse.type in TOOL_COMPONENTS) {
+            // Handle all registered tool components dynamically
             if (onToolReceived) {
                 const toolData = {
                     type: toolResponse.type,
@@ -103,13 +89,34 @@ export function useChat({ onToolReceived }: { onToolReceived?: (toolData: any) =
         try {
             switch (data.type) {
                 case "tool": {
+                    let toolResponse: ToolResponse;
                     try {
-                        JSON.parse(data.content);
-                    } catch (e) {
+                        toolResponse = JSON.parse(data.content);
+                        if (!toolResponse || typeof toolResponse !== "object") {
+                            console.warn("Invalid tool response format");
+                            return;
+                        }
+                        await handleToolResponse(toolResponse);
+                    } catch (error) {
+                        console.error("Error processing tool response:", error);
                         return;
                     }
-                    const toolResponse: ToolResponse = JSON.parse(data.content);
-                    await handleToolResponse(toolResponse);
+                    break;
+                }
+                case "transaction": {
+                    // Handle transaction messages directly
+                    let toolResponse: ToolResponse;
+                    try {
+                        toolResponse = JSON.parse(data.content);
+                        if (!toolResponse || typeof toolResponse !== "object") {
+                            console.warn("Invalid transaction response format");
+                            return;
+                        }
+                        await handleToolResponse(toolResponse);
+                    } catch (error) {
+                        console.error("Error processing transaction response:", error);
+                        return;
+                    }
                     break;
                 }
                 case "agent_reasoning": {

@@ -5,10 +5,7 @@ import { ChatMessage as ChatMessageType } from "@/types/chat";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
-import { Chart } from "@/components/WalletBalance/Chart";
-import { ProtocolsTable } from "@/components/ProtocolsTable/ProtocolsTable";
 import { useState, memo, ReactNode } from "react";
-import { ToolRenderer } from "./ToolComponents";
 
 type ButtonOption = {
     label: string;
@@ -22,24 +19,8 @@ interface ChatMessageProps extends ChatMessageType {
     onAddToGrid?: (component: ReactNode, header?: ReactNode) => void;
 }
 
-export const ChatMessage = memo(function ChatMessage({
-    content,
-    role,
-    type,
-    onOptionClick,
-    onAddToGrid,
-}: ChatMessageProps) {
+export const ChatMessage = memo(function ChatMessage({ content, role, type, onOptionClick }: ChatMessageProps) {
     const [showButtons, setShowButtons] = useState(false);
-
-    // Add this helper function to safely parse JSON content
-    const parseToolContent = () => {
-        try {
-            return JSON.parse(content);
-        } catch (e) {
-            console.error(e);
-            return null;
-        }
-    };
 
     // Enhance the helper function to extract more button metadata
     const extractButtonOptions = (text: string): ButtonOption[] => {
@@ -65,7 +46,7 @@ export const ChatMessage = memo(function ChatMessage({
     };
 
     // Don't render tool messages in the chat at all - they'll be shown in the grid
-    if (type === "tool") {
+    if (role === "assistant" && type !== "agent_reasoning" && type !== "agent") {
         return null;
     }
 
@@ -78,7 +59,9 @@ export const ChatMessage = memo(function ChatMessage({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className={`rounded-lg relative ${type === "agent_reasoning" ? "px-3 py-1" : "p-3"} ${
-                    role === "user" ? "bg-[#696969] text-white ml-10" : "bg-muted mr-10"
+                    role === "user"
+                        ? "bg-gray-900/80 dark:bg-gray-100/80 backdrop-blur-sm text-white dark:text-black ml-10"
+                        : "bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-sm text-black dark:text-white mr-10"
                 }`}
             >
                 <div className="flex flex-col gap-2">

@@ -1,4 +1,4 @@
-import { S3Client, GetObjectCommand, ListObjectsV2Command } from "@aws-sdk/client-s3";
+import { S3Client, GetObjectCommand, ListObjectsV2Command, PutObjectCommand } from "@aws-sdk/client-s3";
 import { Token, TokenMetadata, TokenBalance, ProtocolConfig, ChainData } from "../../types/defi";
 import { RpcProvider, Contract } from "starknet";
 import { LP_ABI, ERC20_ABI, STAKING_ABI } from "../../constants/contracts";
@@ -6,6 +6,7 @@ import axios from "axios";
 import fs from "fs";
 import path from "path";
 import { Fraction, Percent } from "@uniswap/sdk-core";
+import * as cron from "node-cron";
 
 // Load the configuration file
 const configFilePath = path.join(__dirname, "../../config/protocolConfig.json");
@@ -189,31 +190,31 @@ export function extractDefiTokens(): Set<TokenMetadata> {
     return defiTokens;
 }
 
-// export function prepareTokensToCheck(tokens: any[], defiTokens: Set<TokenMetadata>): any[] {
-// 	return [
-// 		...tokens,
-// 		...Array.from(defiTokens).map(token => ({
-// 			address: token.address,
-// 			name: token.name,
-// 			symbol: token.symbol
-// 		}))
-// 	];
-// }
-
 export async function fetchTokenPrices(
     tokensToCheck: any[],
-    defiTokens: Set<TokenMetadata>
+    defiTokens: Set<TokenMetadata>,
+    autoSave: boolean = true
 ): Promise<Map<string, number>> {
     const tokenPrices = new Map<string, number>();
 
     try {
+        // Try to get cached prices first as fallback
+        const cachedPrices = await getLatestPricesFromS3();
+
         // Fetch regular token prices
         const regularPricePromises = tokensToCheck.map(async (token: any) => {
             try {
                 const price = await getTokenPrice(token.address);
                 tokenPrices.set(token.address, price);
             } catch (error) {
-                console.warn(`Failed to fetch price for regular token ${token.address}`);
+                console.warn(
+                    `Failed to fetch price for regular token ${token.address}, using cached price if available`
+                );
+                // Use cached price as fallback
+                const cachedPrice = cachedPrices.get(token.address);
+                if (cachedPrice) {
+                    tokenPrices.set(token.address, cachedPrice);
+                }
             }
         });
 
@@ -228,13 +229,29 @@ export async function fetchTokenPrices(
                     tokenPrices.set(token.address, price);
                 }
             } catch (error) {
-                console.warn(`Failed to fetch price for DeFi token ${token.address}`);
+                console.warn(`Failed to fetch price for DeFi token ${token.address}, using cached price if available`);
+                // Use cached price as fallback
+                const cachedPrice = cachedPrices.get(token.address);
+                if (cachedPrice) {
+                    tokenPrices.set(token.address, cachedPrice);
+                }
             }
         });
 
         await Promise.all([...regularPricePromises, ...defiPricePromises]);
+
+        // Auto-save to S3 if enabled and we have new prices
+        if (autoSave && tokenPrices.size > 0) {
+            try {
+                await savePricesToS3(tokenPrices);
+            } catch (error) {
+                console.warn("Failed to auto-save prices to S3:", error);
+            }
+        }
     } catch (error) {
         console.error("Failed to fetch token prices:", error);
+        // If everything fails, return cached prices
+        return await getLatestPricesFromS3();
     }
 
     return tokenPrices;
@@ -408,3 +425,231 @@ export const formatPercentage = (percentage: Percent) => {
 
     return `${exact ? "" : "~"}${formatedPercentage}%`;
 };
+
+export async function buildSwapTransaction(params: {
+    quoteId: string;
+    takerAddress: string;
+    slippage?: number;
+    includeApprove?: boolean;
+}): Promise<any[]> {
+    try {
+        const baseUrl = process.env.AVNU_API_ENDPOINT || "https://starknet.api.avnu.fi";
+        const buildUrl = `${baseUrl}/swap/v2/build`;
+
+        const requestBody = {
+            quoteId: params.quoteId,
+            takerAddress: params.takerAddress,
+            slippage: params.slippage || 0.005, // Default 0.5% slippage
+            includeApprove: params.includeApprove !== false, // Default to true
+        };
+
+        const response = await axios.post(buildUrl, requestBody, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.data || !response.data.calls) {
+            throw new Error("Invalid response from AVNU build endpoint");
+        }
+
+        // Transform the calls to match the expected transaction format
+        return response.data.calls.map((call: any) => ({
+            contractAddress: call.contractAddress,
+            entrypoint: call.entrypoint,
+            calldata: call.calldata,
+        }));
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(`Failed to build swap transaction: ${error.response?.data?.message || error.message}`);
+        }
+        throw new Error(
+            `Failed to build swap transaction: ${error instanceof Error ? error.message : "Unknown error"}`
+        );
+    }
+}
+
+export async function savePricesToS3(prices: Map<string, number>): Promise<void> {
+    if (!process.env.S3_BUCKET_NAME) {
+        throw new Error("S3_BUCKET_NAME is not defined");
+    }
+
+    const timestamp = new Date().toISOString();
+    const priceData = {
+        timestamp,
+        prices: Object.fromEntries(prices),
+    };
+
+    try {
+        // Save as latest prices
+        const latestCommand = new PutObjectCommand({
+            Bucket: process.env.S3_BUCKET_NAME,
+            Key: "prices/latest.json",
+            Body: JSON.stringify(priceData, null, 2),
+            ContentType: "application/json",
+        });
+
+        // Save as historical data
+        const date = new Date();
+        const historicalKey = `prices/history/${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+            2,
+            "0"
+        )}-${String(date.getDate()).padStart(2, "0")}-${String(date.getHours()).padStart(2, "0")}-${String(
+            date.getMinutes()
+        ).padStart(2, "0")}.json`;
+
+        const historicalCommand = new PutObjectCommand({
+            Bucket: process.env.S3_BUCKET_NAME,
+            Key: historicalKey,
+            Body: JSON.stringify(priceData, null, 2),
+            ContentType: "application/json",
+        });
+
+        await Promise.all([s3Client.send(latestCommand), s3Client.send(historicalCommand)]);
+
+        console.log(`Prices saved to S3 at ${timestamp}`);
+    } catch (error) {
+        console.error("Error saving prices to S3:", error);
+        throw error;
+    }
+}
+
+export async function getLatestPricesFromS3(): Promise<Map<string, number>> {
+    if (!process.env.S3_BUCKET_NAME) {
+        throw new Error("S3_BUCKET_NAME is not defined");
+    }
+
+    try {
+        const command = new GetObjectCommand({
+            Bucket: process.env.S3_BUCKET_NAME,
+            Key: "prices/latest.json",
+        });
+
+        const response = await s3Client.send(command);
+        const priceData = JSON.parse((await response.Body?.transformToString()) || "{}");
+
+        if (!priceData.prices) {
+            console.warn("No price data found in S3");
+            return new Map();
+        }
+
+        return new Map(Object.entries(priceData.prices).map(([key, value]) => [key, value as number]));
+    } catch (error) {
+        console.warn("Error fetching latest prices from S3:", error);
+        return new Map();
+    }
+}
+
+export async function updateAndSavePrices(): Promise<void> {
+    try {
+        console.log("Starting price update...");
+
+        // Get all tokens and DeFi tokens
+        const tokens = await getTokensFromS3();
+        const defiTokens = extractDefiTokens();
+
+        // Fetch current prices (don't auto-save to avoid double-saving)
+        const prices = await fetchTokenPrices(tokens, defiTokens, false);
+
+        if (prices.size > 0) {
+            // Save to S3
+            await savePricesToS3(prices);
+            console.log(`Successfully updated ${prices.size} token prices`);
+        } else {
+            console.warn("No prices fetched, skipping S3 save");
+        }
+    } catch (error) {
+        console.error("Error in price update:", error);
+    }
+}
+
+let priceUpdateScheduler: cron.ScheduledTask | null = null;
+
+export function startPriceUpdateScheduler(intervalMinutes: number = 1): void {
+    // Stop existing scheduler if running
+    if (priceUpdateScheduler) {
+        priceUpdateScheduler.stop();
+    }
+
+    // Create cron expression for the specified interval
+    const cronExpression = intervalMinutes === 1 ? "* * * * *" : `*/${intervalMinutes} * * * *`;
+
+    priceUpdateScheduler = cron.schedule(cronExpression, async () => {
+        await updateAndSavePrices();
+    });
+
+    priceUpdateScheduler.start();
+    console.log(`Price update scheduler started with ${intervalMinutes} minute interval`);
+}
+
+export function stopPriceUpdateScheduler(): void {
+    if (priceUpdateScheduler) {
+        priceUpdateScheduler.stop();
+        priceUpdateScheduler = null;
+        console.log("Price update scheduler stopped");
+    }
+}
+
+export async function getPriceHistoryFromS3(
+    startDate?: string,
+    endDate?: string,
+    limit: number = 100
+): Promise<Array<{ timestamp: string; prices: Record<string, number> }>> {
+    if (!process.env.S3_BUCKET_NAME) {
+        throw new Error("S3_BUCKET_NAME is not defined");
+    }
+
+    try {
+        // List all historical price files
+        const listCommand = new ListObjectsV2Command({
+            Bucket: process.env.S3_BUCKET_NAME,
+            Prefix: "prices/history/",
+            MaxKeys: limit,
+        });
+
+        const listedObjects = await s3Client.send(listCommand);
+        if (!listedObjects.Contents) {
+            console.warn("No historical price files found in S3");
+            return [];
+        }
+
+        // Sort by last modified date (newest first)
+        const sortedObjects = listedObjects.Contents.filter((obj) => obj.Key && obj.Key.endsWith(".json")).sort(
+            (a, b) => (b.LastModified?.getTime() || 0) - (a.LastModified?.getTime() || 0)
+        );
+
+        // Fetch and parse historical price files
+        const priceHistory: Array<{ timestamp: string; prices: Record<string, number> }> = [];
+
+        for (const object of sortedObjects) {
+            if (!object.Key) continue;
+
+            // Apply date filtering if provided
+            if (startDate || endDate) {
+                const fileDate = object.Key.replace("prices/history/", "").replace(".json", "");
+                if (startDate && fileDate < startDate.replace(/[-:]/g, "-")) continue;
+                if (endDate && fileDate > endDate.replace(/[-:]/g, "-")) continue;
+            }
+
+            const getCommand = new GetObjectCommand({
+                Bucket: process.env.S3_BUCKET_NAME,
+                Key: object.Key,
+            });
+
+            const response = await s3Client.send(getCommand);
+            const priceData = JSON.parse((await response.Body?.transformToString()) || "{}");
+
+            if (priceData.timestamp && priceData.prices) {
+                priceHistory.push({
+                    timestamp: priceData.timestamp,
+                    prices: priceData.prices,
+                });
+            }
+        }
+
+        return priceHistory;
+    } catch (error) {
+        console.error("Error fetching price history from S3:", error);
+        return [];
+    }
+}

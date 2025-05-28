@@ -1,4 +1,4 @@
-import { TOOL_COMPONENTS } from "./ToolComponentRegistry";
+import { TOOL_COMPONENTS, getToolConfig } from "./ToolComponentRegistry";
 import { DefaultTool } from "./DefaultTool";
 import { ReactNode, useEffect, useState } from "react";
 
@@ -26,12 +26,11 @@ export function ToolRenderer({ toolContent, contentString, onAddToGrid }: ToolRe
 
                     // Auto-add the component to the grid if onAddToGrid is provided
                     if (onAddToGrid) {
-                        // Determine which component to use
-                        const ToolComponent = TOOL_COMPONENTS[parsedContent.type];
-                        if (ToolComponent) {
-                            // Create the component to add to grid
+                        try {
+                            // Try to get tool configuration
+                            const toolConfig = getToolConfig(parsedContent.type);
                             const componentToAdd = (
-                                <ToolComponent data={parsedContent} contentString={message.content} />
+                                <toolConfig.component data={parsedContent} contentString={message.content} />
                             );
 
                             // Add to grid with appropriate header
@@ -42,8 +41,12 @@ export function ToolRenderer({ toolContent, contentString, onAddToGrid }: ToolRe
                                     parsedContent.type.slice(1).replace(/_/g, " ")
                                 }`
                             );
-                        } else {
-                            // Use DefaultTool if no specific component is found
+                        } catch (configError) {
+                            // Fallback to DefaultTool if no specific component is found
+                            console.warn(
+                                `No tool configuration found for ${parsedContent.type}, using default:`,
+                                configError
+                            );
                             onAddToGrid(
                                 <DefaultTool data={parsedContent} contentString={message.content} />,
                                 `${
@@ -73,11 +76,12 @@ export function ToolRenderer({ toolContent, contentString, onAddToGrid }: ToolRe
     // Auto-add regular (non-test) tools to grid on mount
     useEffect(() => {
         if (onAddToGrid && finalToolContent?.type && !addedToGrid) {
-            const ToolComponent = TOOL_COMPONENTS[finalToolContent.type];
-
-            if (ToolComponent) {
-                // Create the component to add to grid
-                const componentToAdd = <ToolComponent data={finalToolContent} contentString={finalContentString} />;
+            try {
+                // Try to get tool configuration
+                const toolConfig = getToolConfig(finalToolContent.type);
+                const componentToAdd = (
+                    <toolConfig.component data={finalToolContent} contentString={finalContentString} />
+                );
 
                 // Add to grid with appropriate header
                 onAddToGrid(
@@ -87,8 +91,9 @@ export function ToolRenderer({ toolContent, contentString, onAddToGrid }: ToolRe
                         finalToolContent.type.slice(1).replace(/_/g, " ")
                     }`
                 );
-            } else if (finalToolContent) {
-                // Use DefaultTool if no specific component is found
+            } catch (configError) {
+                // Fallback to DefaultTool if no specific component is found
+                console.warn(`No tool configuration found for ${finalToolContent.type}, using default:`, configError);
                 onAddToGrid(
                     <DefaultTool data={finalToolContent} contentString={finalContentString} />,
                     finalToolContent.type
@@ -111,18 +116,32 @@ export function ToolRenderer({ toolContent, contentString, onAddToGrid }: ToolRe
         return <DefaultTool data={finalToolContent} contentString={finalContentString} onAddToGrid={onAddToGrid} />;
     }
 
-    // Get the correct component for this tool type
-    const ToolComponent = TOOL_COMPONENTS[finalToolContent.type];
+    try {
+        // Get the correct component for this tool type using new config system
+        const toolConfig = getToolConfig(finalToolContent.type);
+        console.log(`Rendering ${finalToolContent.type} component with data:`, finalToolContent);
 
-    // If no matching component is registered
-    if (!ToolComponent) {
+        // Render the appropriate tool component - this will usually not be visible in the chat
+        // as ChatMessage filters out tool messages, but we keep it for completeness
+        return (
+            <toolConfig.component
+                data={finalToolContent}
+                contentString={finalContentString}
+                onAddToGrid={onAddToGrid}
+            />
+        );
+    } catch (configError) {
+        // Fallback to legacy system and then DefaultTool
+        const ToolComponent = TOOL_COMPONENTS[finalToolContent.type];
+
+        if (ToolComponent) {
+            console.log(`Using legacy component for ${finalToolContent.type}`);
+            return (
+                <ToolComponent data={finalToolContent} contentString={finalContentString} onAddToGrid={onAddToGrid} />
+            );
+        }
+
         console.log(`No component registered for tool type: ${finalToolContent.type}`);
         return <DefaultTool data={finalToolContent} contentString={finalContentString} onAddToGrid={onAddToGrid} />;
     }
-
-    console.log(`Rendering ${finalToolContent.type} component with data:`, finalToolContent);
-
-    // Render the appropriate tool component - this will usually not be visible in the chat
-    // as ChatMessage filters out tool messages, but we keep it for completeness
-    return <ToolComponent data={finalToolContent} contentString={finalContentString} onAddToGrid={onAddToGrid} />;
 }

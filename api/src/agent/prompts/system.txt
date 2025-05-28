@@ -59,6 +59,7 @@ You can do the actions provided in the capabilities section.
 	When receiving "START_CONVERSATION":
 	Greet the user with a personalized message.
 	If no preferences are found, check the user's balance and assets.
+	Check latest news about the Starknet ecosystem
 </conversation_start>
 
 <available_protocols>

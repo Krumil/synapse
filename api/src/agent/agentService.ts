@@ -2,9 +2,9 @@ import { ChatOpenAI } from "@langchain/openai";
 import { HumanMessage, AIMessage, SystemMessage, BaseMessage } from "@langchain/core/messages";
 import { MemorySaver, START } from "@langchain/langgraph";
 import { Response } from "express";
+import { v4 as uuidv4 } from "uuid";
 
 import {
-    brianTools,
     memoryTool,
     starknetTools,
     defiLlamaTools,
@@ -13,6 +13,7 @@ import {
     suggestionTools,
     getWalletBalancesTool,
     starknetFeedsTools,
+    elfaAITools,
 } from "./tools";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
 import { StateGraph, MessagesAnnotation, END } from "@langchain/langgraph";
@@ -23,18 +24,18 @@ import path from "path";
 dotenv.config();
 
 const coreTools = [
-    ...brianTools,
     ...defiLlamaTools,
     ...defiTransactionsTools,
     ...memeTools,
     ...starknetTools,
-    ...starknetFeedsTools,
+    // ...starknetFeedsTools,
+    ...elfaAITools,
     memoryTool,
 ];
 const allTools = [...coreTools, ...suggestionTools, getWalletBalancesTool];
 
 const llm = new ChatOpenAI({
-    modelName: "gpt-4.1-mini",
+    modelName: "gpt-4o",
     temperature: 0,
     streaming: false,
     apiKey: process.env.OPENAI_API_KEY,
@@ -98,7 +99,7 @@ export async function chat(
     const isFirstMessage = formattedMessages.length === 1 && messages[0].role === "user";
     if (isFirstMessage) {
         formattedMessages[0].content +=
-            "\nPlease start by checking my wallet balances using the getWalletBalances tool and fetch the latest Starknet ecosystem updates using the get_starknet_blog_feed tool.";
+            "\nPlease start by checking my wallet balances using the getWalletBalances tool and get the news about the ecosystem using the get_starknet_ecosystem_news tool, but don't answer like a bot, be friendly and engaging avoiding the use of emojis and hashtags. Say something like 'Hey, I'm here to help you with your Starknet needs! I checked your wallet balances and the latest news about Starknet' and then start the conversation with the user.";
     }
 
     const toolNode = new ToolNode(allTools);
@@ -215,11 +216,13 @@ export async function chat(
 
     const app = graphBuilder.compile({ checkpointer: memory });
 
+    const uuid = uuidv4();
+
     const config = {
         configurable: {
-            thread_id: "chat-thread",
+            thread_id: uuid,
         },
-        recursionLimit: 10,
+        recursionLimit: 20,
     };
 
     res.writeHead(200, {
@@ -260,16 +263,22 @@ export async function chat(
                     for (const toolMessage of event.tools.messages) {
                         let toolType = "tool";
 
-                        if (toolMessage.name === "getWalletBalances") {
-                            toolType = "balance";
-                        } else if (toolMessage.name === "generateSuggestions") {
-                            toolType = "suggestion";
-                        } else if (
-                            toolMessage.name === "get_starknet_blog_feed" ||
-                            toolMessage.name === "get_starknet_dev_newsletter" ||
-                            toolMessage.name === "get_starknet_status"
-                        ) {
-                            toolType = "starknet_feed";
+                        switch (toolMessage.name) {
+                            case "create_swap_transaction":
+                            case "create_defi_transaction":
+                                toolType = "transaction";
+                                break;
+                            case "getWalletBalances":
+                                toolType = "balance";
+                                break;
+                            case "generateSuggestions":
+                                toolType = "suggestion";
+                                break;
+                            case "get_starknet_blog_feed":
+                            case "get_starknet_dev_newsletter":
+                            case "get_starknet_status":
+                                toolType = "starknet_feed";
+                                break;
                         }
 
                         if (typeof toolMessage.content === "string") {

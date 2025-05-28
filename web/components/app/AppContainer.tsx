@@ -13,52 +13,42 @@ import {
     DialogDescription,
     DialogFooter,
 } from "@/components/ui/dialog";
-import { ToolRenderer } from "@/components/app/Chat/ToolComponents";
-import { TOOL_COMPONENTS } from "@/components/app/Chat/ToolComponents/ToolComponentRegistry";
+import { getToolConfig } from "@/components/app/Chat/ToolComponents/ToolComponentRegistry";
 import { DefaultTool } from "@/components/app/Chat/ToolComponents/DefaultTool";
 import type {} from "ldrs";
 import "ldrs/mirage";
 
 export function AppContainer() {
     const scrollAreaRef = useRef<any>(null);
-    const chatAddedRef = useRef(false);
-    const { addGridItem, addPositionedGridItem, addChatComponent } = useGrid();
+    const { addGridItem, addChatComponent, addToolToGrid } = useGrid();
 
-    // Handle tools received from the chat
     const handleToolReceived = useCallback(
         (toolData: any) => {
             if (!toolData || !toolData.type) return;
 
-            console.log("Tool received:", toolData.type, toolData);
-
             try {
-                // Parse the content if it's a string
                 const data = typeof toolData.content === "string" ? JSON.parse(toolData.content) : toolData.data;
-
-                // Format the header based on tool type
                 const header = `${toolData.type.charAt(0).toUpperCase() + toolData.type.slice(1).replace(/_/g, " ")}`;
 
-                // Get the appropriate component based on tool type
-                const ToolComponent = TOOL_COMPONENTS[toolData.type];
+                try {
+                    // Try to get tool configuration with dimensions
+                    const toolConfig = getToolConfig(toolData.type);
+                    const componentToAdd = <toolConfig.component data={data} contentString={toolData.content} />;
 
-                if (ToolComponent) {
-                    // Create the component to add to grid
-                    const componentToAdd = <ToolComponent data={data} contentString={toolData.content} />;
-
-                    // Add to grid
-                    addGridItem(componentToAdd, header);
-                } else {
-                    // Use DefaultTool if no specific component is found
+                    // Use the new addToolToGrid method with tool-specific dimensions
+                    addToolToGrid(componentToAdd, header, toolData.type);
+                } catch (configError) {
+                    // Fallback to default tool and basic grid addition
+                    console.warn(`No tool configuration found for ${toolData.type}, using default:`, configError);
                     addGridItem(<DefaultTool data={data} contentString={toolData.content} />, header);
                 }
             } catch (error) {
                 console.error("Error processing tool for grid:", error);
             }
         },
-        [addGridItem]
+        [addGridItem, addToolToGrid]
     );
 
-    // Pass onToolReceived to useChat
     const { messages, input, isLoading, setInput, handleSend } = useChat({
         onToolReceived: handleToolReceived,
     });
@@ -103,7 +93,7 @@ export function AppContainer() {
     }, [handleSend]);
 
     useEffect(() => {
-        if (!addChatComponent || chatAddedRef.current) return;
+        if (!addChatComponent) return;
 
         const chat = (
             <ChatComponent
@@ -118,8 +108,7 @@ export function AppContainer() {
         );
 
         addChatComponent(chat, <ChatHeader />);
-        chatAddedRef.current = true;
-    }, [addChatComponent, messages, input, isLoading, handleInputChange, handleMessageSend, addComponentToGrid]);
+    }, [addChatComponent, messages, input, isLoading]);
 
     return (
         <Dialog

@@ -1,5 +1,10 @@
+import fs from "fs";
+import path from "path";
+import { fetchQuotes, fetchTokens, Quote, Token } from "@avnu/avnu-sdk";
+import { parseUnits } from "ethers";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
+
 import {
     hexToDecimalString,
     getDeadline,
@@ -12,14 +17,22 @@ import {
     fetchTokenBalance,
     filterNonZeroBalances,
     getTokenPrice,
+    buildSwapTransaction,
 } from "../utils/defiUtils";
-import fs from "fs";
-import path from "path";
 import { ProtocolConfig } from "../../types/defi";
 
 // Load the configuration file
 const configFilePath = path.join(__dirname, "../../config/protocolConfig.json");
 const configData: ProtocolConfig = JSON.parse(fs.readFileSync(configFilePath, "utf-8"));
+
+if (!process.env.ALCHEMY_API_ENDPOINT || !process.env.ALCHEMY_API_KEY) {
+    throw new Error("Alchemy API configuration is missing");
+}
+const AVNU_OPTIONS = process.env.AVNU_API_ENDPOINT
+    ? {
+          baseUrl: process.env.AVNU_API_ENDPOINT,
+      }
+    : {};
 
 // Main tool function
 const createTransactionsTool = tool(
@@ -261,9 +274,9 @@ const createTransactionsTool = tool(
         }
     },
     {
-        name: "create_transaction",
+        name: "create_defi_transaction",
         description:
-            "Generates transaction data based on dynamic parameters and a configuration file. Supports single or multiple DeFi actions like staking, unstaking, and adding liquidity. Supported protocols: Nostra",
+            "Creates DeFi protocol transactions for NON-SWAP actions including staking, unstaking, and liquidity provision. Use this tool for yield farming, lending, borrowing, and liquidity management operations. DO NOT use for token swaps - use create_swap_transaction instead. Supported protocols: Nostra. Supports batch operations for multiple actions.",
         schema: z.object({
             actions: z
                 .union([
@@ -325,6 +338,87 @@ const createTransactionsTool = tool(
     }
 );
 
+export const createSwapTransactionTool = tool(
+    async (input: {
+        sellTokenAddress: string;
+        buyTokenAddress: string;
+        sellAmount: string;
+        userAddress: string;
+        decimals: number;
+        slippage?: number;
+        includeApprove?: boolean;
+    }) => {
+        try {
+            console.log("input", input);
+
+            const sellAmountUint = parseUnits(input.sellAmount, input.decimals).toString();
+
+            const quotes: Quote[] = await fetchQuotes(
+                {
+                    sellTokenAddress: input.sellTokenAddress,
+                    buyTokenAddress: input.buyTokenAddress,
+                    sellAmount: BigInt(sellAmountUint),
+                    takerAddress: input.userAddress,
+                    size: 1,
+                } as any,
+                AVNU_OPTIONS
+            );
+
+            console.log("quotes", quotes);
+
+            if (!quotes.length) throw new Error("No quotes available for that trade");
+
+            const best = quotes[0];
+
+            // Use the build endpoint to get the actual transaction calldata
+            const transactions = await buildSwapTransaction({
+                quoteId: best.quoteId,
+                takerAddress: input.userAddress,
+                slippage: input.slippage ? input.slippage / 100 : 0.005, // Convert percentage to decimal (0.5% = 0.005)
+                includeApprove: input.includeApprove,
+            });
+
+            return JSON.stringify(
+                {
+                    type: "transaction",
+                    transactions,
+                    details: {
+                        protocol: "AVNU",
+                        action: "swap",
+                        quoteId: best.quoteId,
+                        sellTokenAddress: input.sellTokenAddress,
+                        buyTokenAddress: input.buyTokenAddress,
+                        sellAmount: sellAmountUint,
+                        userAddress: input.userAddress,
+                        slippage: input.slippage ?? 0.5,
+                        includeApprove: input.includeApprove ?? true,
+                    },
+                },
+                null,
+                2
+            );
+        } catch (err) {
+            throw new Error(
+                `Failed to create swap transaction: ${err instanceof Error ? err.message : "Unknown error"}`
+            );
+        }
+    },
+    {
+        name: "create_swap_transaction",
+        description:
+            "Creates token swap transactions on Starknet via AVNU DEX aggregator. Use this tool EXCLUSIVELY for swapping one token for another (e.g., ETH to USDC, STRK to DAI). This tool finds the best swap routes and generates the necessary transaction data",
+        schema: z.object({
+            sellTokenAddress: z.string().describe("ERC-20 address of the token to SELL"),
+            buyTokenAddress: z.string().describe("ERC-20 address of the token to BUY"),
+            sellAmount: z.string().describe("Amount of the sell token in human units, e.g. '0.25'"),
+            userAddress: z.string().describe("Starknet address executing the swap"),
+            decimals: z.number().describe("Number of decimals for the sell token"),
+            slippage: z.number().optional().describe("Allowed slippage percentage, default 0.5"),
+            includeApprove: z.boolean().optional().describe("Whether to include approve transaction, default true"),
+        }),
+    }
+);
+
 export const getWalletBalancesTool = tool(
     async (input: { walletAddress: string }) => {
         try {
@@ -372,7 +466,8 @@ export const getWalletBalancesTool = tool(
     },
     {
         name: "get_wallet_balances",
-        description: "Fetches ERC20 token balances and their USD values for a specified wallet address on StarkNet",
+        description:
+            "Retrieves all ERC20 token balances and their current USD values for a StarkNet wallet address. This includes both regular tokens and DeFi protocol tokens (staked positions, LP tokens, etc.). Use this tool to check what assets a user currently holds before performing any DeFi operations.",
         schema: z.object({
             walletAddress: z.string().describe("The StarkNet wallet address to check balances for"),
             contractAddresses: z
@@ -383,5 +478,4 @@ export const getWalletBalancesTool = tool(
     }
 );
 
-// Update exports
-export const defiTransactionsTools = [createTransactionsTool];
+export const defiTransactionsTools = [createTransactionsTool, createSwapTransactionTool];
