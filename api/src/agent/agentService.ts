@@ -33,7 +33,7 @@ const coreTools = [
 const allTools = [...coreTools, ...suggestionTools, getWalletBalancesTool];
 
 const llm = new ChatOpenAI({
-    modelName: "gpt-03-mini",
+    modelName: "gpt-4o-mini",
     temperature: 0,
     streaming: false,
     apiKey: process.env.OPENAI_API_KEY,
