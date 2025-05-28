@@ -33,7 +33,7 @@ const coreTools = [
 const allTools = [...coreTools, ...suggestionTools, getWalletBalancesTool];
 
 const llm = new ChatOpenAI({
-    modelName: "gpt-4o-mini",
+    modelName: "gpt-4o",
     temperature: 0,
     streaming: false,
     apiKey: process.env.OPENAI_API_KEY,
@@ -95,10 +95,10 @@ export async function chat(
     }
 
     const isFirstMessage = formattedMessages.length === 1 && messages[0].role === "user";
-    if (isFirstMessage) {
-        formattedMessages[0].content +=
-            "\nPlease start by checking my wallet balances using the getWalletBalances tool and get the news about the ecosystem using the get_starknet_ecosystem_news tool, but don't answer like a bot, be friendly and engaging avoiding the use of emojis and hashtags. Say something like 'Hey, I'm here to help you with your Starknet needs! I checked your wallet balances and the latest news about Starknet' and then start the conversation with the user.";
-    }
+    // if (isFirstMessage) {
+    //     formattedMessages[0].content +=
+    //         "\nPlease start by checking my wallet balances using the getWalletBalances tool and get the news about the ecosystem using the get_starknet_ecosystem_news tool, but don't answer like a bot, be friendly and engaging avoiding the use of emojis and hashtags. Say something like 'Hey, I'm here to help you with your Starknet needs! I checked your wallet balances and the latest news about Starknet' and then start the conversation with the user.";
+    // }
 
     const toolNode = new ToolNode(allTools);
 

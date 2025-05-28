@@ -150,7 +150,7 @@ const getStarknetNewsTool = tool(
         keywords = ["Starknet", "STRK", "$STRK"],
         limit = 10,
         days = 1,
-        sortBy = "views",
+        sortBy = "engagement",
         includeUserInfo = true,
     }: {
         keywords?: string[];
