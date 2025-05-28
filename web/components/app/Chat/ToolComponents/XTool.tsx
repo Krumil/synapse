@@ -1,5 +1,5 @@
 import { XCard } from "@/components/ui/x-gradient-card";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import Carousel, { CarouselItem } from "@/components/ui/Carousel/Carousel";
 import { FiTwitter } from "react-icons/fi";
@@ -35,57 +35,69 @@ export function XTool({ data, contentString, onAddToGrid }: XToolProps) {
     // Handle both single post and array of posts
     const posts = Array.isArray(xData) ? xData : [xData];
 
-    // Convert X posts to carousel items - handle both tweet format and existing format
-    const carouselItems: CarouselItem[] = posts.map((post, index) => ({
-        id: index,
-        title: post.user?.name || post.author?.name || post.author?.username || post.username || `User ${index + 1}`,
-        description: post.content || post.text || "No content available",
-        icon: <FiTwitter className="h-[16px] w-[16px] text-white" />,
-        postData: {
-            // Format data to match XCard props
-            link: `https://x.com/${post.user?.username || post.author?.username || post.username || "unknown"}/status/${
-                post.twitter_id || post.id
-            }`,
-            authorName:
-                post.user?.name || post.author?.name || post.author?.username || post.username || `User ${index + 1}`,
-            authorHandle: post.user?.username || post.author?.username || post.username || `user${index + 1}`,
-            authorImage:
-                post.user?.profile_image_url ||
-                post.author?.profileImage ||
-                `https://api.dicebear.com/7.x/avataaars/svg?seed=${
-                    post.user?.username || post.author?.username || index
-                }`,
-            content: [post.content || post.text || "No content available"],
-            isVerified: post.user?.verified || post.author?.verified || false,
-            timestamp:
-                post.computed?.formattedDate ||
-                (post.createdAt
-                    ? new Date(post.createdAt).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                      })
-                    : "Unknown date"),
-            // Add metrics data
-            metrics: post.metrics
-                ? {
-                      likes: post.metrics.like_count || 0,
-                      replies: post.metrics.reply_count || 0,
-                      reposts: post.metrics.repost_count || 0,
-                      views: post.metrics.view_count || 0,
-                  }
-                : undefined,
-            // Add user info
-            userInfo: post.user
-                ? {
-                      followersCount: post.user.followers_count,
-                      description: post.user.description,
-                  }
-                : undefined,
-            // Include original data for any additional processing
-            originalData: post,
-        },
-    }));
+    // Convert X posts to carousel items - MEMOIZED for performance
+    const carouselItems: CarouselItem[] = useMemo(
+        () =>
+            posts.map((post, index) => ({
+                id: index,
+                title:
+                    post.user?.name ||
+                    post.author?.name ||
+                    post.author?.username ||
+                    post.username ||
+                    `User ${index + 1}`,
+                description: post.content || post.text || "No content available",
+                icon: <FiTwitter className="h-[16px] w-[16px] text-white" />,
+                postData: {
+                    link: `https://x.com/${
+                        post.user?.username || post.author?.username || post.username || "unknown"
+                    }/status/${post.twitter_id || post.id}`,
+                    authorName:
+                        post.user?.name ||
+                        post.author?.name ||
+                        post.author?.username ||
+                        post.username ||
+                        `User ${index + 1}`,
+                    authorHandle: post.user?.username || post.author?.username || post.username || `user${index + 1}`,
+                    authorImage:
+                        post.user?.profile_image_url ||
+                        post.author?.profileImage ||
+                        `https://api.dicebear.com/7.x/avataaars/svg?seed=${
+                            post.user?.username || post.author?.username || index
+                        }`,
+                    content: [post.content || post.text || "No content available"],
+                    isVerified: post.user?.verified || post.author?.verified || false,
+                    timestamp:
+                        post.computed?.formattedDate ||
+                        (post.createdAt
+                            ? new Date(post.createdAt).toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                              })
+                            : "Unknown date"),
+                    // Add metrics data
+                    metrics: post.metrics
+                        ? {
+                              likes: post.metrics.like_count || 0,
+                              replies: post.metrics.reply_count || 0,
+                              reposts: post.metrics.repost_count || 0,
+                              views: post.metrics.view_count || 0,
+                          }
+                        : undefined,
+                    // Add user info
+                    userInfo: post.user
+                        ? {
+                              followersCount: post.user.followers_count,
+                              description: post.user.description,
+                          }
+                        : undefined,
+                    // Include original data for any additional processing
+                    originalData: post,
+                },
+            })),
+        [posts]
+    );
 
     const renderXPost = (item: CarouselItem, index: number) => (
         <div className="w-full h-full">
@@ -119,7 +131,7 @@ export function XTool({ data, contentString, onAddToGrid }: XToolProps) {
                     items={carouselItems}
                     baseWidth={600}
                     autoplay={true}
-                    autoplayDelay={3000}
+                    autoplayDelay={8000}
                     pauseOnHover={true}
                     loop={true}
                     round={false}

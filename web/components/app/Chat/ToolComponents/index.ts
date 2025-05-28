@@ -1,9 +1,8 @@
-export { ToolRenderer } from "./ToolRenderer";
+export { DefaultTool } from "./DefaultTool";
+export { StarknetEcosystemNewsTool } from "./StarknetEcosystemNewsTool";
 export { TOOL_COMPONENTS, TOOL_CONFIGS, getToolConfig, getToolDimensions } from "./ToolComponentRegistry";
-export { XTool } from "./XTool";
+export { ToolRenderer } from "./ToolRenderer";
+export { TopProtocolsTool } from "./TopProtocolsTool";
 export { TransactionTool } from "./TransactionTool";
 export { WalletBalancesTool } from "./WalletBalancesTool";
-export { DefaultTool } from "./DefaultTool";
-export { StarknetFeedsTool } from "./StarknetFeedsTool";
-export { TopProtocolsTool } from "./TopProtocolsTool";
-export { StarknetEcosystemNewsTool } from "./StarknetEcosystemNewsTool";
+export { XTool } from "./XTool";

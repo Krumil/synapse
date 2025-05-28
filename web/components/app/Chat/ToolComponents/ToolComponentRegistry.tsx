@@ -1,6 +1,5 @@
 import { WalletBalancesTool } from "./WalletBalancesTool";
 import { TopProtocolsTool } from "./TopProtocolsTool";
-import { StarknetFeedsTool } from "./StarknetFeedsTool";
 import { TransactionTool } from "./TransactionTool";
 import { XTool } from "./XTool";
 import { StarknetEcosystemNewsTool } from "./StarknetEcosystemNewsTool";
@@ -41,7 +40,6 @@ export const DEFAULT_TOOL_DIMENSIONS: ToolDimensions = {
 export const TOOL_COMPONENTS: Record<string, ComponentType<ToolComponent>> = {
     wallet_balances: WalletBalancesTool,
     top_protocols: TopProtocolsTool,
-    starknet_feeds: StarknetFeedsTool,
     transaction: TransactionTool,
     x_posts: XTool,
     starknet_ecosystem_news: StarknetEcosystemNewsTool,
@@ -63,18 +61,7 @@ export const TOOL_CONFIGS: Record<string, ToolConfig> = {
     top_protocols: {
         component: TopProtocolsTool,
         dimensions: {
-            w: 2,
-            h: 2,
-            minW: 1,
-            maxW: 3,
-            minH: 2,
-            maxH: 3,
-        },
-    },
-    starknet_feeds: {
-        component: StarknetFeedsTool,
-        dimensions: {
-            w: 2,
+            w: 1,
             h: 1,
             minW: 1,
             maxW: 3,

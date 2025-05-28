@@ -12,7 +12,6 @@ import {
     memeTools,
     suggestionTools,
     getWalletBalancesTool,
-    starknetFeedsTools,
     elfaAITools,
 } from "./tools";
 import { ToolNode } from "@langchain/langgraph/prebuilt";
@@ -28,14 +27,13 @@ const coreTools = [
     ...defiTransactionsTools,
     ...memeTools,
     ...starknetTools,
-    // ...starknetFeedsTools,
     ...elfaAITools,
     memoryTool,
 ];
 const allTools = [...coreTools, ...suggestionTools, getWalletBalancesTool];
 
 const llm = new ChatOpenAI({
-    modelName: "gpt-4o",
+    modelName: "gpt-03-mini",
     temperature: 0,
     streaming: false,
     apiKey: process.env.OPENAI_API_KEY,

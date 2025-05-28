@@ -1,5 +1,6 @@
 import { VerifiedIcon, Heart, MessageCircle, Repeat2, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { memo } from "react";
 
 interface ReplyProps {
     authorName: string;
@@ -45,7 +46,7 @@ const formatNumber = (num: number): string => {
     return num.toString();
 };
 
-function XCard({
+const XCard = memo(function XCard({
     link = "https://x.com/dorian_baffier/status/1880291036410572934",
     authorName = "Dorian",
     authorHandle = "dorian_baffier",
@@ -68,12 +69,11 @@ function XCard({
 
     return (
         <div
-            onClick={handleClick}
             className={cn(
                 "w-full min-w-[400px] md:min-w-[500px] max-w-xl rounded-2xl relative isolate overflow-hidden cursor-pointer",
                 "bg-white/5 dark:bg-black/90",
                 "bg-gradient-to-br from-black/5 to-black/[0.02] dark:from-white/5 dark:to-white/[0.02]",
-                "backdrop-blur-xl backdrop-saturate-[180%]",
+                "backdrop-blur-sm",
                 "will-change-transform translate-z-0",
                 "transition-transform hover:scale-[1.02]"
             )}
@@ -82,7 +82,6 @@ function XCard({
                 className={cn(
                     "w-full p-5 rounded-xl relative",
                     "bg-gradient-to-br from-black/[0.05] to-transparent dark:from-white/[0.08] dark:to-transparent",
-                    "backdrop-blur-md backdrop-saturate-150",
                     "will-change-transform translate-z-0",
                     "before:absolute before:inset-0 before:bg-gradient-to-br before:from-black/[0.02] before:to-black/[0.01] dark:before:from-white/[0.03] dark:before:to-white/[0.01] before:opacity-0 before:transition-opacity before:pointer-events-none",
                     "hover:before:opacity-100"
@@ -116,7 +115,7 @@ function XCard({
                             <button
                                 type="button"
                                 className="h-8 w-8 text-black dark:text-white/80 hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5 rounded-lg p-1 flex items-center justify-center"
-                                onClick={(e) => e.stopPropagation()}
+                                onClick={handleClick}
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +138,7 @@ function XCard({
 
                 <div className="mt-2">
                     {content.map((item, index) => (
-                        <p key={index} className="text-black dark:text-white/90 text-base">
+                        <p key={index} className="text-black dark:text-white/90 text-base whitespace-pre-line">
                             {item}
                         </p>
                     ))}
@@ -183,6 +182,6 @@ function XCard({
             </div>
         </div>
     );
-}
+});
 
 export { XCard };
