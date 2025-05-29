@@ -50,7 +50,7 @@ export const RoadmapSection = () => {
     ];
 
     return (
-        <section className="py-16 md:py-32" id="roadmap">
+        <section className="py-16 md:pt-32" id="roadmap">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
                 <div className="text-center mb-12">
                     <h2 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-semibold">Roadmap</h2>
