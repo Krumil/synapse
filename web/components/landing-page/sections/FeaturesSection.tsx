@@ -10,7 +10,7 @@ export const FeaturesSection = () => {
                 <div className="text-center">
                     <h2 className="text-balance text-3xl sm:text-4xl lg:text-5xl font-semibold">Core Features</h2>
                     <p className="mt-4">
-                        Simplifying Starknet DeFi for users of all backgrounds with powerful AI assistance
+                        Your AI-powered chat assistant for seamless Starknet DeFi operations and insights
                     </p>
                 </div>
                 <Card className="mx-auto mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-hidden shadow-zinc-950/5 *:text-center md:mt-16">
@@ -25,12 +25,12 @@ export const FeaturesSection = () => {
                                     <Bot className="size-6" aria-hidden />
                                 </div>
                             </div>
-                            <h3 className="mt-6 font-medium">Personalized Guidance</h3>
+                            <h3 className="mt-6 font-medium">AI Chat Interface</h3>
                         </CardHeader>
                         <CardContent>
                             <p className="text-sm">
-                                Customized recommendations based on your risk profile, experience level, and financial
-                                goals through natural language interaction.
+                                Execute DeFi operations through natural language commands. Ask questions, get real-time
+                                market insights, and perform transactions directly through our conversational AI.
                             </p>
                         </CardContent>
                     </div>
@@ -46,12 +46,12 @@ export const FeaturesSection = () => {
                                     <Settings2 className="size-6" aria-hidden />
                                 </div>
                             </div>
-                            <h3 className="mt-6 font-medium">Automated Strategies</h3>
+                            <h3 className="mt-6 font-medium">Protocol Integrations</h3>
                         </CardHeader>
                         <CardContent>
                             <p className="text-sm">
-                                Set up custom DeFi strategies with one-click actions for deposits, withdrawals, and
-                                swaps across multiple protocols on Starknet.
+                                Native support for Nostra yield farming, AVNU DEX aggregation, and Unruggable memecoin
+                                launches. Execute complex DeFi strategies with simple commands.
                             </p>
                         </CardContent>
                     </div>
@@ -67,12 +67,12 @@ export const FeaturesSection = () => {
                                     <PieChart className="size-6" aria-hidden />
                                 </div>
                             </div>
-                            <h3 className="mt-6 font-medium">Portfolio Management</h3>
+                            <h3 className="mt-6 font-medium">Smart Portfolio Tracking</h3>
                         </CardHeader>
                         <CardContent>
                             <p className="text-sm">
-                                Comprehensive Starknet token tracking, performance metrics, portfolio diversification
-                                recommendations, and CSV export for analytics.
+                                Real-time wallet analysis with USD valuations for all your Starknet assets including
+                                staked positions, LP tokens, and yield farming rewards across protocols.
                             </p>
                         </CardContent>
                     </div>
@@ -88,12 +88,12 @@ export const FeaturesSection = () => {
                                     <Shield className="size-6" aria-hidden />
                                 </div>
                             </div>
-                            <h3 className="mt-6 font-medium">Risk Alerts</h3>
+                            <h3 className="mt-6 font-medium">Ecosystem Intelligence</h3>
                         </CardHeader>
                         <CardContent>
                             <p className="text-sm">
-                                Proactive notifications about significant APY changes, pool health issues, and market
-                                opportunities on Starknet through your preferred channels.
+                                Stay informed with curated Starknet news, social sentiment analysis, and market
+                                intelligence powered by advanced data aggregation and filtering algorithms.
                             </p>
                         </CardContent>
                     </div>
