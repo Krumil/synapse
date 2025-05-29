@@ -4,50 +4,45 @@ import * as React from "react";
 export const RoadmapSection = () => {
     const roadmapItems = [
         {
-            quarter: "Jan 2025",
+            quarter: "Q1 2025",
             title: "Initial Launch",
             description: "Launch of core platform with Starknet integration and basic AI assistant capabilities",
             completed: true,
         },
         {
-            quarter: "Feb 2025",
+            quarter: "Q1 2025",
             title: "Protocol Integrations",
             description:
                 "Integration with Nostra and Avnu for staking, liquidity pools, and market analytics on Starknet",
             completed: true,
         },
         {
-            quarter: "Mar 2025",
+            quarter: "Q1 2025",
             title: "Guided Onboarding",
             description: "Risk assessment quiz, interactive tutorials, and personalized dashboard experience",
             completed: true,
         },
         {
-            quarter: "Apr 2025",
-            title: "JediSwap Integration",
-            description: "Support for JediSwap liquidity pools and limit orders with real-time APY tracking",
-            completed: true,
-        },
-        {
-            quarter: "May 2025",
+            quarter: "Q2 2025",
             title: "Mobile & PWA Release",
             description: "Launch of Progressive Web App and native mobile applications for Starknet interactions",
             completed: true,
         },
         {
-            quarter: "Jun 2025",
-            title: "Advanced Analytics",
-            description: "Enhanced portfolio analytics with predictive modeling and CSV export for Starknet activities",
+            quarter: "Q3 2025",
+            title: "Gaming Ecosystem Integration",
+            description:
+                "Integration with Starknet gaming protocols like Influence and Realms, enabling in-game asset tracking and cross-game inventory management",
             completed: false,
         },
         {
-            quarter: "Jul 2025",
+            quarter: "Q4 2025",
             title: "AI Strategy Builder",
             description: "Advanced AI-powered strategy creator with natural language configuration on Starknet",
             completed: false,
         },
         {
-            quarter: "Aug 2025",
+            quarter: "Q4 2025",
             title: "Community Plugin System",
             description: "Open ecosystem for community-developed Starknet protocol integrations and custom analytics",
             completed: false,

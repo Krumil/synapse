@@ -126,7 +126,28 @@ export const Footer = () => {
                 <Separator className="my-8" />
 
                 <div className="flex flex-col md:flex-row items-center justify-between">
-                    <p className="text-sm text-foreground/80">Powered by advanced AI and blockchain technology</p>
+                    <p className="text-sm text-foreground/80">
+                        Powered by{" "}
+                        <Link href="https://starknet.io" className="hover:underline">
+                            Starknet
+                        </Link>
+                        ,{" "}
+                        <Link href="https://defillama.com" className="hover:underline">
+                            DeFiLlama
+                        </Link>
+                        ,{" "}
+                        <Link href="https://app.elfa.ai" className="hover:underline">
+                            Elfa AI
+                        </Link>
+                        ,{" "}
+                        <Link href="https://app.avnu.fi/" className="hover:underline">
+                            AVNU
+                        </Link>{" "}
+                        and{" "}
+                        <Link href="https://unruggable.meme" className="hover:underline">
+                            Unruggable
+                        </Link>
+                    </p>
                     <div className="mt-4 md:mt-0">
                         <Button asChild variant="outline" size="sm">
                             <Link href="/app">
